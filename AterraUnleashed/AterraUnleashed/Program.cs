@@ -1,12 +1,12 @@
-﻿// ---------------------------------------------------------------------------------------------------------------------
+﻿namespace AterraUnleashed; 
+// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Numerics;
 using System;
 using System.IO;
 using System.Text.Json;
-
-namespace ConsoleApp1; 
+using AterraUnleashedLib;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -21,7 +21,10 @@ public class JsonData
 internal static class Program {
     private static void Main() {
         // get data from json file
-        string json_data = File.ReadAllText("E:\\Syntra\\syntra-23_24-cs_development\\projects\\00-learning\\Solution1\\ConsoleApp1\\map_data.json");
+        string json_data = File.ReadAllText("map_data.json");
+        
+        Console.WriteLine(json_data);
+        
         
         // Deserialize the JSON data into the JsonData class
         JsonData? jsonData = JsonSerializer.Deserialize<JsonData>(json_data);

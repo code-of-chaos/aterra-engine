@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1; 
+﻿namespace AterraUnleashed; 
 
 public enum TileTypes {
     Void,
