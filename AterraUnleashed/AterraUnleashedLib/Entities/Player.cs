@@ -1,4 +1,4 @@
-﻿namespace AterraUnleashedLib;
+﻿namespace AterraUnleashedLib.Entities;
 // ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
@@ -6,18 +6,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Player {
-    // Properties
-    public float health { get; private set; } = 100f;
-
-    public bool alive = true;
-    
-    // Init of Player
-    public void updateHealth(float value) {
-        health += value;
-        if (health <= 0f) {
-            alive = false;
-        }
-    }
-
+public class Player : Entity
+{
+    public Player() : base(i_size:100, hp:100f) { }
 }

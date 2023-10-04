@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraUnleashed", "AterraUn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraUnleashedLib", "AterraUnleashedLib\AterraUnleashedLib.csproj", "{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-AterraUnleashedLib", "Test-AterraUnleashedLib\Test-AterraUnleashedLib.csproj", "{11EECB25-B511-4CBB-899D-14B56A9155FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11EECB25-B511-4CBB-899D-14B56A9155FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EECB25-B511-4CBB-899D-14B56A9155FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EECB25-B511-4CBB-899D-14B56A9155FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EECB25-B511-4CBB-899D-14B56A9155FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
