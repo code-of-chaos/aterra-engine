@@ -1,0 +1,46 @@
+# Visual Studio files
+.vscode/
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+packages/
+
+# Resharper files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.sln.DotSettings
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider directory
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.suo
+*.user
+*.sln.docstates
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2019
+.vs2019/
