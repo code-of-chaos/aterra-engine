@@ -32,8 +32,10 @@ public class Game {
     }
 
     private bool game_tick() {
-        // ask for player input
+        // Prompt the player on what they want to do.
         
+        // ask for player input
+        Console.ReadLine();
         // execute player input
         return false;
     }

@@ -6,11 +6,11 @@ namespace AterraUnleashedLib.Items;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public abstract class Item
+public class Item
 {
-    public int item_id { get; private set; }
+    public string item_id { get; private set; }
 
-    public Item(int item_id)
+    public Item(string item_id)
     {
         this.item_id = item_id;
     }

@@ -25,10 +25,9 @@ internal static class Program {
         
         Console.WriteLine(json_data);
         
-        
         // Deserialize the JSON data into the JsonData class
         JsonData? jsonData = JsonSerializer.Deserialize<JsonData>(json_data);
-        if (json_data == null) {
+        if (jsonData?.tile_map == null) {
             throw new Exception("Json file wasn't configured properly");
         }
         

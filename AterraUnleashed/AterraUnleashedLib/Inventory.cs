@@ -1,10 +1,18 @@
-namespace AterraUnleashedLib;
+// ---------------------------------------------------------------------------------------------------------------------
+// Imports
+// ---------------------------------------------------------------------------------------------------------------------
+using AterraUnleashedLib.Items;
+using Xunit.Abstractions;
 
+namespace AterraUnleashedLib;
+// ---------------------------------------------------------------------------------------------------------------------
+// Code
+// ---------------------------------------------------------------------------------------------------------------------
 /// Simple Inventory system, based on a dictionary
 public class Inventory
 {
     // Set properties
-    private Dictionary<string, int> itemInventory = new();
+    private readonly Dictionary<string, List<Item>> _itemInventory = new();
     public int max_size { get; private set; }
 
     // Init
@@ -14,68 +22,60 @@ public class Inventory
     }
 
     // Methods
-    private bool checkSizeConstraint()
+    private bool CheckSizeConstraint()
     {
         return  GetAllItemCount() < max_size;
 
     }
-    
-    public bool AddItem(string itemName, int quantity)
-    {
-        for (int i = 0; i < quantity; i++)
-        {
-            if (!checkSizeConstraint())
-            {
-                return false;
-            }
-        
-            if (itemInventory.ContainsKey(itemName))
-            {
-                itemInventory[itemName] += quantity;
-            }
-            else
-            {
-                itemInventory[itemName] = quantity;
-            }
+
+    public bool AddItem(Item item) {
+        if (!CheckSizeConstraint()) {
+            return false;
         }
+        
+        // Either create anew list with the item in it,
+        //  Or append to the list that is already there
+        if (!_itemInventory.ContainsKey(item.item_id)) {
+            _itemInventory[item.item_id] = new List<Item> { item };
+        }
+        else {
+            _itemInventory[item.item_id].Add(item);
+        }
+        
         return true;
     }
 
-    public bool RemoveItem(string itemName, int quantity)
-    {
-        if (itemInventory.ContainsKey(itemName))
-        {
-            itemInventory[itemName] -= quantity;
-            if (itemInventory[itemName] <= 0)
-            {
-                itemInventory.Remove(itemName);
-            }
-
-            return true;
+    public Item? RemoveItem(string item_id) {
+        if (!_itemInventory.ContainsKey(item_id)) {
+            return null;
         }
 
-        return false;
-    }
-
-    public int GetItemCount(string itemName)
-    {
-        if (itemInventory.TryGetValue(itemName, out var count))
-        {
-            return count;
+        var list_of_items = _itemInventory[item_id];
+        
+        // Exit guard: List isn't removed when empty, only cleared out
+        if (list_of_items.Count == 0) {
+            return null;
         }
-        return 0;
+        
+        var item = list_of_items[^1];
+        list_of_items.RemoveAt(list_of_items.Count - 1);
+        
+        return item;
     }
 
-    public Dictionary<string, int> GetAllItems()
-    {
-        // Return the entire inventory as a dictionary.
-        return itemInventory;
+    public int GetItemCount(string item_id) {
+        return _itemInventory.TryGetValue(item_id, out var item_list) ? item_list.Count : 0;
     }
-    
-    public int GetAllItemCount()
+
+    public IReadOnlyDictionary<string, List<Item>> GetAllItems()
     {
         // Return the entire inventory as a dictionary.
-        return itemInventory.Values.Sum();
+        return _itemInventory.AsReadOnly();
+    }
+
+    public int GetAllItemCount() {
+        // Return the entire inventory as a dictionary.
+        return _itemInventory.Values.Sum(item_list => item_list.Count);
     }
     
 }
