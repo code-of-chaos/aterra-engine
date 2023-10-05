@@ -12,22 +12,24 @@ public abstract class Entity
 {
     // Properties
     public float health { get; private set; }
-    public bool alive { get; private set; } = true;
-    public Inventory inventory { get; }
+    public Inventory inventory { get; private set; }
+    public EntityType entity_type;
     
     // Init of Entity
-    protected Entity(int i_size, float hp)
+    protected Entity(int i_size, float hp, EntityType e_type)
     {
         inventory = new Inventory(maxSize:i_size); // max inventory size is "inventory_size"
         health = hp;
+        entity_type = e_type;
     }
     
     // Useful methods
     public void updateHealth(float value) {
         health += value;
-        if (health <= 0f) {
-            alive = false;
-        }
+    }
+
+    public bool isAlive() {
+        return health > 0;
     }
     
 }
