@@ -6,6 +6,9 @@ using System.Text;
 using AterraLL_Lib.SQL;
 using AterraLL_Lib;
 using AterraLL_Lib.SQL.Models;
+
+using AterraLL_Lib.AreaMapFile;
+
 namespace AterraLostLegion; 
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -13,6 +16,8 @@ namespace AterraLostLegion;
 // ---------------------------------------------------------------------------------------------------------------------
 internal static class Program {
     private static async Task Main() {
+        Console.OutputEncoding = Encoding.Unicode;
+        
         // Some things can be setup here, to then be handed off
         var dbSqlite = new DbSqlite(
             connectionString: "data/data.db"
@@ -41,7 +46,6 @@ internal static class Program {
         if (map_data is null) {
             throw new Exception("map_data can't be null");
         }
-        
                 
         foreach (var VARIABLE in tile_type_data) {
             Console.Out.WriteLine($"{VARIABLE}");
@@ -50,10 +54,17 @@ internal static class Program {
         Console.WriteLine();
         
         // Store tile placement commands in a list
-        var rows = map_data.Count;
-        var cols = map_data[0].Count;
+        AreaMap area_map = new AreaMap();
+        area_map.write("test7.bin", map_data);
+
+        var read_map_data = area_map.read("test7.bin");
+        
+        var rows = read_map_data.Count;
+        var cols = read_map_data[0].Count;
         
         StringBuilder output = new StringBuilder();
+        
+        Console.WriteLine();
 
         for (var x = 0; x < rows; x++) {
             for (var y = 0; y < cols; y++) {

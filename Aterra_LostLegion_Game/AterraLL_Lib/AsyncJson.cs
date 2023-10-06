@@ -22,7 +22,7 @@ public static class AsyncJson {
         
         catch (Exception ex) {
             Console.WriteLine(ex);
-                data = default(T);
+            data = default(T);
         }
 
         return data;
