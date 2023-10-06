@@ -12,5 +12,12 @@ public class TileType {
     public int Id { get; set; }
 
     [Unique, NotNull]
-    public string RenderAs { get; set; }
+    public string Name { get; set; } = null!;
+    
+    [Unique, NotNull]
+    public string RenderedString { get; set; } = null!;
+
+    public override string ToString() {
+        return $"{Id}, {Name}, {RenderedString}";
+    }
 }

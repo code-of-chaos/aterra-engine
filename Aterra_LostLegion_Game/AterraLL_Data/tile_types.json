@@ -1,0 +1,6 @@
+﻿[
+  {"Id": 0, "Name": "void",     "RenderedString": "   "},
+  {"Id": 1, "Name": "sea",      "RenderedString": "~~~"},
+  {"Id": 2, "Name": "grass",    "RenderedString": "..."},
+  {"Id": 3, "Name": "mountain", "RenderedString": "/\\ "}
+]

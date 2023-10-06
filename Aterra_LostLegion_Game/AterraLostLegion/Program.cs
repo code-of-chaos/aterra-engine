@@ -1,20 +1,16 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using AterraLL_Lib.SQL;
 
+using System.Text;
+using AterraLL_Lib.SQL;
+using AterraLL_Lib;
+using AterraLL_Lib.SQL.Models;
 namespace AterraLostLegion; 
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class JsonData
-{
-    public List<List<int>> tile_map { get; set; }
-    public JsonData(List<List<int>> tile_map) {
-        this.tile_map = tile_map;
-    }
-}
 internal static class Program {
     private static async Task Main() {
         // Some things can be setup here, to then be handed off
@@ -27,63 +23,51 @@ internal static class Program {
 
     private static async Task AsyncMain(DbSqlite dbSqlite) {
         await dbSqlite.createTables();
+        
+        // todo make an exit guard if not all tables are present, before loading data
+        await dbSqlite.checkIfTablesPresent();
+        
+        List<TileType>? tile_type_data = null;
+        List<List<int>>? map_data = null;
+        
+        await Task.WhenAll(
+            Task.Run(async () => tile_type_data = await AsyncJson.LoadJsonAsync<List<TileType>>("data/tile_types.json")),
+            Task.Run(async () => map_data = await AsyncJson.LoadJsonAsync<List<List<int>>>("data/map_data.json"))
+        );
+        
+        if (tile_type_data is null) {
+            throw new Exception("tile_type_data can't be null");
+        }
+        if (map_data is null) {
+            throw new Exception("map_data can't be null");
+        }
+        
+                
+        foreach (var VARIABLE in tile_type_data) {
+            Console.Out.WriteLine($"{VARIABLE}");
+        }
+        
+        Console.WriteLine();
+        
+        // Store tile placement commands in a list
+        var rows = map_data.Count;
+        var cols = map_data[0].Count;
+        
+        StringBuilder output = new StringBuilder();
+
+        for (var x = 0; x < rows; x++) {
+            for (var y = 0; y < cols; y++) {
+
+                var data = map_data[x][y];
+                var tile_data = tile_type_data.Find(type => type.Id == data);
+                var text = (tile_data is not null) ? tile_data.RenderedString : $"{data}{data}{data}";
+                output.Append(text);
+            }
+            output.AppendLine();
+        }
+        
+        // actually write the full text to the console
+        Console.WriteLine(output.ToString());
+        
     }
-    
-    // private static void Main() {
-    //     // get data from json file
-    //     string json_data = File.ReadAllText("data/map_data.json");
-    //     
-    //     Console.WriteLine(json_data);
-    //     
-    //     // Deserialize the JSON data into the JsonData class
-    //     JsonData? jsonData = JsonSerializer.Deserialize<JsonData>(json_data);
-    //     if (jsonData?.tile_map == null) {
-    //         throw new Exception("Json file wasn't configured properly");
-    //     }
-    //     
-    //     // Extract the tile_map property
-    //     List<List<int>> tile_map = jsonData.tile_map;
-    //     
-    //     // Store tile placement commands in a list
-    //     var world_rows = tile_map.Count;
-    //     var world_cols = tile_map[0].Count;
-    //     
-    //     var world = new World(
-    //         world_size_x:world_rows,
-    //         world_size_y:world_cols
-    //     );
-    //
-    //     int x;
-    //     int y;
-    //     for (x = 0; x < world_rows; x++) {
-    //         for (y = 0; y < world_cols; y++) {
-    //             int tileTypeNum = tile_map[x][y];
-    //
-    //             // Get the correct TileTypes based on the integer value
-    //             TileTypes tileType = (TileTypes)tileTypeNum;
-    //
-    //             world.add_tile_to_grid(new Vector2(x, y), new Tile(tileType));
-    //         }
-    //     }
-    //
-    //     world.print_grid();
-    //
-    //     Console.ReadLine();
-    //     
-    //     world.spawn_player();
-    //     world.print_grid();
-    //
-    //     Console.WriteLine("x_offset");
-    //     string? input = Console.ReadLine();
-    //     int.TryParse(input, out var x_);
-    //     
-    //     Console.WriteLine("y_offset");
-    //     input = Console.ReadLine();
-    //     int.TryParse(input, out var y_);
-    //
-    //     
-    //     world.move_player(new Vector2(x_, y_));
-    //     world.print_grid();
-    //     
-    // }
 }

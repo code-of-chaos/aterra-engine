@@ -25,6 +25,10 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <Link>data\map_data.json</Link>
       </Content>
+      <Content Include="..\AterraLL_Data\tile_types.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Link>data\tile_types.json</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
