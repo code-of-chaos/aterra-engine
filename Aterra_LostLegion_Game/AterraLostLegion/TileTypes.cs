@@ -1,4 +1,4 @@
-﻿namespace AterraUnleashed; 
+﻿namespace AterraLostLegion; 
 
 public enum TileTypes {
     Void,
