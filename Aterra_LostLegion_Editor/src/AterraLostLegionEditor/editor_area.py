@@ -8,26 +8,18 @@ import dearpygui.dearpygui as dpg
 # Custom Library
 
 # Custom Packages
-import AterraLostLegionEditor as ALLE
 
 # ----------------------------------------------------------------------------------------------------------------------
 # - Code -
 # ----------------------------------------------------------------------------------------------------------------------
-def main():
-    dpg.create_context()
-    dpg.create_viewport(title='Aterra - Lost Legion - Editor')
+def window_editor_area() -> int|str:
+    with dpg.window(label="Area Editor Window") as wnd_editor_area:
 
-    wnd_edit_area:int|str = ALLE.window_editor_area()
+        # Setup the generation of the map
+        dpg.add_text("Hello, world")
+        dpg.add_input_int(label="x", default_value=3)
+        dpg.add_input_int(label="y", default_value=3)
 
-    dpg.set_primary_window(wnd_edit_area, True)
+        dpg.add_button(label="generate")
 
-    dpg.setup_dearpygui()
-    dpg.show_viewport()
-    dpg.start_dearpygui()
-    dpg.destroy_context()
-    return
-
-# ----------------------------------------------------------------------------------------------------------------------
-if __name__ == '__main__':
-    main()
-
+    return wnd_editor_area
