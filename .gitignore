@@ -44,3 +44,7 @@ _ReSharper*/
 
 # Visual Studio 2019
 .vs2019/
+
+#PyCharm
+__pycache__/
+
