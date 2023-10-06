@@ -12,13 +12,19 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="map_data.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="SQLite" Version="3.13.0" />
+    </ItemGroup>
+    
+    <!--  All "data" files should exist in a data/ folder   -->
+    <ItemGroup>
+<!--      <Content Include="..\AterraLL_Data\data.db">-->
+<!--          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
+<!--          <Link>data\data.db</Link>-->
+<!--      </Content>-->
+      <Content Include="..\AterraLL_Data\map_data.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Link>data\map_data.json</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

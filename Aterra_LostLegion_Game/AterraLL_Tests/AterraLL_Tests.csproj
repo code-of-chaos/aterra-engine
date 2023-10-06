@@ -7,7 +7,7 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <RootNamespace>TestAterraUnleashed</RootNamespace>
+        <RootNamespace>AterraLL_Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
