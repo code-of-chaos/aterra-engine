@@ -13,19 +13,16 @@ public class Inventory
 {
     // Set properties
     private readonly Dictionary<string, List<Item>> _itemInventory = new();
-    public int max_size { get; private set; }
+    private readonly int max_size;
 
     // Init
-    public Inventory(int maxSize)
-    {
+    public Inventory(int maxSize) {
         max_size = maxSize;
     }
 
     // Methods
-    private bool CheckSizeConstraint()
-    {
+    private bool CheckSizeConstraint() {
         return  GetAllItemCount() < max_size;
-
     }
 
     public bool AddItem(Item item) {
@@ -44,22 +41,22 @@ public class Inventory
         
         return true;
     }
-
+    
+    // This function can return null, keep this in mind!
     public Item? RemoveItem(string item_id) {
+        // Exit guard: Can't get an item from a list, if the list doesn't exist
         if (!_itemInventory.ContainsKey(item_id)) {
             return null;
         }
-
+        // First get the item,
+        //  then make sure to remove the list, to not trip up the exit guard above if no items are present
         var list_of_items = _itemInventory[item_id];
-        
-        // Exit guard: List isn't removed when empty, only cleared out
-        if (list_of_items.Count == 0) {
-            return null;
-        }
-        
         var item = list_of_items[^1];
         list_of_items.RemoveAt(list_of_items.Count - 1);
         
+        if (list_of_items.Count == 0) {
+            _itemInventory.Remove(item_id);
+        }
         return item;
     }
 
