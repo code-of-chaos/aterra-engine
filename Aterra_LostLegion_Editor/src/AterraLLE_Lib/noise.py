@@ -85,14 +85,14 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     # Increase resolution and reduce scale for smoother noise
+    width = height = 512
+    seed = 42
+    scale = 100
 
     # Parameters for octave noise
-    width = height = 512
     octaves = 6  # Number of octaves
-    persistence = 0.5  # Persistence controls amplitude decrease between octaves
+    persistence = .1  # Persistence controls amplitude decrease between octaves
     scale_factor = 2  # Scale factor between octaves
-    seed = 42
-    scale = 10
 
     perlin = NoisePerlin(width, height, scale, seed)  # Use a scale of 1 for the base octave
 
