@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="SQLite" Version="3.13.0" />
     </ItemGroup>
     
@@ -29,6 +30,25 @@
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <Link>data\tile_types.json</Link>
       </Content>
+
+        <!--Item_dictionary files-->
+        <Content Include="..\AterraLL_Data\item_dictionary\armor.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>data\item_dictionary\armor.json</Link>
+        </Content>
+        <Content Include="..\AterraLL_Data\item_dictionary\items.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>data\item_dictionary\items.json</Link>
+        </Content>
+        <Content Include="..\AterraLL_Data\item_dictionary\potions.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>data\item_dictionary\potions.json</Link>
+        </Content>
+        <Content Include="..\AterraLL_Data\item_dictionary\weapons.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>data\item_dictionary\weapons.json</Link>
+        </Content>
+        
     </ItemGroup>
 
 </Project>

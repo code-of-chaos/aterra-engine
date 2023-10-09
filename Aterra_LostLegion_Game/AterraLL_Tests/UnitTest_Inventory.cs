@@ -86,7 +86,7 @@ public class UnitTest_Inventory {
 
         var item = inventory.RemoveItem(itemid);
         Assert.NotNull(item);
-        Assert.True(item.item_id == itemid);
+        Assert.True(item.itemId == itemid);
     }
     
     // -----------------------------------------------------------------------------------------------------------------

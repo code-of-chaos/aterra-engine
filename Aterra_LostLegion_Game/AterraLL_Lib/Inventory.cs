@@ -32,11 +32,11 @@ public class Inventory
         
         // Either create anew list with the item in it,
         //  Or append to the list that is already there
-        if (!_itemInventory.ContainsKey(item.item_id)) {
-            _itemInventory[item.item_id] = new List<Item> { item };
+        if (!_itemInventory.ContainsKey(item.itemId)) {
+            _itemInventory[item.itemId] = new List<Item> { item };
         }
         else {
-            _itemInventory[item.item_id].Add(item);
+            _itemInventory[item.itemId].Add(item);
         }
         
         return true;

@@ -16,7 +16,7 @@ public enum AreaMapFileFormat {
     Tile,
 }
 
-public class AreaMap {
+public class AreaMapBinary {
     public List<List<int>>? areaMapData = null;
     public byte[] newLineBytes = new byte[] { 0x0A };
 
@@ -89,8 +89,6 @@ public class AreaMap {
         }
         
     }
-    
-    
     
     public void write(string filePath, List<List<int>> areaMapData) {
         // Create a BinaryWriter to write the binary data to the file asynchronously
