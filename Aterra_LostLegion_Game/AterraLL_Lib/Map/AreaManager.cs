@@ -1,20 +1,17 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System;
-using System.IO;
-using System.Linq;
 namespace AterraLL_Lib.Map;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class AreaManager {
-    private string _overworld_id;
+    private readonly string _overworld_id;
     public Dictionary<string, Area?> area_dictionary { get; }
     private readonly string[] area_files;
-    
-    public AreaManager(string[] area_files, string overworld_id) {
+
+    private AreaManager(string[] area_files, string overworld_id) {
         this.area_files = area_files;
         _overworld_id = overworld_id;
         area_dictionary = new Dictionary<string, Area?>();

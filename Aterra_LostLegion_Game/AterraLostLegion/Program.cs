@@ -2,8 +2,10 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Text;
+using AterraLL_Lib;
 using AterraLL_Lib.Items;
 using AterraLL_Lib.Map;
+using AterraLL_Lib;
 using Area = AterraLL_Lib.Map.Area;
 
 namespace AterraLostLegion; 
@@ -33,19 +35,20 @@ internal static class Program {
         var item = ItemInternalDictionary.getItemById("SwordOfJustice");
         await Console.Out.WriteLineAsync($"{item}");
 
-        AreaManager area_manager = await AreaManager.createAreaManagerAsync(
-            overworld_file: "data/area/aterra.json"
-        );
 
-        var area_map = area_manager.getOverworld().area_map;
+        var game = new Game();
+        await game.start();
         
-        for (int i = 0; i < area_map.GetLength(0); i++) { // Get the number of rows
-            for (int j = 0; j < area_map.GetLength(1); j++) { // Get the number of columns
-                Tile tile = area_map[i, j];
-                Console.Out.Write($"{tile.printableText}");
-            }
-            Console.Out.WriteLine();
-        }
+        //
+        // var area_map = area_manager.getOverworld().area_map;
+        //
+        // for (int i = 0; i < area_map.GetLength(0); i++) { // Get the number of rows
+        //     for (int j = 0; j < area_map.GetLength(1); j++) { // Get the number of columns
+        //         Tile tile = area_map[i, j];
+        //         Console.Out.Write($"{tile.printableText}");
+        //     }
+        //     Console.Out.WriteLine();
+        // }
 
 
         // await dbSqlite.createTables();
