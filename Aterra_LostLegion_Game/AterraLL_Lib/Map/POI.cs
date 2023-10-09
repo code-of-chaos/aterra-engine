@@ -7,7 +7,7 @@ namespace AterraLL_Lib.Map;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public record POI(string poi_id, string? data=null, string? area_link=null) : Tile(tile_type:0) {
+public record POI(string poi_id, string? data=null, string? area_link=null) : Tile("POI", printableText:"XXX", isWalkable:true) {
     public override string ToString() {
         return $"POI-{poi_id}-{data}";
     }
