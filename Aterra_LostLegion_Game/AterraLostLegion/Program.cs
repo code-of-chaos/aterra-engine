@@ -3,12 +3,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using System.Text;
-using AterraLL_Lib.SQL;
-using AterraLL_Lib;
-using AterraLL_Lib.SQL.Models;
-
-using AterraLL_Lib.AreaMapFile;
 using AterraLL_Lib.Items;
+using Area = AterraLL_Lib.Map.Area;
 
 namespace AterraLostLegion; 
 
@@ -19,16 +15,12 @@ internal static class Program {
     private static async Task Main() {
         Console.OutputEncoding = Encoding.Unicode;
         
-        // Some things can be setup here, to then be handed off
-        var dbSqlite = new DbSqlite(
-            connectionString: "data/data.db"
-        );
-        
-        await Task.Run(() => AsyncMain(dbSqlite)).ConfigureAwait(false);
+        await Task.Run(AsyncMain).ConfigureAwait(false);
     }
 
-    private static async Task AsyncMain(DbSqlite dbSqlite) {
+    private static async Task AsyncMain() {
         
+        // Load all item type
         await Task.WhenAll(
             ItemInternalDictionary.loadFromJson<Item>("data/item_dictionary/armor.json"),
             ItemInternalDictionary.loadFromJson<Item>("data/item_dictionary/items.json"),
@@ -36,11 +28,29 @@ internal static class Program {
             ItemInternalDictionary.loadFromJson<ItemWeapon>("data/item_dictionary/weapons.json")
         );
 
-
         await Console.Out.WriteLineAsync($"{string.Join(",", ItemInternalDictionary.getAllItemIds()) }");
 
         var item = ItemInternalDictionary.getItemById("SwordOfJustice");
         await Console.Out.WriteLineAsync($"{item}");
+
+        Area area = await Area.createFromJson("data/area/aterra.json");
+
+        foreach (var line in area.area_map) {
+            Console.Out.WriteLine(
+                string.Join(" , ", line)    
+            );
+        }
+        
+        Area area2 = await Area.createFromJson("data/area/house_1.json");
+
+        foreach (var line in area2.area_map) {
+            Console.Out.WriteLine(
+                string.Join(" , ", line)    
+            );
+        }
+        
+
+        
 
         // await dbSqlite.createTables();
         //

@@ -22,6 +22,9 @@
 <!--          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>-->
 <!--          <Link>data\data.db</Link>-->
 <!--      </Content>-->
+      <Content Include="..\AterraLL_Data\area\house_1.json">
+        <Link>data\area\house_1.json</Link>
+      </Content>
       <Content Include="..\AterraLL_Data\map_data.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <Link>data\map_data.json</Link>
@@ -48,7 +51,17 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Link>data\item_dictionary\weapons.json</Link>
         </Content>
-        
+
+
+        <!--Area Map files-->
+        <Content Include="..\AterraLL_Data\area\aterra.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>data\area\aterra.json</Link>
+        </Content>
+        <Content Include="..\AterraLL_Data\area\house_1.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>data\area\house_1.json</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

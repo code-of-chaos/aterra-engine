@@ -20,10 +20,9 @@ public static class AsyncJson {
             data = await JsonSerializer.DeserializeAsync<T>(fs);
         }
         
-        // Todo WHY IS THIS RETURNING A NULL? Instead of throwing an error?
+        // Todo add something here, can't remember what
         catch (Exception ex) {
-            Console.WriteLine(ex);
-            data = default(T);
+            throw;
         }
 
         return data;

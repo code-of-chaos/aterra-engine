@@ -1,23 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using SQLite;
-namespace AterraLL_Lib.SQL.Models;
+
+namespace AterraLL_Lib.Map;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Area {
-    [PrimaryKey, AutoIncrement]
-    public int Id { get; set; }
-    
-    [NotNull]
-    public int MaxX { get; set; }
-    
-    [NotNull]
-    public int MaxY { get; set; }
-    
-    [Unique, NotNull]
-    public string Name { get; set; }
-    
+public record POI(string poi_id, string? data=null, string? area_link=null) : Tile(tile_type:0) {
+    public override string ToString() {
+        return $"POI-{poi_id}-{data}";
+    }
 }
