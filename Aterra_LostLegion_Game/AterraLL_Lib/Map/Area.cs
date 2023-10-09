@@ -17,11 +17,11 @@ public record AreaJson(List<List<int>> map, Dictionary<string, POI> POIs);
 public class Area {
     public List<List<Tile>> area_map;
 
-    private Area(List<List<Tile>> area_map) {
+    public Area(List<List<Tile>> area_map) {
         this.area_map = area_map; 
     }
-
-    public static async Task<Area> createFromJson(string area_map_filepath) {
+    
+    public static async Task<Area> createFromJsonAsync(string area_map_filepath) {
         var area_json = await AsyncJson.LoadJsonAsync<AreaJson>(filepath: area_map_filepath);
         if (area_json is null) {
             throw new Exception($"{area_map_filepath} could not be loaded");

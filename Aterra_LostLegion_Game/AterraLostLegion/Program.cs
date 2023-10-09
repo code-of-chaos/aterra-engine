@@ -33,7 +33,7 @@ internal static class Program {
         var item = ItemInternalDictionary.getItemById("SwordOfJustice");
         await Console.Out.WriteLineAsync($"{item}");
 
-        Area area = await Area.createFromJson("data/area/aterra.json");
+        Area area = await Area.createFromJsonAsync("data/area/aterra.json");
 
         foreach (var line in area.area_map) {
             Console.Out.WriteLine(
@@ -41,7 +41,7 @@ internal static class Program {
             );
         }
         
-        Area area2 = await Area.createFromJson("data/area/house_1.json");
+        Area area2 = await Area.createFromJsonAsync("data/area/house_1.json");
 
         foreach (var line in area2.area_map) {
             Console.Out.WriteLine(
