@@ -26,7 +26,13 @@ public class AreaManager {
         return overworld;
     }
 
-    public void addToAreaDictionary(string areaName, Area area) => area_dictionary.Add(areaName, area);
+    public void addToAreaDictionary(string areaName, Area area) {
+        if (area_dictionary.ContainsKey(areaName)) {
+            throw new Exception($"The areaName of '{areaName}' is already in use.");
+        }
+        
+        area_dictionary.Add(areaName, area);
+    }
     
     public static async Task<AreaManager> createAreaManagerAsync(string overworld_file) {
         // Fixes the issue if there are issues with "/" or "\" or "//"
