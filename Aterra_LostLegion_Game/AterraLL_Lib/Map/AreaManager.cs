@@ -25,11 +25,8 @@ public class AreaManager {
         }
         return overworld;
     }
-    
-    private async Task addAreaToDictionaryAsync(string filepath) {
-        Area? area = await Area.createFromJsonAsync(filepath);
-        area_dictionary.Add(Path.GetFileName(filepath), area);
-    }
+
+    public void addToAreaDictionary(string areaName, Area area) => area_dictionary.Add(areaName, area);
     
     public static async Task<AreaManager> createAreaManagerAsync(string overworld_file) {
         // Fixes the issue if there are issues with "/" or "\" or "//"
@@ -43,14 +40,24 @@ public class AreaManager {
         // Now that all the files have been found, we can create the overworld file, and start mapping
         var area_manager = new AreaManager(
             area_files: area_files,
-            overworld_id: Path.GetFileName(overworld_file)
+            overworld_id: Path.GetFileNameWithoutExtension(overworld_file)
         );
         
         // We can group all the tasks together, to take advantage of async behaviour
-        await Task.WhenAll(
-            area_files.Select(async path => await area_manager.addAreaToDictionaryAsync(path))
-                .ToArray()
+        var areas = await Task.WhenAll(
+        area_files.Select(async filepath => {
+                var area = await Area.createFromJsonAsync(filepath);
+                return (Path.GetFileNameWithoutExtension(filepath), area);
+            })
+            .ToArray()
         );
+
+        foreach (var (areaName, area) in areas) {
+            if (area is null) {
+                throw new Exception("Area is undefined ");
+            }
+            area_manager.addToAreaDictionary(areaName, area);
+        }
         
         return area_manager;
     }

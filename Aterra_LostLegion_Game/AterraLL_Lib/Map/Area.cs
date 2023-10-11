@@ -31,6 +31,7 @@ public class Area {
 
         var rows = area_json.map.Count;
         var columns = rows > 0 ? area_json.map[0].Count : 0;
+        
         // Initialize the area_map with appropriate dimensions
         Tile[,] area_map = new Tile[rows, columns];
 
