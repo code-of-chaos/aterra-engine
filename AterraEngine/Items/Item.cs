@@ -8,11 +8,11 @@ namespace AterraEngine.Items;
 // ---------------------------------------------------------------------------------------------------------------------
 public record Item
 {
-    public string itemId { get; private set; }
+    public string itemId { get; }
     public string displayName { get; private set; }
-    public bool isStackable { get; private set; }
+    public bool isStackable { get; }
     public int maxStackSize { get; private set; }
-    public string? details { get; private set; }
+    public string? details { get; }
 
     public Item(string itemId, string displayName, bool isStackable=true, int maxStackSize=8, string? details=null)
     {

@@ -21,10 +21,11 @@ public class Inventory
     }
 
     // Methods
-    private bool CheckSizeConstraint() {
-        return  GetAllItemCount() < max_size;
-    }
-
+    public bool CheckSizeConstraint() => GetAllItemCount() < max_size;
+    public IReadOnlyDictionary<string, List<Item>> GetAllItems() => _itemInventory.AsReadOnly();
+    public int GetItemCount(string item_id) => _itemInventory.TryGetValue(item_id, out var item_list) ? item_list.Count : 0;
+    public int GetAllItemCount() => _itemInventory.Values.Sum(item_list => item_list.Count);
+    
     public bool AddItem(Item item) {
         if (!CheckSizeConstraint()) {
             return false;
@@ -60,19 +61,8 @@ public class Inventory
         return item;
     }
 
-    public int GetItemCount(string item_id) {
-        return _itemInventory.TryGetValue(item_id, out var item_list) ? item_list.Count : 0;
-    }
-
-    public IReadOnlyDictionary<string, List<Item>> GetAllItems()
-    {
-        // Return the entire inventory as a dictionary.
-        return _itemInventory.AsReadOnly();
-    }
-
-    public int GetAllItemCount() {
-        // Return the entire inventory as a dictionary.
-        return _itemInventory.Values.Sum(item_list => item_list.Count);
-    }
+    
+    
+    
     
 }
