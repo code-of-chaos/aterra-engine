@@ -1,7 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace AterraLL_Lib.Map;
+namespace AterraEngine.Map;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -34,19 +34,21 @@ public class AreaManager {
         area_dictionary.Add(areaName, area);
     }
     
-    public static async Task<AreaManager> createAreaManagerAsync(string overworld_file) {
+    public static async Task<AreaManager> createAreaManagerAsync(string overworld_filepath) {
+        if (overworld_filepath == null) throw new ArgumentNullException(nameof(overworld_filepath));
+        
         // Fixes the issue if there are issues with "/" or "\" or "//"
         var area_files = Directory.GetFiles("data/area", "*.json")
             .Select(path => path.Replace('\\', '/'))
             .ToArray();
-        if (!area_files.Any(path => path.Equals(overworld_file, StringComparison.OrdinalIgnoreCase))) {
+        if (!area_files.Any(path => path.Equals(overworld_filepath, StringComparison.OrdinalIgnoreCase))) {
             throw new Exception($"The Overworld file was not found");
         }
         
         // Now that all the files have been found, we can create the overworld file, and start mapping
         var area_manager = new AreaManager(
             area_files: area_files,
-            overworld_id: Path.GetFileNameWithoutExtension(overworld_file)
+            overworld_id: Path.GetFileNameWithoutExtension(overworld_filepath)
         );
         
         // We can group all the tasks together, to take advantage of async behaviour

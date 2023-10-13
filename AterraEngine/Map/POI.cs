@@ -2,18 +2,13 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 
-namespace AterraLL_Lib.Items;
+namespace AterraEngine.Map;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public record ItemWeapon : Item {
-    
-    public float attackDamage { get; private set; }
-    
-    public ItemWeapon(string itemId, string displayName, string? details = null, float attackDamage=0f) : base(itemId, displayName, false, 1, details) {
-        
-        this.attackDamage = Math.Max(attackDamage, 0); // Attack damage has to be above 0
+public record POI(string poi_id, string? data=null, string? area_link=null) : Tile("POI", printableText:"XXX", isWalkable:true) {
+    public override string ToString() {
+        return $"POI-{poi_id}-{data}";
     }
-    
 }

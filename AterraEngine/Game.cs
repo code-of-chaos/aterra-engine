@@ -4,10 +4,10 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using System.Numerics;
-using AterraLL_Lib.Entities;
-using AterraLL_Lib.Map;
+using AterraEngine.Entities;
+using AterraEngine.Map;
 
-namespace AterraLL_Lib;
+namespace AterraEngine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -21,7 +21,7 @@ public class Game {
     public async Task start() {
         // create world
         area_manager = await AreaManager.createAreaManagerAsync(
-            overworld_file: "data/area/aterra.json"
+            overworld_filepath: "data/area/aterra.json"
         );
         
         // We start in the overworld

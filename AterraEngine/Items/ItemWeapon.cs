@@ -2,19 +2,18 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
-namespace AterraLL_Lib.Map;
+namespace AterraEngine.Items;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public record Tile(string name, string printableText, bool isWalkable) {
-    //
-    // [StringLength(3, ErrorMessage = "PrintableText has to be a length of 3 to currently make sense")]
-    // public string printableText { get;} = null!;
-
-    public override string ToString() {
-        return $"Tile-{name}";
+public record ItemWeapon : Item {
+    
+    public float attackDamage { get; private set; }
+    
+    public ItemWeapon(string itemId, string displayName, string? details = null, float attackDamage=0f) : base(itemId, displayName, false, 1, details) {
+        
+        this.attackDamage = Math.Max(attackDamage, 0); // Attack damage has to be above 0
     }
+    
 }

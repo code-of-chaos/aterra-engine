@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraLostLegion", "AterraLostLegion\AterraLostLegion.csproj", "{D75A5E16-ED5A-498E-B5F4-0918000838D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostLegion", "LostLegion\LostLegion.csproj", "{D75A5E16-ED5A-498E-B5F4-0918000838D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraLL_Lib", "AterraLL_Lib\AterraLL_Lib.csproj", "{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraLL_Tests", "AterraLL_Tests\AterraLL_Tests.csproj", "{D53273D0-BBC6-4A4F-BFEE-FD1237214332}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraEngine", "AterraEngine\AterraEngine.csproj", "{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +18,5 @@ Global
 		{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7A809BD-E76D-495C-BE6A-80B70DE2D6A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D53273D0-BBC6-4A4F-BFEE-FD1237214332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D53273D0-BBC6-4A4F-BFEE-FD1237214332}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D53273D0-BBC6-4A4F-BFEE-FD1237214332}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D53273D0-BBC6-4A4F-BFEE-FD1237214332}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

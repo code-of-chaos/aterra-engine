@@ -2,13 +2,13 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Text;
-using AterraLL_Lib;
-using AterraLL_Lib.Items;
-using AterraLL_Lib.Map;
-using AterraLL_Lib;
-using Area = AterraLL_Lib.Map.Area;
+using AterraEngine;
+using AterraEngine.Items;
+using AterraEngine.Map;
+using AterraEngine;
+using Area = AterraEngine.Map.Area;
 
-namespace AterraLostLegion; 
+namespace LostLegion; 
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
