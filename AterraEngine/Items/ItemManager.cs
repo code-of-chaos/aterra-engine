@@ -43,6 +43,10 @@ public class ItemManager {
             throw new Exception($"{item.itemId} was found in the id table, but was occupied by something else");
         }
     }
+
+    public Item[] filterByType(ItemType item_type) {
+        return availableItems.Values.Where(item => item.item_type == item_type).ToArray();
+    }
     
     // -----------------------------------------------------------------------------------------------------------------
     // XML converter

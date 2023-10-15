@@ -1,8 +1,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Globalization;
-using System.Reflection;
 using System.Resources;
 using System.Xml.Serialization;
 using AterraEngine.Lib;
@@ -12,7 +10,7 @@ namespace AterraEngine.Items;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 [XmlRoot("item")]
-public record Item {
+public record Item { // The Item is "immutable" (don't look at _resource_manager), and thus can easily be a record
     
     [XmlAttribute("id")]
     public required string itemIdString { get; set; }
@@ -52,6 +50,16 @@ public record Item {
     [XmlAttribute("print_icon")] 
     public required string print_icon;
 
+    [XmlAttribute("item_type")] 
+    public required string item_type_string
+    {
+        get => item_type.ToString();
+        set => item_type = (ItemType)Enum.Parse(typeof(ItemType), value); // Convert string to enum
+    }
+
+    [XmlIgnore] 
+    public ItemType item_type { get; set; }
+
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
@@ -69,20 +77,6 @@ public record Item {
     
     // -----------------------------------------------------------------------------------------------------------------
     public override string ToString() {
-        return $"{itemIdString} - '{name}' - '{description}'";
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // DON'T KEEP THIS
-    // -----------------------------------------------------------------------------------------------------------------
-    public static Item copy(Item OldItem, int offset) {
-        return new Item(){
-            itemIdString = OldItem.itemIdString+offset,
-            resource_manager_name = OldItem.resource_manager_name,
-            internal_name = $"{OldItem.internal_name}{offset}",
-            has_description = OldItem.has_description,
-            stacksize = OldItem.stacksize,
-            print_icon = OldItem.print_icon
-        };
+        return $"{itemIdString} - '{name}' - '{description}' - '{item_type_string}'";
     }
 }
