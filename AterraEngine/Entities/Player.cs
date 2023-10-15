@@ -6,7 +6,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Player : Entity
-{
-    public Player() : base(i_size:100, hp:100f, e_type:EntityType.player, printable:" P ") { }
+public class Player : Entity {
+    public Player() : base(100, 100f, EntityType.player, " P ") { }
 }

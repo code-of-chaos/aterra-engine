@@ -9,80 +9,53 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AterraEngine\AterraEngine.csproj" />
+        <ProjectReference Include="..\AterraEngine\AterraEngine.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-      <PackageReference Include="SQLite" Version="3.13.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="SQLite" Version="3.13.0"/>
     </ItemGroup>
-    
+
     <!--  All "data" files should exist in a data/ folder   -->
     <ItemGroup>
-        <Content Update="data\area\poi_house_2.json">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-          <Link>data\area\poi_house_1.json</Link>
-        </Content>
-        <Content Update="data\area\aterra\aterra.json">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-          <Link>data\area\aterra.json</Link>
-        </Content>
-        <Content Update="data\area\poi_house_1\poi_house_1.json">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-          <Link>data\area\poi_house_1.json</Link>
-        </Content>
-
-        <!--Item_dictionary files-->
-
-
-        <!--Area Map files-->
+        <ContentWithTargetPath Include="data\**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>data\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
+        </ContentWithTargetPath>
     </ItemGroup>
+
     <ItemGroup>
-      <EmbeddedResource Update="UniversalText.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>UniversalText.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="data\local\UniversalText.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>UniversalText.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="data\engine\local\UniversalText.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>UniversalText.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="data\area\aterra\local\aterra.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Aterra.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="data\area\poi_house_1\local\poi_house_1.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>poi_house_1.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="data\area\aterra\local\aterra.resx">
-        <LastGenOutput>aterra.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="data\engine\local\UniversalText.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>UniversalText.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="data\area\aterra\local\aterra.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Aterra.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="data\area\poi_house_1\local\poi_house_1.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>poi_house_1.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
+    
     <ItemGroup>
-      <Compile Update="UniversalText.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>UniversalText.resx</DependentUpon>
-      </Compile>
-      <Compile Update="data\local\UniversalText.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>UniversalText.resx</DependentUpon>
-      </Compile>
-      <Compile Update="data\area\aterra\local\aterra.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>aterra.resx</DependentUpon>
-      </Compile>
-      <Compile Update="data\area\poi_house_1\local\poi_house_1.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>poi_house_1.resx</DependentUpon>
-      </Compile>
+        <Compile Update="data\engine\local\UniversalText.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>data\engine\local\UniversalText.resx</DependentUpon>
+        </Compile>
+        <Compile Update="data\area\aterra\local\aterra.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>data\area\aterra\local\aterra.resx</DependentUpon>
+        </Compile>
+        <Compile Update="data\area\poi_house_1\local\poi_house_1.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>data\area\poi_house_1\local\poi_house_1.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 
 </Project>

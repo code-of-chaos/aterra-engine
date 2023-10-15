@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LostLegion.data.local {
+namespace LostLegion.data.enigne.local {
     using System;
     
     
@@ -38,7 +38,7 @@ namespace LostLegion.data.local {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LostLegion.data.local.UniversalText", typeof(UniversalText).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LostLegion.data.engine.local.UniversalText", typeof(UniversalText).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

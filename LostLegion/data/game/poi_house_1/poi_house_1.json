@@ -1,10 +1,26 @@
 {
   "map": [
-    [3,3,3],
-    [3,4,3],
-    [3,0,3]
+    [
+      3,
+      3,
+      3
+    ],
+    [
+      3,
+      4,
+      3
+    ],
+    [
+      3,
+      0,
+      3
+    ]
   ],
   "POIs": {
-    "2,1":{"poi_id": "poi_door", "data": "THIS IS A DOOR", "area_link": "aterra"}
+    "2,1": {
+      "poi_id": "poi_door",
+      "data": "THIS IS A DOOR",
+      "area_link": "aterra"
+    }
   }
 }

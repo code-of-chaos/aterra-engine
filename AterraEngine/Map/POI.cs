@@ -7,7 +7,7 @@ namespace AterraEngine.Map;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public record POI(string poi_id, string? data=null, string? area_link=null) : Tile("POI", printableText:"XXX", isWalkable:true) {
+public record POI(string poi_id, string? data = null, string? area_link = null) : Tile("POI", "XXX", true) {
     public override string ToString() {
         return $"POI-{poi_id}-{data}";
     }

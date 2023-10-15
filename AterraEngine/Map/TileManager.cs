@@ -8,14 +8,13 @@ namespace AterraEngine.Map;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public static class TileManager {
-    public static Dictionary<int, Tile?> tile_dictionary { get; } = new Dictionary<int, Tile?>()
-    {
-        { 0, new Tile("UNDEFINED", "UUU",false) },
-        { 1, new Tile("water", "~~~",true) },
-        { 2, new Tile("grass", "---",true) },
-        { 3, new Tile("wall", "\u2589\u2589\u2589",false) },
-        { 4, new Tile("floor","   " ,true) },
-        { 5, new Tile("deep water", "...",false) },
+    public static Dictionary<int, Tile?> tile_dictionary { get; } = new() {
+        { 0, new Tile("UNDEFINED", "UUU", false) },
+        { 1, new Tile("water", "~~~", true) },
+        { 2, new Tile("grass", "---", true) },
+        { 3, new Tile("wall", "\u2589\u2589\u2589", false) },
+        { 4, new Tile("floor", "   ", true) },
+        { 5, new Tile("deep water", "...", false) }
     };
 
     public static Tile getTileById(int tile_id) {

@@ -1,6 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
 using System.Text.Json;
 
 namespace AterraEngine.Lib;
@@ -13,17 +14,10 @@ public static class AsyncJson {
         // Because this function is written as a "use for any json file",
         //  we can't know beforehand what object data will be
         T? data;
-        
-        try {
-            await using var fs = File.OpenRead(filepath);
-            data = await JsonSerializer.DeserializeAsync<T>(fs);
-        }
-        
-        // Todo add something here, can't remember what
-        catch (Exception ex) {
-            throw;
-        }
+
+        await using var fs = File.OpenRead(filepath);
+        data = await JsonSerializer.DeserializeAsync<T>(fs);
 
         return data;
-    } 
+    }
 }

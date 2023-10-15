@@ -1,21 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Text;
+
 using AterraEngine;
-using AterraEngine.Items;
-using AterraEngine.Map;
-using AterraEngine;
-using Area = AterraEngine.Map.Area;
+using LostLegion.data.enigne.local;
 
-using AterraEngine.Lib;
-
-using System;
-using System.Globalization;
-using System.Resources;
-using LostLegion.data.local;
-
-namespace LostLegion; 
+namespace LostLegion;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -23,24 +13,30 @@ namespace LostLegion;
 internal class Program {
     private static async Task Main() {
         // Create the engine
-        Engine engine = new Engine(
-            engine_flags: new EngineFlags(
-                is_debug: true
+        var engine = new Engine(
+            new EngineFlags(
+                true
             )
         );
-        
+
         // Add data to the engine
         engine.localization_system.addCulture("la");
-        
+
         // Let the engine check the data
         engine.validateSetup<Program>(
-            localization_files_var:new List<string>{ "LostLegion.data.engine.local.UniversalText" }
+            new List<string> { "LostLegion.data.engine.local.UniversalText" }
         );
+
+        Console.Out.WriteLine(UniversalText.txt_hello);
         
+        engine.localization_system.activateCulture("la");
+        
+        Console.Out.WriteLine(UniversalText.txt_hello);
+
         // Execute the game loop
-        
+
         // return;
-        await Task.Run(AsyncMain).ConfigureAwait(false);
+        // await Task.Run(AsyncMain).ConfigureAwait(false);
     }
 
     private static async Task AsyncMain() {
