@@ -10,7 +10,8 @@ namespace AterraEngine.Items;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class ItemManager {
-    public Dictionary<int, Item> availableItems { get; private set; } = new Dictionary<int, Item>();
+    private readonly Dictionary<int, Item> _availableItems = new ();
+    public IReadOnlyDictionary<int, Item> availableItems => _availableItems;
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
@@ -31,7 +32,7 @@ public class ItemManager {
     private void _addItem(int item_id, Item item) {
         // validate known IDs vs Item id
         _checkValidId(item, true);
-        availableItems.Add(item_id, item);
+        _availableItems.Add(item_id, item);
     }
 
     private void _checkValidId(Item item, bool is_new_item) {
