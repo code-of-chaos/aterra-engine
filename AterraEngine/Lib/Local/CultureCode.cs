@@ -13,4 +13,5 @@ public enum CultureCode {
     EX_ludus_latinus // Not sure if I'll implement this fully. It could be cool to have a latin translation of the game
     
     // Todo, how can someone add new languages?
+    
 }

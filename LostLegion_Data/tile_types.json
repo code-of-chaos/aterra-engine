@@ -1,7 +1,0 @@
-﻿[
-  {"Id": 0, "Name": "void",     "RenderedString": "   "},
-  {"Id": 1, "Name": "sea",      "RenderedString": "\u001b[1;34m~~~\u001b[0m"},
-  {"Id": 2, "Name": "grass",    "RenderedString": "\u001B[1;32m...\u001B[0m"},
-  {"Id": 3, "Name": "mountain", "RenderedString": " ⛰ "},
-  {"Id": 4, "Name": "city",     "RenderedString": " \uD83C\uDFE2 "}
-]

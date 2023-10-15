@@ -1,6 +1,0 @@
-﻿[
-  {"itemId": "WoodenStick",   "displayName":"Wooden Stick","isStackable":  true,   "maxStackSize": 16},
-  {"itemId": "Log",           "displayName":"Log","isStackable":  false,  "maxStackSize": 1},
-  {"itemId": "Pebble",        "displayName":"Pebble","isStackable":  true,   "maxStackSize": 16},
-  {"itemId": "Rock",          "displayName":"Rock","isStackable":  true,   "maxStackSize": 4}
-]
