@@ -1,57 +1,91 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
 using System.Xml.Serialization;
-using System.Xml.Linq;
+using AterraEngine.Lib;
+
 namespace AterraEngine.Items;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class ItemManager {
-    public Dictionary<string, Item> availableItems { get; private set; } = new Dictionary<string, Item>();
+    public Dictionary<int, Item> availableItems { get; private set; } = new Dictionary<int, Item>();
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
-
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Internal Dictionary
     // -----------------------------------------------------------------------------------------------------------------
-    public void addItem(string item_name, Item item) => _addItem(item_name, item);
-    public void addItem(Item item) => _addItem(item.itemId, item);
-
-    private void _addItem(string item_name, Item item) {
-        // Exit clause: Can't have items with duplicate names
-        if (availableItems.TryGetValue(item_name, out var duplicate_item)) {
-            throw new Exception($"duplicate item of {duplicate_item}");
-        }
+    public Item? getItemById(string itemId) => _getItemById(IdConverter.toInt(itemId));
+    public Item? getItemById(int itemId) => _getItemById(itemId);
+    private Item? _getItemById(int itemId) {
+        return availableItems.TryGetValue(itemId, out var found_item) ? found_item : null;
         
-        availableItems.Add(item_name, item);
+    }
+    
+    public void addItem(int item_id, Item item) => _addItem(item_id, item);
+    public void addItem(Item item) => _addItem(item.itemId, item);
+    private void _addItem(int item_id, Item item) {
+        // validate known IDs vs Item id
+        _checkValidId(item, true);
+        availableItems.Add(item_id, item);
+    }
+
+    private void _checkValidId(Item item, bool is_new_item) {
+        if (!is_new_item & !availableItems.TryGetValue(item.itemId, out _)) {
+            throw new Exception($"{item.itemId} was not found in the id table. This means something went wrong");
+        }
+        if (availableItems.TryGetValue(item.itemId, out var item_found) && item_found.itemId != item.itemId) {
+            throw new Exception($"{item.itemId} was found in the id table, but was occupied by something else");
+        }
     }
     
     // -----------------------------------------------------------------------------------------------------------------
     // XML converter
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO make async
     public void exportXml(Item item, string filepath) {
+        // validate known IDs vs Item id
+        _checkValidId(item, false);
+        
+        // can't make async, as there isn't an async serializer???
         XmlSerializer serializer = new XmlSerializer(typeof(Item));
         using (var writer = new StreamWriter(filepath)) {
             serializer.Serialize(writer, item);
         }
     }
-    
-    // TODO make async
-    public Item importXml(string filepath) {
-        XmlSerializer serializer = new XmlSerializer(typeof(Item));
-        try {
-            using (var reader = new StreamReader(filepath)) {
-                return (Item)serializer.Deserialize(reader);
-            }
+
+    public void exportXmlFolder(string folderpath) {
+        foreach (Item item in availableItems.Values) {
+            exportXml(
+                item: item,
+                filepath: Path.Combine(folderpath, $"{item.internal_name}.xml")
+            );
         }
-        catch (Exception ex) {
-            throw;
+    }
+    
+    public Item importXml(string filepath, CultureLocalizationSystem cultureLocalizationSystem) {
+        // can't make async, as there isn't an async serializer???
+        XmlSerializer serializer = new XmlSerializer(typeof(Item));
+        using (var reader = new StreamReader(filepath)) {
+            Item item = (Item)serializer.Deserialize(reader)!;
+            
+            // validate known IDs vs Item id 
+            _checkValidId(item, true);
+            
+            // fix the resource manager
+            item.assignResourceManager(cultureLocalizationSystem.getResourceManager(item.resource_manager_name));
+            return item;
+        }
+    }
+
+    public void importXmlFolder(string folderpath, CultureLocalizationSystem cultureLocalizationSystem) {
+        string[] xmlFiles = Directory.GetFiles(folderpath, "*.xml");
+        foreach (var xml_file in xmlFiles) {
+            Item item = importXml(xml_file, cultureLocalizationSystem);
+            addItem(item);
         }
     }
 }

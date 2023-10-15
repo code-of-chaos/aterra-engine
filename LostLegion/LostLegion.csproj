@@ -20,7 +20,7 @@
     <!--  All "data" files should exist in a data/ folder   -->
     <ItemGroup>
         <ContentWithTargetPath Include="data\**">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
             <TargetPath>data\%(RecursiveDir)\%(Filename)%(Extension)</TargetPath>
         </ContentWithTargetPath>
     </ItemGroup>

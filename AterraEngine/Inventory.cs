@@ -12,7 +12,7 @@ namespace AterraEngine;
 /// Simple Inventory system, based on a dictionary
 public class Inventory {
     // Set properties
-    private readonly Dictionary<string, List<Item>> _itemInventory = new();
+    private readonly Dictionary<int, List<Item>> _itemInventory = new();
     private readonly int max_size;
 
     // Init
@@ -25,11 +25,11 @@ public class Inventory {
         return GetAllItemCount() < max_size;
     }
 
-    public IReadOnlyDictionary<string, List<Item>> GetAllItems() {
+    public IReadOnlyDictionary<int, List<Item>> GetAllItems() {
         return _itemInventory.AsReadOnly();
     }
 
-    public int GetItemCount(string item_id) {
+    public int GetItemCount(int item_id) {
         return _itemInventory.TryGetValue(item_id, out var item_list) ? item_list.Count : 0;
     }
 
@@ -51,7 +51,7 @@ public class Inventory {
     }
 
     // This function can return null, keep this in mind!
-    public Item? RemoveItem(string item_id) {
+    public Item? RemoveItem(int item_id) {
         // Exit guard: Can't get an item from a list, if the list doesn't exist
         if (!_itemInventory.ContainsKey(item_id)) return null;
         // First get the item,

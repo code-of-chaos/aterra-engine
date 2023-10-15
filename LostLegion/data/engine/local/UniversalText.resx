@@ -27,10 +27,10 @@
     <data name="txt_hello" xml:space="preserve">
         <value>Hello World!</value>
     </data>
-    <data name="item_woodenstick_name" xml:space="preserve">
+    <data name="stick_wooden_name" xml:space="preserve">
         <value>Wooden Stick</value>
     </data>
-    <data name="item_woodenstick_description" xml:space="preserve">
+    <data name="stick_wooden_description" xml:space="preserve">
         <value>A stick has multiple uses, but is strong when there are multiple</value>
     </data>
 </root>

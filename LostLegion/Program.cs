@@ -2,7 +2,11 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 
+using System.Diagnostics;
+using System.Resources;
 using AterraEngine;
+using AterraEngine.Items;
+using AterraEngine.Lib;
 using LostLegion.data.enigne.local;
 
 namespace LostLegion;
@@ -33,8 +37,34 @@ internal class Program {
         
         Console.Out.WriteLine(UniversalText.txt_hello);
 
-        // Execute the game loop
 
+        ItemManager item_manager = new ItemManager();
+        item_manager.importXmlFolder("data/engine/items",cultureLocalizationSystem:engine.localization_system);
+        
+        
+        
+
+        Item test_item = item_manager.getItemById(0xF)!;
+        
+        
+        Console.Out.WriteLine(test_item);
+        Console.Out.WriteLine(test_item.name);
+        Console.Out.WriteLine(test_item.description);
+
+        foreach (var (key, item) in item_manager.availableItems) {
+            Console.Out.Write(IdConverter.toHex(key, 6));
+            Console.Out.Write(" ");
+            Console.Out.Write(item);
+            Console.Out.Write(item.name);
+            Console.Out.Write(item.description);
+            Console.Out.Write("\n");
+        }
+        
+        
+        
+
+        // Execute the game loop
+    
         // return;
         // await Task.Run(AsyncMain).ConfigureAwait(false);
     }

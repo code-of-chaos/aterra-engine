@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 
+using System.Resources;
 using AterraEngine.Lib;
 
 namespace AterraEngine;
@@ -28,6 +29,11 @@ public class Engine {
         if (engine_flags.isDebug)
             // Checks if all the resource files have all the expected cultures
             localization_system.checkResourceFilesForCultures<type_of_project>(localization_files_var);
+        
+        // loads all the localization managers
+        foreach (var resource_file in localization_files_var) {
+            localization_system.addResourceManager(resource_file,new ResourceManager(resource_file, typeof(type_of_project).Assembly));
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -11,20 +11,35 @@ namespace AterraEngine.Lib;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class CultureLocalizationSystem {
-    private readonly Dictionary<string, CultureInfo> implementedLocals = new();
-
+    private readonly Dictionary<string, CultureInfo> _cultureInfos = new();
+    private readonly Dictionary<string, ResourceManager> _resourceManagers = new();
+    
+    // -----------------------------------------------------------------------------------------------------------------
+    // Storage of Implemented Resource Managers
+    // -----------------------------------------------------------------------------------------------------------------
+    public void addResourceManager(string manager_name, ResourceManager manager) {
+        _resourceManagers.Add(manager_name, manager);
+    }
+    
+    public ResourceManager getResourceManager(string manager_name) {
+        if (!_resourceManagers.TryGetValue(manager_name, out var manager)) {
+            throw new Exception($"Manager was never assigned '{manager_name}'");
+        }
+        return manager;
+    }
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Local Culture system
     // -----------------------------------------------------------------------------------------------------------------
     public void addCulture(string culture_name) {
-        if (implementedLocals.TryGetValue(culture_name, out _))
+        if (_cultureInfos.TryGetValue(culture_name, out _))
             throw new ArgumentException($"the local of '{culture_name}' is already defined");
 
-        implementedLocals.Add(culture_name, new CultureInfo(culture_name));
+        _cultureInfos.Add(culture_name, new CultureInfo(culture_name));
     }
 
     public void activateCulture(string culture_name) {
-        if (!implementedLocals.TryGetValue(culture_name, out var culture_info))
+        if (!_cultureInfos.TryGetValue(culture_name, out var culture_info))
             throw new ArgumentException($"the local of '{culture_name}' is not defined");
 
         CultureInfo.CurrentCulture = culture_info;
@@ -32,7 +47,7 @@ public class CultureLocalizationSystem {
     }
 
     private CultureInfo getCultureInfo(string culture_name) {
-        if (!implementedLocals.TryGetValue(culture_name, out var culture_info))
+        if (!_cultureInfos.TryGetValue(culture_name, out var culture_info))
             throw new ArgumentException($"the local of '{culture_name}' is not defined");
 
         return culture_info;
@@ -41,20 +56,19 @@ public class CultureLocalizationSystem {
     // -----------------------------------------------------------------------------------------------------------------
     // Check for resx files against the known locals
     // -----------------------------------------------------------------------------------------------------------------
-
     /// <summary>
     ///     Checks if a collection of resource files are implemented for a set of localization cultures.
     ///     Preferably only used in DEBUG mode, or by the editor.
     /// </summary>
-    /// <typeparam name="type_of_project">The type of the project to access its assembly.</typeparam>
+    /// <typeparam name="project_assembly">The type of the project to access its assembly.</typeparam>
     /// <param name="resource_names">
     ///     An array of resource file names to check. Make sure to give the full path, example:
     ///     'LostLegion.data.engine.local.UniversalText'
     /// </param>
-    public void checkResourceFilesForCultures<type_of_project>(IEnumerable<string> resource_names) {
+    public void checkResourceFilesForCultures<project_assembly>(IEnumerable<string> resource_names) {
         foreach (var res_name in resource_names) {
-            var missing_locals = implementedLocals.Values
-                .Where(culture => !isCultureImplemented<type_of_project>(res_name, culture))
+            var missing_locals = _cultureInfos.Values
+                .Where(culture => !isCultureImplemented<project_assembly>(res_name, culture))
                 .Select(culture => culture.Name)
                 .ToList();
 
