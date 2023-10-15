@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<item id="wooden_stick">
+    <name ref="item_woodenstick_name"/>
+    <description ref="item_woodenstick_description"/>
+    <stackable max_size="64"/>
+    <icon>/</icon>
+</item>

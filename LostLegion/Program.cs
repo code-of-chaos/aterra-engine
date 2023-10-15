@@ -34,7 +34,7 @@ internal class Program {
         
         // Let the engine check the data
         engine.validateSetup<Program>(
-            localization_files_var:new List<string>{ "LostLegion.data.local.UniversalText" }
+            localization_files_var:new List<string>{ "LostLegion.data.engine.local.UniversalText" }
         );
         
         // Execute the game loop

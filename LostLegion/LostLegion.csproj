@@ -19,13 +19,17 @@
     
     <!--  All "data" files should exist in a data/ folder   -->
     <ItemGroup>
-      <Content Include="data\area\aterra.json">
+        <Content Update="data\area\poi_house_2.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Link>data\area\poi_house_1.json</Link>
+        </Content>
+        <Content Update="data\area\aterra\aterra.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
           <Link>data\area\aterra.json</Link>
-      </Content>
-        <Content Include="data\area\poi_house_1.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Link>data\area\poi_house_1.json</Link>
+        </Content>
+        <Content Update="data\area\poi_house_1\poi_house_1.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Link>data\area\poi_house_1.json</Link>
         </Content>
 
         <!--Item_dictionary files-->
@@ -42,6 +46,21 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>UniversalText.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="data\engine\local\UniversalText.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>UniversalText.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="data\area\aterra\local\aterra.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Aterra.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="data\area\poi_house_1\local\poi_house_1.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>poi_house_1.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="data\area\aterra\local\aterra.resx">
+        <LastGenOutput>aterra.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
       <Compile Update="UniversalText.Designer.cs">
@@ -53,6 +72,16 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>UniversalText.resx</DependentUpon>
+      </Compile>
+      <Compile Update="data\area\aterra\local\aterra.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>aterra.resx</DependentUpon>
+      </Compile>
+      <Compile Update="data\area\poi_house_1\local\poi_house_1.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>poi_house_1.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
