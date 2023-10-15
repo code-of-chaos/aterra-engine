@@ -6,6 +6,7 @@
 using System.Numerics;
 using AterraEngine.Entities;
 using AterraEngine.Map;
+using AterraEngine.Lib;
 
 namespace AterraEngine;
 // ---------------------------------------------------------------------------------------------------------------------

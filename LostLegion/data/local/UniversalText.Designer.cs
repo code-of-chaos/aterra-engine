@@ -60,7 +60,25 @@ namespace LostLegion.data.local {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to the world.
+        ///   Looks up a localized string similar to A stick has multiple uses, but is strong when there are multiple.
+        /// </summary>
+        internal static string item_woodenstick_description {
+            get {
+                return ResourceManager.GetString("item_woodenstick_description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wooden Stick.
+        /// </summary>
+        internal static string item_woodenstick_name {
+            get {
+                return ResourceManager.GetString("item_woodenstick_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello World!.
         /// </summary>
         internal static string txt_hello {
             get {
