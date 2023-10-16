@@ -7,6 +7,7 @@ using System.Resources;
 using AterraEngine;
 using AterraEngine.Items;
 using AterraEngine.Lib;
+using AterraEngine.Lib.Localization;
 using LostLegion.data.enigne.local;
 
 namespace LostLegion;
@@ -16,33 +17,37 @@ namespace LostLegion;
 // ---------------------------------------------------------------------------------------------------------------------
 internal class Program {
     private static async Task Main() {
-        // Create the engine
-        var engine = new Engine(
-            new EngineFlags(
-                true
-            )
-        );
-
+        // Register all managers to DIC
+        DependencyContainer.instance.register<IItemManager, ItemManager>();
+        DependencyContainer.instance.register<IEngine, Engine>();
+        DependencyContainer.instance.register<IEngineFlags, EngineFlags>();
+        DependencyContainer.instance.register<ICultureManager, CultureManager>();
+        DependencyContainer.instance.register<IResxManager, ResxManager>();
+        
+        // Set the Engine flags
+        IEngineFlags engine_flags = DependencyContainer.instance.resolve<IEngineFlags>();
+        engine_flags.isDebug = true;
+        
+        // Add Resource files to the engine
+        IResxManager resx_manager = DependencyContainer.instance.resolve<IResxManager>();
+        string[] resx_files = new[] {
+            "LostLegion.data.engine.local.UniversalText"
+        };
+        foreach (var resx_file in resx_files) {
+            resx_manager.addResourceManager<Program>(resx_file);
+        }
+        
         // Add data to the engine
-        engine.localization_system.addCulture("la");
-
-        // Let the engine check the data
-        engine.validateSetup<Program>(
-            new List<string> { "LostLegion.data.engine.local.UniversalText" }
-        );
-
-        Console.Out.WriteLine(UniversalText.txt_hello);
+        ICultureManager culture_manager = DependencyContainer.instance.resolve<ICultureManager>();
+        culture_manager.addCulture("la");
         
-        engine.localization_system.activateCulture("la");
+        // Enter the engine and start running checks
+        IEngine engine = DependencyContainer.instance.resolve<IEngine>();
+        engine.validateSetup(resx_files);
         
-        Console.Out.WriteLine(UniversalText.txt_hello);
+        engine.item_manager.importXmlFolder("data/engine/items");
 
-
-        ItemManager item_manager = new ItemManager();
-        item_manager.importXmlFolder("data/engine/items",cultureLocalizationSystem:engine.localization_system);
-        
-
-        Item[] filtered = item_manager.filterByType(ItemType.general);
+        Item[] filtered = engine.item_manager.filterByType(ItemType.general);
         Console.Out.WriteLine(string.Join("\n", filtered.ToList()));
 
         // Execute the game loop

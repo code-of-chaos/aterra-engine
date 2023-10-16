@@ -5,28 +5,30 @@
 using System.Globalization;
 using System.Resources;
 
-namespace AterraEngine.Lib;
+namespace AterraEngine.Lib.Localization;
+
+// ---------------------------------------------------------------------------------------------------------------------
+// InterfaceCode
+// ---------------------------------------------------------------------------------------------------------------------
+public interface ICultureManager {
+
+    void addCulture(string culture_name);
+    void activateCulture(string culture_name);
+
+    void checkResourceForCultures(ResourceManager resource);
+    bool isCultureImplemented(ResourceManager resource, string culture_name);
+    bool isCultureImplemented(ResourceManager resource, CultureInfo culture);
+}
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class CultureLocalizationSystem {
+public class CultureManager : ICultureManager {
     private readonly Dictionary<string, CultureInfo> _cultureInfos = new();
-    private readonly Dictionary<string, ResourceManager> _resourceManagers = new();
     
     // -----------------------------------------------------------------------------------------------------------------
-    // Storage of Implemented Resource Managers
+    // Constructor
     // -----------------------------------------------------------------------------------------------------------------
-    public void addResourceManager(string manager_name, ResourceManager manager) {
-        _resourceManagers.Add(manager_name, manager);
-    }
-    
-    public ResourceManager getResourceManager(string manager_name) {
-        if (!_resourceManagers.TryGetValue(manager_name, out var manager)) {
-            throw new Exception($"Manager was never assigned '{manager_name}'");
-        }
-        return manager;
-    }
     
     // -----------------------------------------------------------------------------------------------------------------
     // Local Culture system
@@ -60,38 +62,29 @@ public class CultureLocalizationSystem {
     ///     Checks if a collection of resource files are implemented for a set of localization cultures.
     ///     Preferably only used in DEBUG mode, or by the editor.
     /// </summary>
-    /// <typeparam name="project_assembly">The type of the project to access its assembly.</typeparam>
-    /// <param name="resource_names">
-    ///     An array of resource file names to check. Make sure to give the full path, example:
+    /// 
+    /// <param name="resource">
+    ///     A resource file's name to check. Make sure to give the full path, example:
     ///     'LostLegion.data.engine.local.UniversalText'
     /// </param>
-    public void checkResourceFilesForCultures<project_assembly>(IEnumerable<string> resource_names) {
-        foreach (var res_name in resource_names) {
-            var missing_locals = _cultureInfos.Values
-                .Where(culture => !isCultureImplemented<project_assembly>(res_name, culture))
-                .Select(culture => culture.Name)
-                .ToList();
+    public void checkResourceForCultures(ResourceManager resource) {
+        var missing_locals = _cultureInfos.Values
+            .Where(culture => !isCultureImplemented(resource, culture))
+            .Select(culture => culture.Name)
+            .ToList();
 
-            if (missing_locals.Any())
-                throw new CultureNotFoundException(
-                    $"Resource '{res_name}' did not have the following Localization Cultures "
-                    + $"{string.Join(", ", missing_locals)}"
-                );
-        }
+        if (missing_locals.Any())
+            throw new CultureNotFoundException(
+                $"Resource '{resource}' did not have the following Localization Cultures "
+                + $"{string.Join(", ", missing_locals)}"
+            );
     }
-
-    public bool isCultureImplemented<type_of_project>(string resource_name, CultureInfo culture) {
-        return _isCultureImplemented<type_of_project>(resource_name, culture);
-    }
-
-    public bool isCultureImplemented<type_of_project>(string resource_name, string culture_name) {
-        return _isCultureImplemented<type_of_project>(resource_name, getCultureInfo(culture_name));
-    }
-
-    private bool _isCultureImplemented<type_of_project>(string resource_name, CultureInfo culture) {
+    public bool isCultureImplemented(ResourceManager resource, string culture_name) => _isCultureImplemented(resource, getCultureInfo(culture_name));
+    public bool isCultureImplemented(ResourceManager resource, CultureInfo culture) => _isCultureImplemented(resource, culture);
+    
+    private bool _isCultureImplemented(ResourceManager resource, CultureInfo culture) {
         try {
-            var resource_manager = new ResourceManager(resource_name, typeof(type_of_project).Assembly);
-            var resourceSet = resource_manager.GetResourceSet(culture, true, false);
+            var resourceSet = resource.GetResourceSet(culture, true, false);
             if (resourceSet != null)
                 // The culture is implemented in the .resx file.
                 return true;

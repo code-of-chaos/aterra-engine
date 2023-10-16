@@ -3,13 +3,33 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Xml.Serialization;
 using AterraEngine.Lib;
+using AterraEngine.Lib.Localization;
 
 namespace AterraEngine.Items;
 
 // ---------------------------------------------------------------------------------------------------------------------
+// Interface Code
+// ---------------------------------------------------------------------------------------------------------------------
+public interface IItemManager {
+    public IReadOnlyDictionary<int, Item> availableItems { get; }
+
+    public Item? getItemById(string itemId);
+    public Item? getItemById(int itemId);
+    Item[] filterByType(ItemType item_type);
+    
+    public void addItem(int item_id, Item item);
+    public void addItem(Item item);
+
+    public void exportXml(Item item, string filepath);
+    public void exportXmlFolder(string folderpath);
+
+    public Item importXml(string filepath);
+    public void importXmlFolder(string folderpath);
+}
+// ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class ItemManager {
+public class ItemManager : IItemManager {
     private readonly Dictionary<int, Item> _availableItems = new ();
     public IReadOnlyDictionary<int, Item> availableItems => _availableItems;
     
@@ -71,7 +91,9 @@ public class ItemManager {
         }
     }
     
-    public Item importXml(string filepath, CultureLocalizationSystem cultureLocalizationSystem) {
+    public Item importXml(string filepath) {
+        IResxManager resx_manager = DependencyContainer.instance.resolve<IResxManager>();
+        
         // can't make async, as there isn't an async serializer???
         XmlSerializer serializer = new XmlSerializer(typeof(Item));
         using (var reader = new StreamReader(filepath)) {
@@ -81,15 +103,15 @@ public class ItemManager {
             _checkValidId(item, true);
             
             // fix the resource manager
-            item.assignResourceManager(cultureLocalizationSystem.getResourceManager(item.resource_manager_name));
+            item.assignResourceManager(resx_manager.getResourceManager(item.resource_manager_name));
             return item;
         }
     }
 
-    public void importXmlFolder(string folderpath, CultureLocalizationSystem cultureLocalizationSystem) {
+    public void importXmlFolder(string folderpath) {
         string[] xmlFiles = Directory.GetFiles(folderpath, "*.xml");
         foreach (var xml_file in xmlFiles) {
-            Item item = importXml(xml_file, cultureLocalizationSystem);
+            Item item = importXml(xml_file);
             addItem(item);
         }
     }
