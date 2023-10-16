@@ -18,7 +18,7 @@ public interface IEngine {
     public IResxManager resx_manager { get; }
     public IItemManager item_manager { get; }
 
-    public void validateSetup(string[] localization_files_var);
+    public void validateSetup(IEnumerable<string> localization_files_var);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ public class Engine : IEngine {
     // -----------------------------------------------------------------------------------------------------------------
     // Check setup
     // -----------------------------------------------------------------------------------------------------------------
-    public void validateSetup(string[] localization_files_var) {
+    public void validateSetup(IEnumerable<string> localization_files_var) {
         if (engine_flags.isDebug)
             // Checks if all the resource files have all the expected cultures
             foreach (var resx_file in localization_files_var) {

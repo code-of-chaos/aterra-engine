@@ -14,7 +14,7 @@ public interface IXmlHandler<T> {
     public void exportXmlFolder(List<T> objects_to_export, string folder_path);
 
     public T importXml(string file_path);
-    public T[] importXmlFolder(string folder_path);
+    public void importXmlFolder(string folder_path);
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -42,15 +42,14 @@ public class XmlHandler<T> : IXmlHandler<T>{
         // can't make async, as there isn't an async serializer???
         XmlSerializer serializer = new XmlSerializer(typeof(T));
         using (var reader = new StreamReader(file_path)) {
-            return (T)serializer.Deserialize(reader)!;
+            return (T)serializer.Deserialize(reader)!;;
         }
     }
-
-    public T[] importXmlFolder(string folder_path) {
+    
+    public void importXmlFolder(string folder_path) => throw new NotImplementedException();
+    internal IEnumerable<T> _importXmlFolder(string folder_path) {
         return Directory.GetFiles(folder_path, "*.xml")
-            .Select(importXml)
-            .ToArray();
-        
+            .Select(importXml);
     }
     
 }

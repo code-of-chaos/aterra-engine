@@ -1,6 +1,8 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
+using System.Data;
 using System.Xml.Serialization;
 using AterraEngine.Lib;
 using AterraEngine.Lib.Localization;
@@ -25,7 +27,7 @@ public interface IItemManager: IXmlHandler<Item> {
 // ---------------------------------------------------------------------------------------------------------------------
 public class ItemManager : XmlHandler<Item>, IItemManager  {
     private readonly Dictionary<int, Item> _availableItems = new ();
-    public IReadOnlyDictionary<int, Item> availableItems => _availableItems;
+    public IReadOnlyDictionary<int, Item> availableItems => _availableItems.AsReadOnly();
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
@@ -67,5 +69,12 @@ public class ItemManager : XmlHandler<Item>, IItemManager  {
     // -----------------------------------------------------------------------------------------------------------------
     public new void exportXmlFolder(List<Item> objects_to_export, string folder_path) {
         _exportXmlFolder(objects_to_export, folder_path, (item) => $"{item.internal_name}.xml");
+    }
+    public new void importXmlFolder(string folder_path) {
+        foreach (var item in  _importXmlFolder(folder_path:folder_path)) {
+            if (!_availableItems.TryAdd(item.itemId, item)) {
+                throw new DuplicateNameException($"Item id '{item.itemId}' was already added");
+            }
+        }
     }
 }
