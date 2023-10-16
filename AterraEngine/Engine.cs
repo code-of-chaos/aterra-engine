@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using System.Resources;
-using AterraEngine.Items;
+using AterraEngine.Logic.Items;
 using AterraEngine.Lib;
 using AterraEngine.Lib.Localization;
 

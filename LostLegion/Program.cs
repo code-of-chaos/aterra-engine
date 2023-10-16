@@ -5,10 +5,11 @@
 using System.Diagnostics;
 using System.Resources;
 using AterraEngine;
-using AterraEngine.Items;
 using AterraEngine.Lib;
 using AterraEngine.Lib.Localization;
+using AterraEngine.Logic.Items;
 using LostLegion.data.enigne.local;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LostLegion;
 
@@ -16,6 +17,21 @@ namespace LostLegion;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 internal class Program {
+    // This should work, but .... 
+    // public ServiceProvider ConfigureServices() {
+    //     ServiceProvider service_provider = new ServiceCollection()
+    //         // assign injections    
+    //         .AddSingleton<IItemManager, ItemManager>()
+    //         .AddSingleton<IEngine, Engine>()
+    //         .AddSingleton<IEngineFlags, EngineFlags>()
+    //         .AddSingleton<ICultureManager, CultureManager>()
+    //         .AddSingleton<IResxManager, ResxManager>()
+    //         
+    //         // actually build the provider
+    //         .BuildServiceProvider();
+    //     return service_provider;
+    // }
+    
     private static async Task Main() {
         // Register all managers to DIC
         DependencyContainer.instance.register<IItemManager, ItemManager>();

@@ -2,7 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 
-using AterraEngine.Items;
+using AterraEngine.Logic.Items;
 
 namespace AterraEngine;
 

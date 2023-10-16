@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using AterraEngine.Lib;
 using AterraEngine.Lib.Localization;
 
-namespace AterraEngine.Items;
+namespace AterraEngine.Logic.Items;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
@@ -19,17 +19,11 @@ public interface IItemManager {
     
     public void addItem(int item_id, Item item);
     public void addItem(Item item);
-
-    public void exportXml(Item item, string filepath);
-    public void exportXmlFolder(string folderpath);
-
-    public Item importXml(string filepath);
-    public void importXmlFolder(string folderpath);
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class ItemManager : IItemManager {
+public class ItemManager : XmlHandler<Item>, IItemManager  {
     private readonly Dictionary<int, Item> _availableItems = new ();
     public IReadOnlyDictionary<int, Item> availableItems => _availableItems;
     
@@ -71,48 +65,7 @@ public class ItemManager : IItemManager {
     // -----------------------------------------------------------------------------------------------------------------
     // XML converter
     // -----------------------------------------------------------------------------------------------------------------
-    public void exportXml(Item item, string filepath) {
-        // validate known IDs vs Item id
-        _checkValidId(item, false);
-        
-        // can't make async, as there isn't an async serializer???
-        XmlSerializer serializer = new XmlSerializer(typeof(Item));
-        using (var writer = new StreamWriter(filepath)) {
-            serializer.Serialize(writer, item);
-        }
-    }
-
-    public void exportXmlFolder(string folderpath) {
-        foreach (Item item in availableItems.Values) {
-            exportXml(
-                item: item,
-                filepath: Path.Combine(folderpath, $"{item.internal_name}.xml")
-            );
-        }
-    }
-    
-    public Item importXml(string filepath) {
-        IResxManager resx_manager = DependencyContainer.instance.resolve<IResxManager>();
-        
-        // can't make async, as there isn't an async serializer???
-        XmlSerializer serializer = new XmlSerializer(typeof(Item));
-        using (var reader = new StreamReader(filepath)) {
-            Item item = (Item)serializer.Deserialize(reader)!;
-            
-            // validate known IDs vs Item id 
-            _checkValidId(item, true);
-            
-            // fix the resource manager
-            item.assignResourceManager(resx_manager.getResourceManager(item.resource_manager_name));
-            return item;
-        }
-    }
-
-    public void importXmlFolder(string folderpath) {
-        string[] xmlFiles = Directory.GetFiles(folderpath, "*.xml");
-        foreach (var xml_file in xmlFiles) {
-            Item item = importXml(xml_file);
-            addItem(item);
-        }
+    public void exportXmlFolder(List<Item> objects_to_export, string folder_path) {
+        base.exportXmlFolder(objects_to_export, folder_path, (item) => $"{item.internal_name}.xml");
     }
 }
