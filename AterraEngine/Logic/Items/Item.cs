@@ -4,8 +4,8 @@
 using System.Resources;
 using System.Xml.Serialization;
 using AterraEngine.Lib;
-namespace AterraEngine.Logic.Items;
 
+namespace AterraEngine.Logic.Items;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
