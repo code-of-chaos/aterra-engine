@@ -10,7 +10,7 @@ namespace AterraEngine.Logic.Items;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IItemManager {
+public interface IItemManager: IXmlHandler<Item> {
     public IReadOnlyDictionary<int, Item> availableItems { get; }
 
     public Item? getItemById(string itemId);
@@ -65,7 +65,7 @@ public class ItemManager : XmlHandler<Item>, IItemManager  {
     // -----------------------------------------------------------------------------------------------------------------
     // XML converter
     // -----------------------------------------------------------------------------------------------------------------
-    public void exportXmlFolder(List<Item> objects_to_export, string folder_path) {
-        base.exportXmlFolder(objects_to_export, folder_path, (item) => $"{item.internal_name}.xml");
+    public new void exportXmlFolder(List<Item> objects_to_export, string folder_path) {
+        _exportXmlFolder(objects_to_export, folder_path, (item) => $"{item.internal_name}.xml");
     }
 }

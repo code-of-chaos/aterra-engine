@@ -11,7 +11,7 @@ namespace AterraEngine.Lib;
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IXmlHandler<T> {
     public void exportXml(T serializable, string file_path);
-    public void exportXmlFolder(List<T> objects_to_export, string folder_path, Func<T, string> name_operation);
+    public void exportXmlFolder(List<T> objects_to_export, string folder_path);
 
     public T importXml(string file_path);
     public T[] importXmlFolder(string folder_path);
@@ -28,7 +28,8 @@ public class XmlHandler<T> : IXmlHandler<T>{
         }
     }
 
-    public void exportXmlFolder(List<T> objects_to_export, string folder_path, Func<T, string> name_operation) {
+    public void exportXmlFolder(List<T> objects_to_export, string folder_path) => throw new NotImplementedException();
+    internal void _exportXmlFolder(List<T> objects_to_export, string folder_path, Func<T, string> name_operation) {
         foreach (T item in objects_to_export) {
             exportXml(
                 serializable: item,
@@ -47,7 +48,7 @@ public class XmlHandler<T> : IXmlHandler<T>{
 
     public T[] importXmlFolder(string folder_path) {
         return Directory.GetFiles(folder_path, "*.xml")
-            .Select(filepath => importXml(filepath))
+            .Select(importXml)
             .ToArray();
         
     }
