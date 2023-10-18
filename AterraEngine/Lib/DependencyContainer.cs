@@ -3,10 +3,24 @@
 // ---------------------------------------------------------------------------------------------------------------------
 namespace AterraEngine.Lib;
 // ---------------------------------------------------------------------------------------------------------------------
+// Support Code
+// ---------------------------------------------------------------------------------------------------------------------
+struct ObjectTypes {
+    public Type ObjectEnum { get; set; }
+    public Type Type { get; set; }
+}
+
+enum ObjectEnum{
+    singleton,
+    
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IDependencyContainer {
-    void register<TInterface, TImplementation>() where TImplementation : TInterface;
+    void registerSingleton<TInterface, TImplementation>() where TImplementation : TInterface;
+    void registerTransient<TInterface, TImplementation>() where TImplementation : TInterface;
     T resolve<T>();
 
     static IDependencyContainer instance = null!;
@@ -19,6 +33,7 @@ public class DependencyContainer : IDependencyContainer {
     private static DependencyContainer? _instance; 
     private readonly Dictionary<Type, Type> _types = new Dictionary<Type, Type>();
     private readonly Dictionary<Type, object> _singletons = new Dictionary<Type, object>();
+    private readonly Dictionary<Type, object> _transients = new Dictionary<Type, object>();
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
@@ -33,7 +48,13 @@ public class DependencyContainer : IDependencyContainer {
     // -----------------------------------------------------------------------------------------------------------------
     // Register and get instances
     // -----------------------------------------------------------------------------------------------------------------
-    public void register<TInterface, TImplementation>() where TImplementation : TInterface {
+    public void registerSingleton<TInterface, TImplementation>() where TImplementation : TInterface {
+        Type interfaceType = typeof(TInterface);
+        Type implementationType = typeof(TImplementation);
+
+        _types.TryAdd(interfaceType, implementationType);
+    }
+    public void registerTransient<TInterface, TImplementation>() where TImplementation : TInterface {
         Type interfaceType = typeof(TInterface);
         Type implementationType = typeof(TImplementation);
 

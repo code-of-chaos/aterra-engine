@@ -10,6 +10,7 @@ namespace AterraEngine.Logic.Items;
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IItemManager: IXmlHandler<Item> {
     public IReadOnlyDictionary<int, Item> availableItems { get; }
+    public HashSet<string> availableTags { get; }
 
     public Item? getItemById(string itemId);
     public Item? getItemById(int itemId);
@@ -24,13 +25,14 @@ public interface IItemManager: IXmlHandler<Item> {
 public class ItemManager : XmlHandler<Item>, IItemManager  {
     private readonly Dictionary<int, Item> _availableItems = new ();
     public IReadOnlyDictionary<int, Item> availableItems => _availableItems.AsReadOnly();
-    
+
+    public HashSet<string> availableTags { get; } = new HashSet<string>();
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
     
     // -----------------------------------------------------------------------------------------------------------------
-    // Internal Dictionary
+    // Internal Item Dictionary
     // -----------------------------------------------------------------------------------------------------------------
     public Item? getItemById(string itemId) => _getItemById(IdConverter.toInt(itemId));
     public Item? getItemById(int itemId) => _getItemById(itemId);
@@ -73,4 +75,7 @@ public class ItemManager : XmlHandler<Item>, IItemManager  {
             }
         }
     }
+    // -----------------------------------------------------------------------------------------------------------------
+    // Tag System
+    // -----------------------------------------------------------------------------------------------------------------
 }

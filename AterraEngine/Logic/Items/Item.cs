@@ -60,6 +60,10 @@ public record Item { // The Item is "immutable" (don't look at _resource_manager
     [XmlIgnore] 
     public ItemType item_type { get; set; }
 
+    [XmlArray("tags")] 
+    [XmlArrayItem("tag")]
+    public required List<ItemTypes> tags;
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
