@@ -4,6 +4,7 @@
 
 using AterraEngine.Logic.EngineObjects;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Lib;
 // ---------------------------------------------------------------------------------------------------------------------

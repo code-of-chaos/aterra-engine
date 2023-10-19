@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using System.Numerics;
-using System.Runtime;
+using Microsoft.Extensions.Logging;
 using AterraEngine.Lib;
 using AterraEngine.Lib.Localization;
 using AterraEngine.Logic.EngineObjects;
@@ -19,6 +19,14 @@ public static class EngineServices {
     // Base Services
     // -----------------------------------------------------------------------------------------------------------------
     public static void addEngineServices(this IServiceCollection service_collection) {
+        // Logging
+        service_collection.AddLogging(builder =>
+        {
+            builder.AddConsole(); // Add console logger
+        });
+        
+        // AterraEngine
+        
         service_collection.AddSingleton<IEngineFlags, EngineFlags>();
         // service_collection.AddSingleton<IItemManager, ItemManager>();
         service_collection.AddSingleton<IEngine, Engine>();
