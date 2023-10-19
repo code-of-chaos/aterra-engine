@@ -4,7 +4,6 @@
 
 using AterraEngine.Engine;
 using Microsoft.Extensions.Logging;
-using ILogger = Serilog.ILogger;
 
 namespace AterraEngine.Logic.EngineObjects;
 

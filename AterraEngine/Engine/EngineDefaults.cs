@@ -16,5 +16,4 @@ public interface IEngineDefaults{
 public class EngineDefaults : IEngineDefaults{
     public int hex_padding { get; set; } = 8;
     public float item_weight { get; set; } = 1f;
-
 }
