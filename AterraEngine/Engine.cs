@@ -22,10 +22,10 @@ public interface IEngine {
 public class Engine : IEngine {
     // All of these are just for easy use within the "Engine" class
     //      Todo think about implementing them (again, this was the old way) as variables? 
-    private static IEngineFlags _engine_flags => DependencyContainer.instance.resolve<IEngineFlags>();
-    private static ICultureManager _localization_system => DependencyContainer.instance.resolve<ICultureManager>();
-    private static IResxManager _resx_manager => DependencyContainer.instance.resolve<IResxManager>();
-    private static IItemManager _item_manager => DependencyContainer.instance.resolve<IItemManager>();
+    private static IEngineFlags _engine_flags => DependencyContainer.getService<IEngineFlags>();
+    private static ICultureManager _localization_system => DependencyContainer.getService<ICultureManager>();
+    private static IResxManager _resx_manager => DependencyContainer.getService<IResxManager>();
+    private static IItemManager _item_manager => DependencyContainer.getService<IItemManager>();
 
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
