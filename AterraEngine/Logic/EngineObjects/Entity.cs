@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using System.Numerics;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace AterraEngine.Logic.EngineObjects;
 
@@ -10,11 +12,11 @@ namespace AterraEngine.Logic.EngineObjects;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEntity:IEngineObject {
-    public Vector2 pos { get; set; }
+    public string? name { get; set; }
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Entity : EngineObject, IEntity {
-    public Vector2 pos { get; set; }
+    public string? name { get; set; }
 }

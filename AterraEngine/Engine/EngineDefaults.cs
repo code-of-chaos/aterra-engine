@@ -1,20 +1,20 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using Microsoft.Extensions.Logging;
-
-namespace AterraEngine.Logic.EngineObjects;
-
+namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IItem:IEngineObject {
-    float weight { get; set; }
+public interface IEngineDefaults{
+    int hex_padding { get; set; }
+    float item_weight { get; set; }
 }
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Item: EngineObject, IItem {
-    public float weight { get; set; }
+public class EngineDefaults : IEngineDefaults{
+    public int hex_padding { get; set; } = 8;
+    public float item_weight { get; set; } = 1f;
+
 }

@@ -9,12 +9,11 @@ namespace AterraEngine.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IItem:IEngineObject {
-    float weight { get; set; }
+public interface IEntityContainer : IEntity {
+    
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Item: EngineObject, IItem {
-    public float weight { get; set; }
-}
+public class EntityContainer : Entity, IEntityContainer {
+}   
