@@ -19,9 +19,11 @@ public class Entity : EngineObject, IEntity {
     public Vector2 pos { get; set; }
     
     // -----------------------------------------------------------------------------------------------------------------
-    // Constructor
+    // Constructor  
     // -----------------------------------------------------------------------------------------------------------------
-    public Entity(int id):base(id:id) {
-        this.id = id;
+    public Entity(int id, Vector2 pos):base(id:id) {
+        this.pos = pos;
     }
+
+    public Entity() : base() {}
 }

@@ -5,15 +5,16 @@ using System.Resources;
 using AterraEngine.Logic.Items;
 using AterraEngine.Lib;
 using AterraEngine.Lib.Localization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AterraEngine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngine {
-    public void validateSetup(IEnumerable<string> localization_files_var);
-    public void startGameLoop();
-    public void renderUI();
+    void validateSetup(IEnumerable<string> localization_files_var);
+    void startGameLoop();
+    void renderUI();
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -32,7 +33,7 @@ public class Engine : IEngine {
     // -----------------------------------------------------------------------------------------------------------------
     
     // -----------------------------------------------------------------------------------------------------------------
-    // Check setup
+    // setup
     // -----------------------------------------------------------------------------------------------------------------
     public void validateSetup(IEnumerable<string> localization_files_var) {
         if (_engine_flags.isDebug)
