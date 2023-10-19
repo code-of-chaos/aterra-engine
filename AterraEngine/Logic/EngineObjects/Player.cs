@@ -16,5 +16,5 @@ public interface IPlayer : IEntity {
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Player : Entity, IPlayer {
-    public Player(int id, Vector2 pos) : base(id, pos) { }
-}
+
+}   

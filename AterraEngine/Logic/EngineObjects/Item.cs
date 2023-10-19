@@ -8,15 +8,11 @@ namespace AterraEngine.Logic.EngineObjects;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IItem:IEngineObject {
-    float weight { get; }
+    float weight { get; init; }
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Item: EngineObject, IItem {
-    public float weight { get; private set; }
-    
-    public Item(int id, float weight) : base(id) {
-        this.weight = weight;
-    }
+    public float weight { get; init; }
 }
