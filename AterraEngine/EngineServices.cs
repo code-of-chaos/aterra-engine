@@ -26,8 +26,8 @@ public static class EngineServices {
         service_collection.AddSingleton<IResxManager, ResxManager>();
         
         service_collection.AddSingleton<IEngineObjectManager,EngineObjectManager>();
-        service_collection.AddTransient<IEntity>(provider => DependencyContainer.quickGetEOM().createEntity<Entity>());
-        service_collection.AddTransient<IItem>(provider => DependencyContainer.quickGetEOM().createItem<Item>());
-        service_collection.AddSingleton<IPlayer>(provider => DependencyContainer.quickGetEOM().createPlayer<Player>()); // Because there can only ever be one player
+        service_collection.AddTransient<IEntity>(provider => DependencyContainer.getEOM().createEntity<Entity>());
+        service_collection.AddTransient<IItem>(provider => DependencyContainer.getEOM().createItem<Item>());
+        service_collection.AddSingleton<IPlayer>(provider => DependencyContainer.getEOM().createPlayer<Player>()); // Because there can only ever be one player
     }
 }

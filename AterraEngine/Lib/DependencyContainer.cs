@@ -26,8 +26,15 @@ public static class DependencyContainer {
     // -----------------------------------------------------------------------------------------------------------------
     // Quick Methods  
     // -----------------------------------------------------------------------------------------------------------------
-    public static IEngineObjectManager quickGetEOM() {
+    public static IEngineObjectManager getEOM() {
         return _service_provider.GetRequiredService<IEngineObjectManager>();
     }
     
+    public static IEngineFlags getEF() {
+        return _service_provider.GetRequiredService<IEngineFlags>();
+    }
+    
+    public static IEngine getEngine() {
+        return _service_provider.GetRequiredService<IEngine>();
+    }
 }
