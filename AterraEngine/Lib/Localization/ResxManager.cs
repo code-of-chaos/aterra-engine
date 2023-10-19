@@ -13,7 +13,6 @@ public interface IResxManager {
     ResourceManager getResourceManager(string manager_name);
     ResourceManager getResourceManagerAlways<type_of_project>(string manager_name);
 }
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

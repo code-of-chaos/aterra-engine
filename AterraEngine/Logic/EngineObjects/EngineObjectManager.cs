@@ -3,8 +3,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using System.Numerics;
-using AterraEngine.Lib;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Logic.EngineObjects;
@@ -28,7 +26,7 @@ public interface IEngineObjectManager {
 public class EngineObjectManager:IEngineObjectManager {
     public IReadOnlyDictionary<int, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
     
-    private int _id_counter = 0;
+    private int _id_counter;
     private readonly Dictionary<int, IEngineObject> _engine_objects = new Dictionary<int, IEngineObject>();
 
     private readonly ILogger<EngineObjectManager> _logger;
@@ -52,8 +50,6 @@ public class EngineObjectManager:IEngineObjectManager {
         };
 
         _engine_objects.Add(entity.id, entity);
-        
-        _logger.LogInformation("Entity Created");
         
         return entity;
     }
