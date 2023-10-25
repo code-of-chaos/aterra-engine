@@ -13,6 +13,9 @@ namespace AterraEngine.Lib.Localization;
 public class CultureManager : ICultureManager {
     private readonly Dictionary<string, CultureInfo> _cultureInfos = new();
     
+    private readonly CultureInfo _default_culture = CultureInfo.CurrentCulture;
+    private readonly CultureInfo _default_ui_culture=  CultureInfo.CurrentUICulture;
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
@@ -28,11 +31,15 @@ public class CultureManager : ICultureManager {
     }
 
     public void activateCulture(string culture_name) {
-        if (!_cultureInfos.TryGetValue(culture_name, out var culture_info))
-            throw new ArgumentException($"the local of '{culture_name}' is not defined");
-
+        var culture_info = getCultureInfo(culture_name);
+        
         CultureInfo.CurrentCulture = culture_info;
         CultureInfo.CurrentUICulture = culture_info;
+    }
+
+    public void activateDefaultCulture() {
+        CultureInfo.CurrentCulture = _default_culture;
+        CultureInfo.CurrentUICulture = _default_ui_culture;
     }
 
     private CultureInfo getCultureInfo(string culture_name) {

@@ -21,14 +21,14 @@ public class ResxManager : IResxManager {
     // Storage of Implemented Resource Managers
     // -----------------------------------------------------------------------------------------------------------------
     public ResourceManager addResourceManager<type_of_project>(string manager_name) {
-        Console.Out.WriteLine(string.Join(" +++ ", _resourceManagers.Keys));
-        Console.Out.WriteLine(string.Join(" +++ ", _resourceManagers.Values));
-        Console.Out.WriteLine(manager_name);
         ResourceManager resource_manager = new ResourceManager(manager_name, typeof(type_of_project).Assembly);
         _resourceManagers.Add(manager_name, resource_manager);
         return resource_manager;
     }
     public ResourceManager addDefaultResourceManager<type_of_project>(string manager_name) {
+        if (default_resource_location is not null) {
+            throw new Exception("Default Resource Location already set");
+        }
         default_resource_location = manager_name;
         return addResourceManager<type_of_project>(manager_name);
     }
