@@ -39,6 +39,6 @@ public static class EngineServicesExtension {
         service_collection.AddSingleton<IResxManager, ResxManager>();
         
         service_collection.AddSingleton<IEngineObjectManager,EngineObjectManager>();
-        service_collection.AddSingleton<IEntityPlayer>(provider => EngineServices.getEOM().createPlayer(id:0)); // Because there can only ever be one player
+        // service_collection.AddSingleton<IEntityPlayer>(provider => EngineServices.getEOM().createPlayer(id:0)); // Because there can only ever be one player
     }
 }

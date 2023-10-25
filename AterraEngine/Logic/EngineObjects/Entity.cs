@@ -6,11 +6,11 @@ namespace AterraEngine.Logic.EngineObjects;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEntity:IEngineObject {
-    public string? name { get; set; }
+    public string? internal_name { get; init; }
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Entity : EngineObject, IEntity {
-    public string? name { get; set; }
+    public string? internal_name { get; init; }
 }

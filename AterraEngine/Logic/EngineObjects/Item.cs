@@ -8,11 +8,14 @@ namespace AterraEngine.Logic.EngineObjects;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IItem:IEngineObject {
-    float weight { get; set; }
+    float weight { get; init; }
+    string? internal_name { get; init; }
+    
 }
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Item: EngineObject, IItem {
-    public float weight { get; set; }
+    public float weight { get; init; }
+    public string? internal_name { get; init; }
 }
