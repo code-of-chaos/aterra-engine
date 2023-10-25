@@ -6,10 +6,8 @@ namespace AterraEngine.Interfaces.Engine;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngine {
-    void validateSetup(IEnumerable<string> localization_files_var);
-
-    void registerPluginFromAssemblies(string[] assembly_locations);
-    
+    void registerLogicOfPlugins(IEnginePlugin[] engine_plugins);
+    void registerResxOfPlugins(IEnginePlugin[] engine_plugins);
     void startGameLoop();
     void renderUI();
 }
