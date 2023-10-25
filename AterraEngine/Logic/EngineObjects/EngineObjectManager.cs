@@ -18,7 +18,7 @@ public interface IEngineObjectManager {
     
     T[] getAllByType<T>();
     void importFromManager(IEngineObjectManager manager);
-    public T createNewObject<T>(Func<int, ILogger<EngineObjectManager>, T> callback_func, int? id = null) where T : IEngineObject, new();
+    public T createNewObject<T>(Func<int, ILogger<EngineObjectManager>,  string, T> callback_func, int? id = null, string? resource_location = null) where T : IEngineObject, new();
     public T saveNewObject<T>(T engine_object) where T : IEngineObject, new();
 
     IEngineObject? getById(string hex_id);
@@ -84,8 +84,13 @@ public class EngineObjectManager : IEngineObjectManager {
         return entity;
     }
     
-    public T createNewObject<T>(Func<int, ILogger<EngineObjectManager>, T> callback_func, int? id = null) where T : IEngineObject, new() {
-        return saveNewObject(callback_func(id ?? getUniqueId(), _logger));
+    public T createNewObject<T>(Func<int, ILogger<EngineObjectManager>, string, T> callback_func, int? id = null, string? resource_location = null) where T : IEngineObject, new() {
+        return saveNewObject(
+            callback_func(
+                id ?? getUniqueId(), 
+                _logger,
+                resource_location ?? EngineServices.getRESXM().default_resource_location
+            ));
     }
     
     public T saveNewObject<T>(T engine_object) where T : IEngineObject, new() {

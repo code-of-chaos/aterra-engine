@@ -80,7 +80,7 @@ public class CultureManager : ICultureManager {
     public bool isCultureImplemented(ResourceManager resource, string culture_name) => _isCultureImplemented(resource, getCultureInfo(culture_name));
     public bool isCultureImplemented(ResourceManager resource, CultureInfo culture) => _isCultureImplemented(resource, culture);
     
-    private bool _isCultureImplemented(ResourceManager resource, CultureInfo culture) {
+    private static bool _isCultureImplemented(ResourceManager resource, CultureInfo culture) {
         try {
             var resourceSet = resource.GetResourceSet(culture, true, false);
             if (resourceSet != null)

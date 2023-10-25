@@ -9,7 +9,10 @@ namespace AterraEngine.Lib.Localization;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IResxManager {
+    public string default_resource_location { get;}
+    
     ResourceManager addResourceManager<type_of_project>(string manager_name);
+    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
     ResourceManager getResourceManager(string manager_name);
     ResourceManager getResourceManagerAlways<type_of_project>(string manager_name);
 }
@@ -17,6 +20,7 @@ public interface IResxManager {
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class ResxManager : IResxManager {
+    public string default_resource_location { get; private set; } = null!;
     private readonly Dictionary<string, ResourceManager> _resourceManagers = new();
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
@@ -29,6 +33,10 @@ public class ResxManager : IResxManager {
         ResourceManager resource_manager = new ResourceManager(manager_name, typeof(type_of_project).Assembly);
         _resourceManagers.Add(manager_name, resource_manager);
         return resource_manager;
+    }
+    public ResourceManager addDefaultResourceManager<type_of_project>(string manager_name) {
+        default_resource_location = manager_name;
+        return addResourceManager<type_of_project>(manager_name);
     }
     
     public ResourceManager getResourceManager(string manager_name) {
