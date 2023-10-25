@@ -1,11 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using Microsoft.Extensions.DependencyInjection;
 
-using AterraEngine.Interfaces.Logic.EngineObjects;
-namespace AterraEngine.Logic.EngineObjects;
+namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
-// Code
+// Interface
 // ---------------------------------------------------------------------------------------------------------------------
-public class ItemBook: Item, IItemBook {
+public interface IEnginePlugin {
+    public IServiceCollection addEngineServices(IServiceCollection service_collection);
+    public void defineResx();
+    public void main();
 }

@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraEngine", "AterraEngin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraEngineUnitTests", "AterraEngineUnitTests\AterraEngineUnitTests.csproj", "{70D466D8-13EF-4AF3-B3EC-4042434F3206}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AterraEngine.Interfaces", "AterraEngine.Interfaces\AterraEngine.Interfaces.csproj", "{12D46FC5-24B1-4F25-A744-3098458D4758}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{70D466D8-13EF-4AF3-B3EC-4042434F3206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D466D8-13EF-4AF3-B3EC-4042434F3206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D466D8-13EF-4AF3-B3EC-4042434F3206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D46FC5-24B1-4F25-A744-3098458D4758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D46FC5-24B1-4F25-A744-3098458D4758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D46FC5-24B1-4F25-A744-3098458D4758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D46FC5-24B1-4F25-A744-3098458D4758}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

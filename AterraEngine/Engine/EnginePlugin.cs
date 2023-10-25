@@ -1,18 +1,16 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using Microsoft.Extensions.DependencyInjection;
+
+using AterraEngine.Interfaces.Engine;
+
 namespace AterraEngine.Engine;
-// ---------------------------------------------------------------------------------------------------------------------
-// Interface
-// ---------------------------------------------------------------------------------------------------------------------
-public interface IEnginePlugin {
-    public void defineResx();
-    public void main();
-}
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class EnginePlugin : IEnginePlugin{
+public class EnginePlugin : IEnginePlugin {
+    public virtual IServiceCollection addEngineServices(IServiceCollection service_collection) => service_collection;
     public virtual void defineResx() {} 
     public virtual void main() {} 
 }

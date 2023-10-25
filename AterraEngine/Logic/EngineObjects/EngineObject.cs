@@ -5,23 +5,15 @@ using AterraEngine.Engine;
 using AterraEngine.Lib;
 using Microsoft.Extensions.Logging;
 
+using AterraEngine.Interfaces.Logic.EngineObjects;
+
 namespace AterraEngine.Logic.EngineObjects;
-// ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
-// ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineObject {
-    string? hex_id { get;}
-    int id { get; init; }
-    ILogger<EngineObjectManager> logger { init;}
-    string resource_location { get; init; }
-    
-}
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineObject : IEngineObject {
     public string hex_id => IdConverter.toHex(id, EngineServices.getED().hex_padding);
     public int id { get; init; }
-    public ILogger<EngineObjectManager> logger { private get; init;} = null!;
+    public ILogger<IEngineObjectManager> logger { private get; init;} = null!;
     public string resource_location { get; init; } = null!;
 }

@@ -1,16 +1,16 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using Microsoft.Extensions.Logging;
 
-using AterraEngine.Engine;
-
-using AterraEngine.Interfaces.Logic.EngineObjects;
-
-namespace AterraEngine.Logic.EngineObjects;
+namespace AterraEngine.Interfaces.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
-// Code
+// Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Entity : EngineObject, IEntity {
-    public string internal_name { get; set; } = "UNDEFINED";
-    public string? display_name => EngineServices.getRESXM().getResourceManager(resource_location).GetString(internal_name);
+public interface IEngineObject {
+    string? hex_id { get;}
+    int id { get; init; }
+    ILogger<IEngineObjectManager> logger { init;}
+    string resource_location { get; init; }
+    
 }

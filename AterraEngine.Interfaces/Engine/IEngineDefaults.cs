@@ -1,11 +1,13 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using AterraEngine.Interfaces.Logic.EngineObjects;
-namespace AterraEngine.Logic.EngineObjects;
+namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
-// Code
+// Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class ItemBook: Item, IItemBook {
+public interface IEngineDefaults{
+    int hex_padding { get;}
+    float item_weight { get;}
+    string entity_internal_name { get;}
+    string item_internal_name { get;}
 }

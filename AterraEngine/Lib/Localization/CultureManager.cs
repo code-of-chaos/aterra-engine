@@ -4,20 +4,9 @@
 using System.Globalization;
 using System.Resources;
 
+using AterraEngine.Interfaces.Lib.Localization;
+
 namespace AterraEngine.Lib.Localization;
-// ---------------------------------------------------------------------------------------------------------------------
-// InterfaceCode
-// ---------------------------------------------------------------------------------------------------------------------
-public interface ICultureManager {
-
-    void addCulture(string culture_name);
-    void activateCulture(string culture_name);
-
-    void checkResourceForCultures(ResourceManager resource);
-    bool isCultureImplemented(ResourceManager resource, string culture_name);
-    bool isCultureImplemented(ResourceManager resource, CultureInfo culture);
-}
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------

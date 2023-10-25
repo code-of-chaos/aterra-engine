@@ -1,10 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using AterraEngine.Lib.Localization;
-using AterraEngine.Logic.EngineObjects;
 using Microsoft.Extensions.DependencyInjection;
+
+using AterraEngine.Interfaces.Engine;
+using AterraEngine.Interfaces.Lib.Localization;
+using AterraEngine.Interfaces.Logic.EngineObjects;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ public static class EngineServices {
     /// Builds the service provider using the provided collection of services.
     /// </summary>
     /// <param name="service_collection">The collection of services to be used for building the service provider.
-    /// Make sure to add necessary services to the collection before calling this method, typically after invoking <see cref="EngineServicesExtension.addEngineServices"/>.</param>
+    /// Make sure to add necessary services to the collection before calling this method, typically after invoking one or more <see cref="EnginePlugin.addEngineServices"/>.</param>
     public static void buildServiceProvider(IServiceCollection service_collection) {
         _service_provider = service_collection.BuildServiceProvider();
     }
@@ -42,7 +43,7 @@ public static class EngineServices {
     // -----------------------------------------------------------------------------------------------------------------
     public static IEngineObjectManager getEOM() =>  _service_provider.GetRequiredService<IEngineObjectManager>();
     public static IEngineFlags getEF() =>           _service_provider.GetRequiredService<IEngineFlags>();
-    public static IEngineDefaults getED() =>           _service_provider.GetRequiredService<IEngineDefaults>();
+    public static IEngineDefaults getED() =>        _service_provider.GetRequiredService<IEngineDefaults>();
     public static IEngine getEngine() =>            _service_provider.GetRequiredService<IEngine>();
     public static ICultureManager getCM() =>        _service_provider.GetRequiredService<ICultureManager>();
     public static IResxManager getRESXM() =>        _service_provider.GetRequiredService<IResxManager>();

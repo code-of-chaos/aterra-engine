@@ -1,16 +1,15 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using AterraEngine.Engine;
-
-using AterraEngine.Interfaces.Logic.EngineObjects;
-
-namespace AterraEngine.Logic.EngineObjects;
+namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
-// Code
+// Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Entity : EngineObject, IEntity {
-    public string internal_name { get; set; } = "UNDEFINED";
-    public string? display_name => EngineServices.getRESXM().getResourceManager(resource_location).GetString(internal_name);
+public interface IEngine {
+    void validateSetup(IEnumerable<string> localization_files_var);
+
+    void registerPluginFromAssemblies(string[] assembly_locations);
+    
+    void startGameLoop();
+    void renderUI();
 }

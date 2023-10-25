@@ -6,37 +6,22 @@ using AterraEngine.Engine;
 using AterraEngine.Lib;
 using Microsoft.Extensions.Logging;
 
+using AterraEngine.Interfaces.Logic.EngineObjects;
+
 namespace AterraEngine.Logic.EngineObjects;
 
-// ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
-// ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineObjectManager {
-    IReadOnlyDictionary<int, IEngineObject> engine_objects { get; }
-    
-    int getUniqueId();
-    
-    T[] getAllByType<T>();
-    void importFromManager(IEngineObjectManager manager);
-    public T createNewObject<T>(Func<int, ILogger<EngineObjectManager>,  string, T> callback_func, int? id = null, string? resource_location = null) where T : IEngineObject, new();
-    public T saveNewObject<T>(T engine_object) where T : IEngineObject, new();
-
-    IEngineObject? getById(string hex_id);
-    IEngineObject? getById(int id);
-
-}
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineObjectManager : IEngineObjectManager {
     public IReadOnlyDictionary<int, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
     private readonly Dictionary<int, IEngineObject> _engine_objects = new Dictionary<int, IEngineObject>();
-    private readonly ILogger<EngineObjectManager> _logger;
+    private readonly ILogger<IEngineObjectManager> _logger;
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor  
     // -----------------------------------------------------------------------------------------------------------------
-    public EngineObjectManager(ILogger<EngineObjectManager> logger) {
+    public EngineObjectManager(ILogger<IEngineObjectManager> logger) {
         _logger = logger;
     }
 
@@ -84,7 +69,7 @@ public class EngineObjectManager : IEngineObjectManager {
         return entity;
     }
     
-    public T createNewObject<T>(Func<int, ILogger<EngineObjectManager>, string, T> callback_func, int? id = null, string? resource_location = null) where T : IEngineObject, new() {
+    public T createNewObject<T>(Func<int, ILogger<IEngineObjectManager>, string, T> callback_func, int? id = null, string? resource_location = null) where T : IEngineObject, new() {
         return saveNewObject(
             callback_func(
                 id ?? getUniqueId(), 

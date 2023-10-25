@@ -2,18 +2,8 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Collections.ObjectModel;
+using AterraEngine.Interfaces.Logic.EngineObjects;
 namespace AterraEngine.Logic.EngineObjects;
-
-// ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
-// ---------------------------------------------------------------------------------------------------------------------
-public interface IFaction:IEngineObject {
-    string? name { get; set; }
-    ReadOnlyDictionary<int,IEngineObject> entities { get; }
-
-    bool tryAddEngineObject(IEngineObject entity);
-    bool tryRemoveEngineObject(IEngineObject engine_object);
-}
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
