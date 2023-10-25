@@ -53,9 +53,8 @@ public class Engine : IEngine {
         // Get classes from the assembly
         //      Only retrieve those who inherit from "IEnginePlugin"
 
-        var types = assembly.GetTypes();
-        
-        Console.Out.WriteLine(string.Join("\n", types.Select(type => type.ToString())));
+        // var types = assembly.GetTypes();
+        // Console.Out.WriteLine(string.Join("\n", types.Select(type => type.ToString())));
         
         var plugins = assembly.GetTypes()
             .Where(type => typeof(IEnginePlugin).IsAssignableFrom(type) 
@@ -65,6 +64,9 @@ public class Engine : IEngine {
         
         foreach (var pluginType  in plugins) {
             IEnginePlugin plugin = (IEnginePlugin)Activator.CreateInstance(pluginType)!;
+            
+            // Order of execution is important here!
+            plugin.defineResx();
             plugin.main();
         }
     }
