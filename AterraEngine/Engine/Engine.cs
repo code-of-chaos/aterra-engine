@@ -30,7 +30,8 @@ public class Engine : IEngine {
     // setup
     // -----------------------------------------------------------------------------------------------------------------
     public void validateSetup(IEnumerable<string> localization_files_var) {
-        if (EngineServices.getEF().isDebug)
+        IEngineFlags engine_flags = EngineServices.getEF();
+        if (engine_flags.isDebug)
             // Checks if all the resource files have all the expected cultures
             foreach (var resx_file in localization_files_var) {
                 ResourceManager resource_manager = EngineServices.getRESXM().getResourceManager(resx_file);
