@@ -135,7 +135,7 @@ public static class AnsiColors {
         _colorDictionary.Add("linen",                   new ByteVector3(250,240,230));
         _colorDictionary.Add("oldlace",                 new ByteVector3(253,245,230));
         _colorDictionary.Add("papayawhip",              new ByteVector3(255,239,213));
-        _colorDictionary.Add("weashell",                new ByteVector3(255,245,238));
+        _colorDictionary.Add("seashell",                new ByteVector3(255,245,238));
         _colorDictionary.Add("mintcream",               new ByteVector3(245,255,250));
         _colorDictionary.Add("slategray",               new ByteVector3(112,128,144));
         _colorDictionary.Add("lightslategray",          new ByteVector3(119,136,153));
