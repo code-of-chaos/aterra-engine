@@ -16,15 +16,7 @@ public class EnginePrep : IEnginePrep {
     private readonly IServiceCollection _serviceCollection = new ServiceCollection();
 
     // -----------------------------------------------------------------------------------------------------------------
-    // Constructor
-    // -----------------------------------------------------------------------------------------------------------------
-    public EnginePrep() {
-        // Adds logger and Engine as services.
-        // SHOULD NEVER DO ANYTHING MORE THAN THISs
-        startPreparation();
-    }
-    // -----------------------------------------------------------------------------------------------------------------
-    // Methods
+    // Load Order Methods
     // -----------------------------------------------------------------------------------------------------------------
     public void registerLoadOrderFromJson(string json_filepath) {
         string json = File.ReadAllText(json_filepath);
@@ -41,41 +33,11 @@ public class EnginePrep : IEnginePrep {
             load_order.Add(i, assembly_locations[i]);
         }
     }
-
-    public IEnginePlugin[] prepareEngine() {
-        if (load_order.Count == 0) {
-            throw new Exception("Engine wasn't prepared with any data. Please add Plugins to the load order");
-        }
-        
-        // preparation of the Engine starts with (IN ORDER):
-        //      - Load the plugins
-        //      - load the DI Service mappings from those plugins in correct load order
-        //      - Build the DI Service provider
-        IEnginePlugin[] engine_plugins = loadPluginServices();
-        foreach (var plugin in engine_plugins) plugin.addEngineServices(_serviceCollection);
-        endPreparation();
-        
-        // After Preparation of the Engine (IN ORDER):
-        //      - Register the RESX resources
-        //      - Register logic from plugins
-        EngineServices.getEngine().registerResxOfPlugins(engine_plugins);
-        EngineServices.getEngine().registerLogicOfPlugins(engine_plugins);
-        
-        // Engine has been loaded 
-        //      - Start the main loop
-        //      - Let the chaos win!
-        return engine_plugins;
-    }
     
     // -----------------------------------------------------------------------------------------------------------------
     // Prep logic (not really meant to be use individually, but you can)
     // -----------------------------------------------------------------------------------------------------------------
-    public void startPreparation() {
-        _serviceCollection.AddLogging(builder => { builder.AddConsole(); }); // These two have to be added before anything else
-        _serviceCollection.AddSingleton<IEngine, Engine>();
-    }
-
-    public IEnginePlugin[] loadPluginServices() {
+    internal IEnginePlugin[] loadPluginServices() {
         return load_order
             // Sort the dictionary by the int key 
             .OrderBy(pair => pair.Key)
@@ -92,14 +54,47 @@ public class EnginePrep : IEnginePrep {
                 .Select(pluginType => {
                     IEnginePlugin plugin = (IEnginePlugin)Activator.CreateInstance(pluginType)!;
                     // Add (and possible overwrite) services to the service collection
-                    plugin.addEngineServices(_serviceCollection);
+                    plugin.defineEngineServices(_serviceCollection);
                     return plugin;
                 })
             ).ToArray()
         ;
     }
     
-    public void endPreparation() {
+    // -----------------------------------------------------------------------------------------------------------------
+    // Main Method
+    // -----------------------------------------------------------------------------------------------------------------
+    public IEnginePlugin[] prepareEngine() {
+        if (load_order.Count == 0) {
+            throw new Exception("Engine wasn't prepared with any data. Please add Plugins to the load order");
+        }
+        // These two have to be added before anything else
+        //      Assigns logging and the Engine
+        _serviceCollection.AddLogging(builder => { builder.AddConsole(); }); 
+        _serviceCollection.AddSingleton<IEngine, Engine>();
+        
+        // preparation of the Engine starts with (IN ORDER):
+        //      - Load the plugins
+        //      - load the DI Service mappings from those plugins in correct load order
+        //      - Build the DI Service provider
+        IEnginePlugin[] engine_plugins = loadPluginServices();
+        foreach (var plugin in engine_plugins) plugin.defineEngineServices(_serviceCollection);
+        
         EngineServices.buildServiceProvider(_serviceCollection);
+        
+        // Store the Plugins to the Engine, might be useful to something or someone
+        IEngine engine = EngineServices.getEngine();
+        engine.addPlugins(engine_plugins);
+
+        // After Preparation of the Engine (IN ORDER, but as two separate steps):
+        //      - Register the RESX resources
+        //      - Register logic from plugins
+        foreach (var plugin in engine_plugins) plugin.defineResx();
+        foreach (var plugin in engine_plugins) plugin.defineLogic();
+        
+        // Engine has been loaded 
+        //      - Start the main loop
+        //      - Let the chaos win!
+        return engine_plugins;
     }
 }

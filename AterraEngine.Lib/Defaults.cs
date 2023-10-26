@@ -1,13 +1,15 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Lib;
+
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineDefaults{
-    int hex_padding { get;}
-    float item_weight { get;}
-    string entity_internal_name { get;}
-    string item_internal_name { get;}
+public static class AterraEngineDefaults {
+    public const string filepath_engine_prep = "engine_prep.json";
+    public const int    hex_padding = 8;
+    public const float  item_weight = 1f;
+    public const string entity_internal_name = "Undefined Entity Name";
+    public const string item_internal_name = "Undefined Item Name";
 }

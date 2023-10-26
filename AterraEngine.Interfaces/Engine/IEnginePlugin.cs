@@ -10,7 +10,7 @@ namespace AterraEngine.Interfaces.Engine;
 public interface IEnginePlugin {
     public const string local_resx = null!;
     
-    public void addEngineServices(IServiceCollection service_collection);
+    public void defineEngineServices(IServiceCollection service_collection);
     public void defineResx();
-    public void main();
+    public void defineLogic();
 }

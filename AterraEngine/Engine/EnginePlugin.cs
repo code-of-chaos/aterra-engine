@@ -12,7 +12,7 @@ namespace AterraEngine.Engine;
 public class EnginePlugin : IEnginePlugin {
     public const string local_resx = null!;
 
-    public virtual void addEngineServices(IServiceCollection service_collection) {}
+    public virtual void defineEngineServices(IServiceCollection service_collection) {}
     public virtual void defineResx() {} 
-    public virtual void main() {} 
+    public virtual void defineLogic() {} 
 }

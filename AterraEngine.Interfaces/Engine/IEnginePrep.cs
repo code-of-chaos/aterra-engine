@@ -17,11 +17,7 @@ public interface IEnginePrep {
     // -----------------------------------------------------------------------------------------------------------------
     public void registerLoadOrderFromJson(string json_filepath);
     public void registerLoadOrderFromArray(string[] assembly_locations);
-
-    public IEnginePlugin[] prepareEngine();
     
-    // Engine Prep methods
-    public void startPreparation();
-    public IEnginePlugin[] loadPluginServices();
-    public void endPreparation();
+    // Main Method
+    public IEnginePlugin[] prepareEngine();
 }

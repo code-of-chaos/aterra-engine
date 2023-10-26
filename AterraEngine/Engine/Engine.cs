@@ -1,9 +1,8 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Reflection;
-using System.Resources;
 
+using System.Collections.ObjectModel;
 using AterraEngine.Interfaces.Engine;
 
 namespace AterraEngine.Engine;
@@ -11,23 +10,18 @@ namespace AterraEngine.Engine;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Engine : IEngine {
+    private IEnginePlugin[] _plugins = null!;
+    public ReadOnlyCollection<IEnginePlugin> plugins => _plugins.AsReadOnly();
+
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
     
     // -----------------------------------------------------------------------------------------------------------------
-    // Plugin logic
+    // Plugins
     // -----------------------------------------------------------------------------------------------------------------
-    public void registerLogicOfPlugins(IEnginePlugin[] engine_plugins) {
-        foreach (var plugin in engine_plugins) {
-            plugin.main();
-        }
-    }
-    
-    public void registerResxOfPlugins(IEnginePlugin[] engine_plugins) {
-        foreach (var plugin in engine_plugins) {
-            plugin.defineResx();
-        }
+    public void addPlugins(IEnginePlugin[] plugin_list) {
+        _plugins = plugin_list;
     }
     
     // -----------------------------------------------------------------------------------------------------------------

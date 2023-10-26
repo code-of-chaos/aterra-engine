@@ -15,7 +15,7 @@ namespace AterraEngine.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineObjectManager : IEngineObjectManager {
     public IReadOnlyDictionary<int, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
-    private readonly Dictionary<int, IEngineObject> _engine_objects = new Dictionary<int, IEngineObject>();
+    protected readonly Dictionary<int, IEngineObject> _engine_objects = new Dictionary<int, IEngineObject>();
     private readonly ILogger<IEngineObjectManager> _logger;
     
     // -----------------------------------------------------------------------------------------------------------------
@@ -83,6 +83,14 @@ public class EngineObjectManager : IEngineObjectManager {
             throw new Exception($"ID of engine object ${engine_object} with id ${engine_object.id} was already stored into the manager");
         }
         return engine_object;
+    }
+
+    public virtual IEntityNPC createNewEntityNPC(int id, string resource_location) {
+        IEntityNPC entity_npc = new EntityNPC(id, EngineServices.getLogger<IEntityNPC>()){
+            resource_location = resource_location
+        };
+        _engine_objects.Add(entity_npc.id, entity_npc);
+        return entity_npc;
     }
 
 }

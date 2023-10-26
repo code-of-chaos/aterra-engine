@@ -12,10 +12,12 @@ namespace AterraEngine.Logic.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineObject : IEngineObject {
-    public string hex_id => IdConverter.toHex(id, EngineServices.getED().hex_padding);
     public int id { get; init; }
-    private readonly ILogger<IEngineObject> _logger;
     public string resource_location { get; init; } = null!;
+    
+    private readonly ILogger<IEngineObject> _logger;
+    
+    public string hex_id => IdConverter.toHex(id, AterraEngineDefaults.hex_padding);
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
@@ -23,6 +25,6 @@ public class EngineObject : IEngineObject {
     public EngineObject(int id, ILogger<IEngineObject> logger)
     {
         this.id = id;
-        this._logger = logger;
+        _logger = logger;
     }
 }

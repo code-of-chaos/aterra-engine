@@ -1,13 +1,17 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
+using System.Collections.ObjectModel;
+
 namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngine {
-    void registerLogicOfPlugins(IEnginePlugin[] engine_plugins);
-    void registerResxOfPlugins(IEnginePlugin[] engine_plugins);
+    public ReadOnlyCollection<IEnginePlugin> plugins { get; }
+    
+    void addPlugins(IEnginePlugin[] plugin_list);
     void startGameLoop();
     void renderUI();
 }

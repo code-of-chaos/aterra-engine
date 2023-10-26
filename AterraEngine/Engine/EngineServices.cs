@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using AterraEngine.Interfaces.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjects;
+using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ public static class EngineServices {
     /// Builds the service provider using the provided collection of services.
     /// </summary>
     /// <param name="service_collection">The collection of services to be used for building the service provider.
-    /// Make sure to add necessary services to the collection before calling this method, typically after invoking one or more <see cref="EnginePlugin.addEngineServices"/>.</param>
+    /// Make sure to add necessary services to the collection before calling this method, typically after invoking one or more <see cref="EnginePlugin.defineEngineServices"/>.</param>
     public static void buildServiceProvider(IServiceCollection service_collection) {
         _service_provider = service_collection.BuildServiceProvider();
     }
@@ -40,11 +41,15 @@ public static class EngineServices {
     // -----------------------------------------------------------------------------------------------------------------
     // Quick Call Methods  
     // -----------------------------------------------------------------------------------------------------------------
-    public static IEngineObjectManager getEOM() =>  _service_provider.GetRequiredService<IEngineObjectManager>();
-    public static IEngineFlags getEF() =>           _service_provider.GetRequiredService<IEngineFlags>();
-    public static IEngineDefaults getED() =>        _service_provider.GetRequiredService<IEngineDefaults>();
-    public static IEngine getEngine() =>            _service_provider.GetRequiredService<IEngine>();
-    public static IEngineCultureManager getCM() =>        _service_provider.GetRequiredService<IEngineCultureManager>();
-    public static IEngineResxManager getRESXM() =>        _service_provider.GetRequiredService<IEngineResxManager>();
-    public static IEngineRandom getRANDOM() =>      _service_provider.GetRequiredService<IEngineRandom>();
+    public static ILogger<T> getLogger<T>() =>          _service_provider.GetRequiredService<ILogger<T>>();
+    
+    public static IEngineObjectManager getEOM() =>      _service_provider.GetRequiredService<IEngineObjectManager>();
+    public static IEngineFlags getEF() =>               _service_provider.GetRequiredService<IEngineFlags>();
+    // public static IEngineDefaults getED() =>            _service_provider.GetRequiredService<IEngineDefaults>();
+    public static IEngine getEngine() =>                _service_provider.GetRequiredService<IEngine>();
+    public static IEngineCultureManager getCM() =>      _service_provider.GetRequiredService<IEngineCultureManager>();
+    public static IEngineResxManager getRESXM() =>      _service_provider.GetRequiredService<IEngineResxManager>();
+    public static IEngineRandom getRANDOM() =>          _service_provider.GetRequiredService<IEngineRandom>();
+
+    public static IEntityNPC getEntityNPC(int id) =>    _service_provider.GetRequiredService<IEntityNPC>();
 }

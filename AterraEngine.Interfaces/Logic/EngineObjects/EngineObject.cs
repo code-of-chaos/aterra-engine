@@ -8,9 +8,9 @@ namespace AterraEngine.Interfaces.Logic.EngineObjects;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngineObject {
-    string? hex_id { get;}
     int id { get; init; }
     string resource_location { get; init; }
     
+    string? hex_id { get;}
     
 }

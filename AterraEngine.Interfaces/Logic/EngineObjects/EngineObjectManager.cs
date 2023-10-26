@@ -21,4 +21,6 @@ public interface IEngineObjectManager {
     IEngineObject? getById(string hex_id);
     IEngineObject? getById(int id);
 
+    IEntityNPC createNewEntityNPC(int id, string resource_location);
+
 }
