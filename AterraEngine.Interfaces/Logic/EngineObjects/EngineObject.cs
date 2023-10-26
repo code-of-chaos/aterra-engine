@@ -10,7 +10,7 @@ namespace AterraEngine.Interfaces.Logic.EngineObjects;
 public interface IEngineObject {
     string? hex_id { get;}
     int id { get; init; }
-    ILogger<IEngineObjectManager> logger { init;}
     string resource_location { get; init; }
+    
     
 }

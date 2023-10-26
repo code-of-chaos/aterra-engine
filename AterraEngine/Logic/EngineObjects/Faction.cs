@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Collections.ObjectModel;
 using AterraEngine.Interfaces.Logic.EngineObjects;
+using Microsoft.Extensions.Logging;
+
 namespace AterraEngine.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -23,4 +25,5 @@ public class Faction : EngineObject, IFaction {
         return _entities.ContainsKey(engine_object.id) && _entities.Remove(engine_object.id);
     }
 
+    public Faction(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }
