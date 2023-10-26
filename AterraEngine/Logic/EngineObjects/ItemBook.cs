@@ -10,5 +10,4 @@ namespace AterraEngine.Logic.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class ItemBook: Item, IItemBook {
-    public ItemBook(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }

@@ -11,5 +11,4 @@ namespace AterraEngine.Logic.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class ItemPotion: Item, IItemPotion {
-    public ItemPotion(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }

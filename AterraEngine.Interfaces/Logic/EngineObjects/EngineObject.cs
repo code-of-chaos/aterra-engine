@@ -2,15 +2,12 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using Microsoft.Extensions.Logging;
-
+using AterraEngine.Lib.Structs;
 namespace AterraEngine.Interfaces.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngineObject {
-    int id { get; init; }
+    AterraEngineId id { get; init; }
     string resource_location { get; init; }
-    
-    string? hex_id { get;}
-    
 }

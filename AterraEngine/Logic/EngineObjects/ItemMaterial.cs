@@ -11,5 +11,4 @@ namespace AterraEngine.Logic.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class ItemMaterial: Item, IItemMaterial {
-    public ItemMaterial(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }

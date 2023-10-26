@@ -11,5 +11,4 @@ namespace AterraEngine.Logic.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EntityNPC : Entity, IEntityNPC {
-    public EntityNPC(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }   

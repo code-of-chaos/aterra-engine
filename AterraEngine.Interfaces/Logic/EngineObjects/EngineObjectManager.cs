@@ -1,6 +1,8 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
+using AterraEngine.Lib.Structs;
 using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Interfaces.Logic.EngineObjects;
@@ -9,18 +11,20 @@ namespace AterraEngine.Interfaces.Logic.EngineObjects;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngineObjectManager {
-    IReadOnlyDictionary<int, IEngineObject> engine_objects { get; }
+    IReadOnlyDictionary<AterraEngineId, IEngineObject> engine_objects { get; }
     
-    int getUniqueId();
+    AterraEngineId getUniqueId();
     
     T[] getAllByType<T>();
     void importFromManager(IEngineObjectManager manager);
-    public T createNewObject<T>(Func<int, ILogger<IEngineObjectManager>,  string, T> callback_func, int? id = null, string? resource_location = null) where T : IEngineObject, new();
-    public T saveNewObject<T>(T engine_object) where T : IEngineObject, new();
+    public T saveNewObject<T>(T engine_object) where T : IEngineObject;
 
     IEngineObject? getById(string hex_id);
     IEngineObject? getById(int id);
-
+    IEngineObject? getById(AterraEngineId id);
+    
+    IEntityNPC createNewEntityNPC(string hex_id, string resource_location);
     IEntityNPC createNewEntityNPC(int id, string resource_location);
+    IEntityNPC createNewEntityNPC(AterraEngineId id, string resource_location);
 
 }

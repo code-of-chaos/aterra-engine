@@ -13,5 +13,4 @@ namespace AterraEngine.Logic.EngineObjects;
 public class Item: EngineObject, IItem {
     public float weight { get; init; }
     public string? internal_name { get; init; }
-    public Item(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }

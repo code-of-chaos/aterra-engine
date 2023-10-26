@@ -11,10 +11,8 @@ namespace AterraEngine.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 public class Entity : EngineObject, IEntity {
     public string internal_name { get; set; } = "UNDEFINED";
-    public string? display_name => EngineServices.getRESXM()
+    public string display_name => EngineServices.getRESXM()
         .getResourceManager(resource_location)
         .GetString(internal_name) 
         ?? $"LOCAL_NOT_FOUND={resource_location}:{internal_name}";
-
-    public Entity(int id, ILogger<IEngineObject> logger) : base(id, logger) { }
 }

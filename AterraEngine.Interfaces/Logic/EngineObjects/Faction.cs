@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Collections.ObjectModel;
+using AterraEngine.Lib.Structs;
 
 namespace AterraEngine.Interfaces.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -9,7 +10,7 @@ namespace AterraEngine.Interfaces.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IFaction:IEngineObject {
     string? name { get; set; }
-    ReadOnlyDictionary<int,IEngineObject> entities { get; }
+    ReadOnlyDictionary<AterraEngineId,IEngineObject> entities { get; }
 
     bool tryAddEngineObject(IEngineObject entity);
     bool tryRemoveEngineObject(IEngineObject engine_object);
