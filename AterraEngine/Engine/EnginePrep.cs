@@ -91,8 +91,7 @@ public class EnginePrep : IEnginePrep {
                     .Replace("{timestamp_iso8601}", DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss"))
                     .Replace("{timestamp_sortable}", DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"))
                 ,
-                rollOnFileSizeLimit: true,
-                outputTemplate: "{Timestamp:yyyy-MM-ddTHH:mm:sss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+                rollOnFileSizeLimit: true
             );
             
             log_config.MinimumLevel.Is(_engine_prep_data.logging.level);
