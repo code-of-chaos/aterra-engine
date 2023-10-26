@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using AterraEngine.Lib.Structs;
-using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Interfaces.Logic.EngineObjects;
 
@@ -23,6 +22,7 @@ public interface IEngineObjectManager {
     IEngineObject? getById(int id);
     IEngineObject? getById(AterraEngineId id);
     
+    IEntityNPC createNewEntityNPC(string resource_location);
     IEntityNPC createNewEntityNPC(string hex_id, string resource_location);
     IEntityNPC createNewEntityNPC(int id, string resource_location);
     IEntityNPC createNewEntityNPC(AterraEngineId id, string resource_location);

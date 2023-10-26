@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Globalization;
 using System.Resources;
+using Serilog;
 
 using AterraEngine.Interfaces.Engine;
 
@@ -15,6 +16,8 @@ public class EngineCultureManager : IEngineCultureManager {
     
     private readonly CultureInfo _default_culture = CultureInfo.CurrentCulture;
     private readonly CultureInfo _default_ui_culture=  CultureInfo.CurrentUICulture;
+    
+    protected ILogger _logger = EngineServices.getLogger();
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor

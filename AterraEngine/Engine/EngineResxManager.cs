@@ -4,6 +4,8 @@
 using System.Resources;
 using AterraEngine.Lib.Exceptions;
 using AterraEngine.Interfaces.Engine;
+using Serilog;
+
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
@@ -11,6 +13,8 @@ namespace AterraEngine.Engine;
 public class EngineResxManager : IEngineResxManager {
     public string default_resource_location { get; private set; } = null!;
     private readonly Dictionary<string, ResourceManager> _resourceManagers = new();
+    protected ILogger _logger = EngineServices.getLogger();
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
+using Serilog;
 using System.Collections.ObjectModel;
 using AterraEngine.Interfaces.Engine;
 
@@ -12,7 +12,8 @@ namespace AterraEngine.Engine;
 public class Engine : IEngine {
     private IEnginePlugin[] _plugins = null!;
     public ReadOnlyCollection<IEnginePlugin> plugins => _plugins.AsReadOnly();
-
+    protected ILogger _logger = EngineServices.getLogger();
+    
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------

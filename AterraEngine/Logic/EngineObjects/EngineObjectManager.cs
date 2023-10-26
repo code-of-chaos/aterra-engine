@@ -3,8 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Engine;
 using AterraEngine.Lib.Structs;
-using Microsoft.Extensions.Logging;
-
+using Serilog;
 using AterraEngine.Interfaces.Logic.EngineObjects;
 
 namespace AterraEngine.Logic.EngineObjects;
@@ -15,14 +14,7 @@ namespace AterraEngine.Logic.EngineObjects;
 public class EngineObjectManager : IEngineObjectManager {
     public IReadOnlyDictionary<AterraEngineId, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
     protected readonly Dictionary<AterraEngineId, IEngineObject> _engine_objects = new();
-    private readonly ILogger<IEngineObjectManager> _logger;
-    
-    // -----------------------------------------------------------------------------------------------------------------
-    // Constructor  
-    // -----------------------------------------------------------------------------------------------------------------
-    public EngineObjectManager(ILogger<IEngineObjectManager> logger) {
-        _logger = logger;
-    }
+    protected readonly ILogger _logger = EngineServices.getLogger();
 
     // -----------------------------------------------------------------------------------------------------------------
     // General use Methods  
@@ -35,12 +27,14 @@ public class EngineObjectManager : IEngineObjectManager {
 
         for (var i = 0; i < int.MaxValue; i++) {
             var randomId = new AterraEngineId {value=random.Next(int.MaxValue)};
-            if (!_engine_objects.ContainsKey(randomId)) {
-                return randomId;
-            }
+            if (_engine_objects.ContainsKey(randomId)) continue;
+            
+            _logger.Debug("Generated a new Unique id of '{value}'", randomId.asHex);
+            return randomId;
         }
 
         // this should never be reached, but who knows
+        _logger.Error("Unable to generate a unique ID.");
         throw new InvalidOperationException("Unable to generate a unique ID.");
     }
     
@@ -80,6 +74,7 @@ public class EngineObjectManager : IEngineObjectManager {
     // -----------------------------------------------------------------------------------------------------------------
     // Create Methods
     // -----------------------------------------------------------------------------------------------------------------
+    public virtual IEntityNPC createNewEntityNPC(string resource_location) => createNewEntityNPC(getUniqueId(), resource_location);
     public virtual IEntityNPC createNewEntityNPC(string hex_id, string resource_location) => createNewEntityNPC(AterraEngineId.fromHex(hex_id), resource_location);
     public virtual IEntityNPC createNewEntityNPC(int id, string resource_location) => createNewEntityNPC(new AterraEngineId{value = id}, resource_location);
     public virtual IEntityNPC createNewEntityNPC(AterraEngineId id, string resource_location) {

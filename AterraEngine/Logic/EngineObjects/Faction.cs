@@ -4,7 +4,6 @@
 using System.Collections.ObjectModel;
 using AterraEngine.Interfaces.Logic.EngineObjects;
 using AterraEngine.Lib.Structs;
-using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Logic.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -13,7 +12,7 @@ namespace AterraEngine.Logic.EngineObjects;
 public class Faction : EngineObject, IFaction {
     public string? name { get; set; }
     
-    private Dictionary<AterraEngineId,IEngineObject> _entities { get; } = new Dictionary<AterraEngineId, IEngineObject>();
+    private Dictionary<AterraEngineId,IEngineObject> _entities { get; } = new();
     public ReadOnlyDictionary<AterraEngineId,IEngineObject> entities => _entities.AsReadOnly();
 
     // -----------------------------------------------------------------------------------------------------------------

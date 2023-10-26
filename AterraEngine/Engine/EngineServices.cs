@@ -2,10 +2,9 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using Microsoft.Extensions.DependencyInjection;
-
+using Serilog;
 using AterraEngine.Interfaces.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjects;
-using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -41,11 +40,11 @@ public static class EngineServices {
     // -----------------------------------------------------------------------------------------------------------------
     // Quick Call Methods  
     // -----------------------------------------------------------------------------------------------------------------
-    public static ILogger<T> getLogger<T>() =>          _service_provider.GetRequiredService<ILogger<T>>();
+    public static ILogger getLogger() =>                _service_provider.GetRequiredService<ILogger>();
     
     public static IEngineObjectManager getEOM() =>      _service_provider.GetRequiredService<IEngineObjectManager>();
     public static IEngineFlags getEF() =>               _service_provider.GetRequiredService<IEngineFlags>();
-    // public static IEngineDefaults getED() =>            _service_provider.GetRequiredService<IEngineDefaults>();
+    // public static IEngineDefaults getED() =>         _service_provider.GetRequiredService<IEngineDefaults>();
     public static IEngine getEngine() =>                _service_provider.GetRequiredService<IEngine>();
     public static IEngineCultureManager getCM() =>      _service_provider.GetRequiredService<IEngineCultureManager>();
     public static IEngineResxManager getRESXM() =>      _service_provider.GetRequiredService<IEngineResxManager>();

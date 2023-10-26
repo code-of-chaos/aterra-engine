@@ -4,8 +4,9 @@
 using System.Reflection;
 using AterraEngine.Interfaces.Engine;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using Newtonsoft.Json;
+using ILogger = Serilog.ILogger;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -14,10 +15,21 @@ namespace AterraEngine.Engine;
 public class EnginePrep : IEnginePrep {
     public Dictionary<int, string> load_order { get; private set; } = new();
     private readonly IServiceCollection _serviceCollection = new ServiceCollection();
+    private EnginePrepData _engine_prep_data = null!;
 
     // -----------------------------------------------------------------------------------------------------------------
     // Load Order Methods
     // -----------------------------------------------------------------------------------------------------------------
+    public void loadDataFromEnginePrepJson(string json_filepath) {
+        string json = File.ReadAllText(json_filepath);
+        _engine_prep_data = JsonConvert.DeserializeObject<EnginePrepData>(json)
+                             ?? throw new FileLoadException($"Load order could not be extracted from file : '{json_filepath}'");
+        load_order = _engine_prep_data.load_order.ToDictionary(
+            pair => int.Parse(pair.Key), 
+            pair => pair.Value
+        );
+    }
+    
     public void registerLoadOrderFromJson(string json_filepath) {
         string json = File.ReadAllText(json_filepath);
         EnginePrepData engineData = JsonConvert.DeserializeObject<EnginePrepData>(json)
@@ -68,9 +80,18 @@ public class EnginePrep : IEnginePrep {
         if (load_order.Count == 0) {
             throw new Exception("Engine wasn't prepared with any data. Please add Plugins to the load order");
         }
+        
         // These two have to be added before anything else
         //      Assigns logging and the Engine
-        _serviceCollection.AddLogging(builder => { builder.AddConsole(); }); 
+        _serviceCollection.AddSingleton<ILogger>(_ => {
+            var log_config = new LoggerConfiguration();
+            if (_engine_prep_data.logging.allow_console_output) log_config.WriteTo.Console();
+            if (_engine_prep_data.logging.allow_file_output)  log_config.WriteTo.File(_engine_prep_data.logging.file!);
+            
+            log_config.MinimumLevel.Is(_engine_prep_data.logging.level);
+            return log_config.CreateLogger();
+        });
+        
         _serviceCollection.AddSingleton<IEngine, Engine>();
         
         // preparation of the Engine starts with (IN ORDER):

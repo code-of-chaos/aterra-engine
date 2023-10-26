@@ -1,7 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
+using Serilog;
 using AterraEngine.Interfaces.Engine;
 
 namespace AterraEngine.Engine;
@@ -10,4 +10,6 @@ namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineRandom : IEngineRandom {
     public Random random { get; } = new Random();
+    
+    protected ILogger _logger = EngineServices.getLogger();
 }

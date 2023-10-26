@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 using AterraEngine.Interfaces.Logic.EngineObjects;
-using Microsoft.Extensions.Logging;
 
 namespace AterraEngine.Logic.EngineObjects;
 
