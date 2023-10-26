@@ -16,7 +16,7 @@ public interface IEngineObjectManager {
     
     T[] getAllByType<T>();
     void importFromManager(IEngineObjectManager manager);
-    public T saveNewObject<T>(T engine_object) where T : IEngineObject;
+    public IEngineObject saveNewObject(IEngineObject engine_object);
 
     IEngineObject? getById(string hex_id);
     IEngineObject? getById(int id);

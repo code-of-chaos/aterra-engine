@@ -86,7 +86,14 @@ public class EnginePrep : IEnginePrep {
         _serviceCollection.AddSingleton<ILogger>(_ => {
             var log_config = new LoggerConfiguration();
             if (_engine_prep_data.logging.allow_console_output) log_config.WriteTo.Console();
-            if (_engine_prep_data.logging.allow_file_output)  log_config.WriteTo.File(_engine_prep_data.logging.file!);
+            if (_engine_prep_data.logging.allow_file_output) log_config.WriteTo.File(
+                _engine_prep_data.logging.file
+                    .Replace("{timestamp_iso8601}", DateTime.Now.ToString("yyyy-MM-ddTHH-mm-ss"))
+                    .Replace("{timestamp_sortable}", DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"))
+                ,
+                rollOnFileSizeLimit: true,
+                outputTemplate: "{Timestamp:yyyy-MM-ddTHH:mm:sss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+            );
             
             log_config.MinimumLevel.Is(_engine_prep_data.logging.level);
             return log_config.CreateLogger();

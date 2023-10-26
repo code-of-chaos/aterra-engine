@@ -64,10 +64,12 @@ public class EngineObjectManager : IEngineObjectManager {
     // -----------------------------------------------------------------------------------------------------------------
     // Logic methods
     // -----------------------------------------------------------------------------------------------------------------
-    public T saveNewObject<T>(T engine_object) where T : IEngineObject {
+    public IEngineObject saveNewObject(IEngineObject engine_object) {
         if (!_engine_objects.TryAdd(engine_object.id, engine_object)) {
-            throw new Exception($"ID of engine object ${engine_object} with id ${engine_object.id} was already stored into the manager");
+            _logger.Error($"ID of engine object ${engine_object} with id ${engine_object.id.value} was already stored into the manager");
+            throw new Exception($"ID of engine object ${engine_object} with id ${engine_object.id.value} was already stored into the manager");
         }
+        _logger.Debug($"AterraEngineId({engine_object.id.value}) mapped to '{engine_object}'");
         return engine_object;
     }
 
@@ -82,7 +84,7 @@ public class EngineObjectManager : IEngineObjectManager {
             id = id,
             resource_location = resource_location
         };
-        saveNewObject<IEntityNPC>(entity_npc);
+        saveNewObject(entity_npc);
         return entity_npc;
     }
 

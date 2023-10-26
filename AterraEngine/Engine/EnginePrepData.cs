@@ -7,10 +7,10 @@ namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class EnginePrepData {
+public record EnginePrepData {
     public record _Logging {
         public LogEventLevel level { get; init; } = LogEventLevel.Information;
-        public string? file { get; init; } = null;
+        public string file { get; init; } = "log.log";
         public bool allow_file_output{ get; init; } = false;
         public bool allow_console_output{ get; init; } = false;
     }
