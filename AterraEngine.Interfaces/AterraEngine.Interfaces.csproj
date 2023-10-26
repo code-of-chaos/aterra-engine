@@ -12,4 +12,8 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0-rc.2.23479.6" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Lib\Localization\" />
+    </ItemGroup>
+
 </Project>

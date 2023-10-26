@@ -4,7 +4,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
 using AterraEngine.Interfaces.Engine;
-using AterraEngine.Interfaces.Lib.Localization;
 using AterraEngine.Interfaces.Logic.EngineObjects;
 
 namespace AterraEngine.Engine;
@@ -45,7 +44,7 @@ public static class EngineServices {
     public static IEngineFlags getEF() =>           _service_provider.GetRequiredService<IEngineFlags>();
     public static IEngineDefaults getED() =>        _service_provider.GetRequiredService<IEngineDefaults>();
     public static IEngine getEngine() =>            _service_provider.GetRequiredService<IEngine>();
-    public static ICultureManager getCM() =>        _service_provider.GetRequiredService<ICultureManager>();
-    public static IResxManager getRESXM() =>        _service_provider.GetRequiredService<IResxManager>();
+    public static IEngineCultureManager getCM() =>        _service_provider.GetRequiredService<IEngineCultureManager>();
+    public static IEngineResxManager getRESXM() =>        _service_provider.GetRequiredService<IEngineResxManager>();
     public static IEngineRandom getRANDOM() =>      _service_provider.GetRequiredService<IEngineRandom>();
 }

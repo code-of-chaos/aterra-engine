@@ -4,13 +4,13 @@
 using System.Globalization;
 using System.Resources;
 
-using AterraEngine.Interfaces.Lib.Localization;
+using AterraEngine.Interfaces.Engine;
 
-namespace AterraEngine.Lib.Localization;
+namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class CultureManager : ICultureManager {
+public class EngineCultureManager : IEngineCultureManager {
     private readonly Dictionary<string, CultureInfo> _cultureInfos = new();
     
     private readonly CultureInfo _default_culture = CultureInfo.CurrentCulture;

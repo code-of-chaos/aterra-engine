@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\AterraEngine.Interfaces\AterraEngine.Interfaces.csproj" />
+      <ProjectReference Include="..\AterraEngine.Lib\AterraEngine.Lib.csproj" />
     </ItemGroup>
 
 </Project>

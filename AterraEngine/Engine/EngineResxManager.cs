@@ -3,14 +3,12 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Resources;
 using AterraEngine.Lib.Exceptions;
-
-using AterraEngine.Interfaces.Lib.Localization;
-
-namespace AterraEngine.Lib.Localization;
+using AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class ResxManager : IResxManager {
+public class EngineResxManager : IEngineResxManager {
     public string default_resource_location { get; private set; } = null!;
     private readonly Dictionary<string, ResourceManager> _resourceManagers = new();
     // -----------------------------------------------------------------------------------------------------------------

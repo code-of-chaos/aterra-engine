@@ -1,18 +1,15 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Globalization;
 using System.Resources;
 
-namespace AterraEngine.Interfaces.Lib.Localization;
+namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
-// InterfaceCode
+// Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ICultureManager {
-    void addCulture(string culture_name);
-    void activateCulture(string culture_name);
-    void activateDefaultCulture();
-    void checkResourceForCultures(ResourceManager resource);
-    bool isCultureImplemented(ResourceManager resource, string culture_name);
-    bool isCultureImplemented(ResourceManager resource, CultureInfo culture);
+public interface IEngineResxManager {
+    public string default_resource_location { get;}
+    ResourceManager addResourceManager<type_of_project>(string manager_name);
+    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
+    ResourceManager getResourceManager(string manager_name);
 }
