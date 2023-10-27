@@ -5,6 +5,7 @@ using AterraEngine.Engine;
 using AterraEngine.Lib.Structs;
 using Serilog;
 using AterraEngine.Interfaces.Logic.EngineObjects;
+using AterraEngine.Lib.Ansi;
 
 namespace AterraEngine.Logic.EngineObjects;
 
@@ -66,10 +67,10 @@ public class EngineObjectManager : IEngineObjectManager {
     // -----------------------------------------------------------------------------------------------------------------
     public IEngineObject saveNewObject(IEngineObject engine_object) {
         if (!_engine_objects.TryAdd(engine_object.id, engine_object)) {
-            _logger.Error($"ID of engine object ${engine_object} with id ${engine_object.id.value} was already stored into the manager");
+            _logger.Error("ID of engine object '{obj}' with id '{id}' was already stored into the manager", engine_object, engine_object.id);
             throw new Exception($"ID of engine object ${engine_object} with id ${engine_object.id.value} was already stored into the manager");
         }
-        _logger.Debug($"AterraEngineId({engine_object.id.value}) mapped to '{engine_object}'");
+        _logger.Debug("AterraEngineId({id}) mapped to '{obj}'", engine_object.id.value, engine_object);
         return engine_object;
     }
 
