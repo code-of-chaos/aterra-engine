@@ -1,15 +1,16 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Lib.Structs;
 
-namespace AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
+
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string? manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string? manager_name);
-    ResourceManager getResourceManager(string? manager_name);
-}
+public struct CSEntityNPC : ICSEntityNPC {
+    public AterraEngineId? id { get; init; }
+    public string? resource_location { get; init; }
+    public string? internal_name { get; init; }
+}   

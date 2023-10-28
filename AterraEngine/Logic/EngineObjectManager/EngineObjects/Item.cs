@@ -1,15 +1,15 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
 
-namespace AterraEngine.Interfaces.Engine;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+
+namespace AterraEngine.Logic.EngineObjectManager.EngineObjects;
+
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string? manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string? manager_name);
-    ResourceManager getResourceManager(string? manager_name);
+public class Item: EngineObject, IItem {
+    public float weight { get; init; }
+    public string? internal_name { get; init; }
 }

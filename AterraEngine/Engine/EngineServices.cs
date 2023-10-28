@@ -4,7 +4,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using AterraEngine.Interfaces.Engine;
-using AterraEngine.Interfaces.Logic.EngineObjects;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Interfaces.Logic.EngineObjectManager;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
