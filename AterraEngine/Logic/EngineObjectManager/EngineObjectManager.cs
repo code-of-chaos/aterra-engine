@@ -100,5 +100,4 @@ public class EngineObjectManager : IEngineObjectManager {
         
         return entity_npc;
     }
-
 }
