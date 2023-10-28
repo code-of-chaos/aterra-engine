@@ -29,6 +29,9 @@ public static class EngineServices {
     public static void buildServiceProvider(IServiceCollection service_collection) {
         _service_provider = service_collection.BuildServiceProvider();
     }
+    public static void disposeServiceProvider() {
+        _service_provider.Dispose();
+    }
 
     /// <summary>
     /// Retrieves a required service of type <typeparamref name="T"/> from the service provider.
