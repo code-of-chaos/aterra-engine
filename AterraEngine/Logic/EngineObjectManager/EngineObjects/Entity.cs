@@ -10,4 +10,5 @@ namespace AterraEngine.Logic.EngineObjectManager.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class Entity : EngineObject, IEntity {
+    public float health_max { get; init; }
 }

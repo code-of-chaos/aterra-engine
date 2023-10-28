@@ -1,19 +1,16 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using AterraEngine.Interfaces.Logic;
-using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
-using AterraEngine.Lib.Structs;
-
-namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
+namespace AterraEngine.Interfaces.Engine;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public struct CSEntityNPC : ICSEntityNPC {
-    public IAterraEngineId? id { get; set; }
-    public string? resource_location { get; set; }
-    public string? internal_name { get; set; }
-    public float? health_max { get; init; }
-}   
+public class IEngineDefaults {
+    public string  filepath_engine_prep =null!;
+    public int     hex_padding;
+    public float   item_weight;
+    public string  entity_internal_name =null!;
+    public float   entity_health_max;
+    public string  item_internal_name =null!;
+}

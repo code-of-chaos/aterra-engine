@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Engine;
+using AterraEngine.Interfaces.Logic;
 using Serilog;
 using AterraEngine.Lib.Structs;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
@@ -11,7 +12,7 @@ namespace AterraEngine.Logic.EngineObjectManager.EngineObjects;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineObject : IEngineObject {
-    public AterraEngineId id { get; init; }
+    public IAterraEngineId id { get; init; }
     public string? resource_location { get; init; } = null!;
     public string internal_name { get; init; } = null!;
     public string display_name => EngineServices

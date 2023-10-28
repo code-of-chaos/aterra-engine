@@ -7,6 +7,5 @@ namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IItem:IEngineObject {
     float weight { get; init; }
-    string? internal_name { get; init; }
     
 }

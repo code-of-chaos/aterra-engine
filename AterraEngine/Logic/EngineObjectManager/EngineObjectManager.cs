@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Engine;
+using AterraEngine.Interfaces.Logic;
 using AterraEngine.Lib.Structs;
 using Serilog;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
@@ -9,7 +10,6 @@ using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 using AterraEngine.Lib;
 using AterraEngine.Logic.EngineObjectManager.EngineObjects;
-using AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
 
 namespace AterraEngine.Logic.EngineObjectManager;
 
@@ -17,14 +17,14 @@ namespace AterraEngine.Logic.EngineObjectManager;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineObjectManager : IEngineObjectManager {
-    public IReadOnlyDictionary<AterraEngineId, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
-    protected readonly Dictionary<AterraEngineId, IEngineObject> _engine_objects = new();
+    public IReadOnlyDictionary<IAterraEngineId, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
+    protected readonly Dictionary<IAterraEngineId, IEngineObject> _engine_objects = new();
     protected readonly ILogger _logger = EngineServices.getLogger();
 
     // -----------------------------------------------------------------------------------------------------------------
     // General use Methods  
     // -----------------------------------------------------------------------------------------------------------------
-    public AterraEngineId getUniqueId() {
+    public IAterraEngineId getUniqueId() {
         // This function is too powerful
         //      It must be contained at some point
 
@@ -61,7 +61,7 @@ public class EngineObjectManager : IEngineObjectManager {
 
     public IEngineObject? getById(string hex_id) => getById(AterraEngineId.fromHex(hex_id));
     public IEngineObject? getById(int id) => getById(new AterraEngineId{value=id});
-    public IEngineObject? getById(AterraEngineId id) {
+    public IEngineObject? getById(IAterraEngineId id) {
         engine_objects.TryGetValue(id, out var entity);
         return entity;
     }
@@ -85,7 +85,8 @@ public class EngineObjectManager : IEngineObjectManager {
         IEntityNPC entity_npc = new EntityNPC{
             id = cs_entity_npc.id ?? getUniqueId(),
             resource_location = cs_entity_npc.resource_location ?? throw new Exception(), // todo, do something better
-            internal_name = cs_entity_npc.internal_name ?? AterraEngineDefaults.entity_internal_name
+            internal_name = cs_entity_npc.internal_name ?? EngineDefaults.entity_internal_name,
+            health_max=cs_entity_npc.health_max ?? EngineDefaults.entity_health_max,
         };
         saveNewObject(entity_npc);
         return entity_npc;

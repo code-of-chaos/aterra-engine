@@ -1,15 +1,17 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace AterraEngine.Lib;
+using AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Engine;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public static class AterraEngineDefaults {
-    public const string filepath_engine_prep = "engine_prep.json";
-    public const int    hex_padding = 8;
-    public const float  item_weight = 1f;
-    public const string entity_internal_name = "ENTITY_NAME_UNDEFINED";
-    public const string item_internal_name = "ITEM_NAME_UNDEFINED";
+public class EngineDefaults :IEngineDefaults {
+    public new const string     filepath_engine_prep = "engine_prep.json";
+    public new const int        hex_padding = 8;
+    public new const float      item_weight = 1f;
+    public new const string     entity_internal_name = "ENTITY_NAME_UNDEFINED";
+    public new const float      entity_health_max = 100f;
+    public new const string     item_internal_name = "ITEM_NAME_UNDEFINED";
 }

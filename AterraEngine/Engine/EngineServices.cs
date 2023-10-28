@@ -6,6 +6,7 @@ using Serilog;
 using AterraEngine.Interfaces.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -50,6 +51,9 @@ public static class EngineServices {
     public static IEngineCultureManager getCM() =>      _service_provider.GetRequiredService<IEngineCultureManager>();
     public static IEngineResxManager getRESXM() =>      _service_provider.GetRequiredService<IEngineResxManager>();
     public static IEngineRandom getRANDOM() =>          _service_provider.GetRequiredService<IEngineRandom>();
+    public static IEngineDefaults getDEFAULTS() =>      _service_provider.GetRequiredService<IEngineDefaults>();
 
-    public static IEntityNPC getEntityNPC(int id) =>    _service_provider.GetRequiredService<IEntityNPC>();
+
+
+
 }

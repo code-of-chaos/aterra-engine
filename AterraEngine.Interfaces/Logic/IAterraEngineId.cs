@@ -1,19 +1,12 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using AterraEngine.Interfaces.Logic;
-using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
-using AterraEngine.Lib.Structs;
-
-namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
-
+namespace AterraEngine.Interfaces.Logic; 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public struct CSEntityNPC : ICSEntityNPC {
-    public IAterraEngineId? id { get; set; }
-    public string? resource_location { get; set; }
-    public string? internal_name { get; set; }
-    public float? health_max { get; init; }
-}   
+public interface IAterraEngineId {
+    public int value { get; init; }
+    public string asHex { get; }
+    public static IAterraEngineId fromHex(string hex_value) { throw new NotImplementedException(); }
+}

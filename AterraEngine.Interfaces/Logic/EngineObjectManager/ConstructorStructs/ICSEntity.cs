@@ -6,4 +6,5 @@ namespace AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface ICSEntity:ICSEngineObject {
+    float? health_max { get; init; }
 }

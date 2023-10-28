@@ -1,7 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using AterraEngine.Lib.Structs;
+using AterraEngine.Interfaces.Logic;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 
@@ -11,9 +11,9 @@ namespace AterraEngine.Interfaces.Logic.EngineObjectManager;
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IEngineObjectManager {
-    IReadOnlyDictionary<AterraEngineId, IEngineObject> engine_objects { get; }
+    IReadOnlyDictionary<IAterraEngineId, IEngineObject> engine_objects { get; }
     
-    AterraEngineId getUniqueId();
+    IAterraEngineId getUniqueId();
     
     T[] getAllByType<T>();
     void importFromManager(IEngineObjectManager manager);
@@ -21,7 +21,7 @@ public interface IEngineObjectManager {
 
     IEngineObject? getById(string hex_id);
     IEngineObject? getById(int id);
-    IEngineObject? getById(AterraEngineId id);
+    IEngineObject? getById(IAterraEngineId id);
     
     IEntityNPC createNewEntityNPC(ICSEntityNPC cs_entity_npc);
 
