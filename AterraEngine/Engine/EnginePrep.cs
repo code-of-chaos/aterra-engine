@@ -30,16 +30,6 @@ public class EnginePrep : IEnginePrep {
             pair => pair.Value
         );
     }
-    
-    public void registerLoadOrderFromJson(string json_filepath) {
-        string json = File.ReadAllText(json_filepath);
-        EnginePrepData engineData = JsonConvert.DeserializeObject<EnginePrepData>(json)
-            ?? throw new FileLoadException($"Load order could not be extracted from file : '{json_filepath}'");
-        load_order = engineData.load_order.ToDictionary(
-            pair => int.Parse(pair.Key), 
-            pair => pair.Value
-            );
-    }
 
     public void registerLoadOrderFromArray(string[] assembly_locations) {
         for (int i = 0; i < assembly_locations.Length; i++) {
@@ -52,25 +42,31 @@ public class EnginePrep : IEnginePrep {
     // -----------------------------------------------------------------------------------------------------------------
     internal IEnginePlugin[] loadPluginServices() {
         return load_order
-            // Sort the dictionary by the int key 
+            // Sort the prefix id key 
             .OrderBy(pair => pair.Key)
-            .Select(pair => pair.Value)
             // Go over the list and load them as assemblies
-            .Select(Assembly.LoadFrom)
+            .Select(pair => (pair.Key, Assembly.LoadFrom(pair.Value)))
             // Go over the assemblies and extract Plugins
-            .SelectMany(assembly => assembly
-                .GetTypes()
-                .Where(type => typeof(IEnginePlugin).IsAssignableFrom(type) 
-                               && !type.IsInterface 
-                               && !type.IsAbstract
-                )
-                .Select(pluginType => {
-                    IEnginePlugin plugin = (IEnginePlugin)Activator.CreateInstance(pluginType)!;
-                    // Add (and possible overwrite) services to the service collection
-                    plugin.defineEngineServices(_serviceCollection);
-                    return plugin;
-                })
-            ).ToArray()
+            .SelectMany(pair => {
+                var (key, assembly) = pair;
+                return assembly
+                    .GetTypes()
+                    .Where(type => typeof(IEnginePlugin).IsAssignableFrom(type)
+                                   && !type.IsInterface
+                                   && !type.IsAbstract
+                    )
+                    .Select(pluginType => {
+                        // Create the Plugin instance
+                        IEnginePlugin plugin = (IEnginePlugin)Activator.CreateInstance(pluginType)!;
+                        plugin.Initialize(idPrefix:key);
+                        
+                        // Todo 
+                        
+                        // Add (and possible overwrite) services to the service collection
+                        plugin.defineEngineServices(_serviceCollection);
+                        return plugin;
+                    });
+            }).ToArray()
         ;
     }
     

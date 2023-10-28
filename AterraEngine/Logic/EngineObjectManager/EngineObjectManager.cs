@@ -2,14 +2,17 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Engine;
+using AterraEngine.Interfaces.Engine;
 using AterraEngine.Interfaces.Logic;
 using AterraEngine.Lib.Structs;
 using Serilog;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Interfaces.Structs;
 using AterraEngine.Lib;
 using AterraEngine.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Structs;
 
 namespace AterraEngine.Logic.EngineObjectManager;
 
@@ -81,14 +84,20 @@ public class EngineObjectManager : IEngineObjectManager {
     // -----------------------------------------------------------------------------------------------------------------
     // Create Methods
     // -----------------------------------------------------------------------------------------------------------------
-    public virtual IEntityNPC createNewEntityNPC(ICSEntityNPC cs_entity_npc) {
+    public virtual IEntityNPC createNewEntityNPC(ICSEntityNPC cs) {
+        // Only get the default once, don't repeat yourself!
+        IEngineDefaults defaults = EngineServices.getDEFAULTS();
+        
+        // Create the EngineObject with the ConstructorStruct
         IEntityNPC entity_npc = new EntityNPC{
-            id = cs_entity_npc.id ?? getUniqueId(),
-            resource_location = cs_entity_npc.resource_location ?? throw new Exception(), // todo, do something better
-            internal_name = cs_entity_npc.internal_name ?? EngineDefaults.entity_internal_name,
-            health_max=cs_entity_npc.health_max ?? EngineDefaults.entity_health_max,
+            id =                cs.id                   ?? getUniqueId(),
+            resource_location = cs.resource_location    ?? throw new Exception(), // todo, do something better
+            internal_name =     cs.internal_name        ?? defaults.entity_internal_name,
+            health_max=         cs.health_max           ?? defaults.entity_health_max,
         };
+        // Don't forget to save the object to to the internal dictionary
         saveNewObject(entity_npc);
+        
         return entity_npc;
     }
 

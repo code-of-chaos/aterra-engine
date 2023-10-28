@@ -6,11 +6,11 @@ namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class IEngineDefaults {
-    public string  filepath_engine_prep =null!;
-    public int     hex_padding;
-    public float   item_weight;
-    public string  entity_internal_name =null!;
-    public float   entity_health_max;
-    public string  item_internal_name =null!;
+public interface IEngineDefaults {
+    int     AterraEngineId_value_padding { get; }
+    int     AterraEngineId_prefix_padding{ get; }
+    float   item_weight{ get; }
+    string  entity_internal_name{ get; }
+    float   entity_health_max{ get; }
+    string  item_internal_name { get; }
 }

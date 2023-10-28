@@ -8,10 +8,10 @@ namespace AterraEngine.Engine;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineDefaults :IEngineDefaults {
-    public new const string     filepath_engine_prep = "engine_prep.json";
-    public new const int        hex_padding = 8;
-    public new const float      item_weight = 1f;
-    public new const string     entity_internal_name = "ENTITY_NAME_UNDEFINED";
-    public new const float      entity_health_max = 100f;
-    public new const string     item_internal_name = "ITEM_NAME_UNDEFINED";
+    public int AterraEngineId_value_padding => 8;
+    public int AterraEngineId_prefix_padding => 3;
+    public float item_weight => 1f;
+    public string entity_internal_name => "ENTITY_NAME_UNDEFINED";
+    public float entity_health_max => 100f;
+    public string item_internal_name => "ITEM_NAME_UNDEFINED";
 }

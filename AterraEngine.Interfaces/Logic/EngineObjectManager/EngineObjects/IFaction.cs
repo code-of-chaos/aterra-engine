@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using System.Collections.ObjectModel;
+using AterraEngine.Interfaces.Structs;
 using AterraEngine.Lib.Structs;
 
 namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;

@@ -1,6 +1,9 @@
 // ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
+using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Interfaces.Structs;
 using AterraEngine.Lib.Structs;
 namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 // ---------------------------------------------------------------------------------------------------------------------

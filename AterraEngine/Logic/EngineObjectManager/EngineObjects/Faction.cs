@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using AterraEngine.Interfaces.Logic;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
+using AterraEngine.Interfaces.Structs;
 using AterraEngine.Lib.Structs;
 
 namespace AterraEngine.Logic.EngineObjectManager.EngineObjects;

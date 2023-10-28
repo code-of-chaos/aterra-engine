@@ -1,15 +1,13 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using AterraEngine.Engine;
-using AterraEngine.Interfaces.Logic;
-using AterraEngine.Lib;
-namespace AterraEngine.Logic; 
+namespace AterraEngine.Interfaces.Structs; 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public readonly struct AterraEngineId : IAterraEngineId{ // Todo as the project grows: check performance impact of this being a struct vs class
+public interface IAterraEngineId {
+    public int prefix_value { get; init; }
     public int value { get; init; }
-    public string asHex => IdConverter.toHex(value, EngineServices.getDEFAULTS().hex_padding);
-    public static IAterraEngineId fromHex(string hex_value) => new AterraEngineId{ value = IdConverter.toInt(hex_value) };
+    public string asHex { get; }
+    public static IAterraEngineId fromHex(string hex_value) { throw new NotImplementedException(); }
 }

@@ -30,4 +30,8 @@
       <ProjectReference Include="..\AterraEngine.Lib\AterraEngine.Lib.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Logic\InventoryManager\" />
+    </ItemGroup>
+
 </Project>

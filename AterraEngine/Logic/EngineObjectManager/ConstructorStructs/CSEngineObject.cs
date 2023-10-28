@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Interfaces.Logic;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Interfaces.Structs;
 
 namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
 // ---------------------------------------------------------------------------------------------------------------------
