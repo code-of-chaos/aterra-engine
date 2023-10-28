@@ -12,21 +12,17 @@ namespace AterraEngine.Structs;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public readonly struct AterraEngineId : IAterraEngineId{ // Todo as the project grows: check performance impact of this being a struct vs class
-    public int prefix_value { get; init; }
-    public int value { get; init; }
+    public int plugin_id { get; init; }
+    public int object_id { get; init; }
     public string asHex {
         get {
-            var prefix = IdConverter.toHex(prefix_value, EngineServices.getDEFAULTS().AterraEngineId_prefix_padding);
-            var hex_value = IdConverter.toHex(value, EngineServices.getDEFAULTS().AterraEngineId_value_padding);
+            var prefix = IdConverter.toHex(plugin_id, EngineServices.getDEFAULTS().AterraEngineId_prefix_padding);
+            var hex_value = IdConverter.toHex(object_id, EngineServices.getDEFAULTS().AterraEngineId_value_padding);
             return $"{prefix}{hex_value}";
         }
     }
 
     public static IAterraEngineId fromHex(string hex_value) {
-        // hex_value = "00112345678"
-        // prefix = 001 =1
-        // value = 12345678
-        
         IEngineDefaults defaults = EngineServices.getDEFAULTS();
         hex_value = hex_value.Replace("#", "");
         
@@ -51,8 +47,8 @@ public readonly struct AterraEngineId : IAterraEngineId{ // Todo as the project 
         }
         
         return new AterraEngineId {
-            prefix_value = prefix,
-            value =value
+            plugin_id = prefix,
+            object_id =value
         };
     }
 }

@@ -27,14 +27,14 @@ public class EngineObjectManager : IEngineObjectManager {
     // -----------------------------------------------------------------------------------------------------------------
     // General use Methods  
     // -----------------------------------------------------------------------------------------------------------------
-    public IAterraEngineId getUniqueId() {
+    public IAterraEngineId getUniqueId(IEnginePlugin current_plugin) {
         // This function is too powerful
         //      It must be contained at some point
 
         Random random = EngineServices.getRANDOM().random;
 
         for (var i = 0; i < int.MaxValue; i++) {
-            var randomId = new AterraEngineId {value=random.Next(int.MaxValue)};
+            var randomId = new AterraEngineId {object_id=random.Next(int.MaxValue), plugin_id = current_plugin.id_prefix};
             if (_engine_objects.ContainsKey(randomId)) continue;
             
             _logger.Debug("Generated a new Unique id of '{value}'", randomId.asHex);
@@ -63,7 +63,7 @@ public class EngineObjectManager : IEngineObjectManager {
     }
 
     public IEngineObject? getById(string hex_id) => getById(AterraEngineId.fromHex(hex_id));
-    public IEngineObject? getById(int id) => getById(new AterraEngineId{value=id});
+    public IEngineObject? getById(int id) => getById(new AterraEngineId{object_id=id});
     public IEngineObject? getById(IAterraEngineId id) {
         engine_objects.TryGetValue(id, out var entity);
         return entity;
@@ -75,23 +75,23 @@ public class EngineObjectManager : IEngineObjectManager {
     public IEngineObject saveNewObject(IEngineObject engine_object) {
         if (!_engine_objects.TryAdd(engine_object.id, engine_object)) {
             _logger.Error("ID of engine object '{obj}' with id '{id}' was already stored into the manager", engine_object, engine_object.id);
-            throw new Exception($"ID of engine object ${engine_object} with id ${engine_object.id.value} was already stored into the manager");
+            throw new Exception($"ID of engine object ${engine_object} with id ${engine_object.id.object_id} was already stored into the manager");
         }
-        _logger.Debug("AterraEngineId({id}) mapped to '{obj}'", engine_object.id.value, engine_object.internal_name);
+        _logger.Debug("AterraEngineId({id}) mapped to '{obj}'", engine_object.id.object_id, engine_object.internal_name);
         return engine_object;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     // Create Methods
     // -----------------------------------------------------------------------------------------------------------------
-    public virtual IEntityNPC createNewEntityNPC(ICSEntityNPC cs) {
+    public virtual IEntityNPC createNewEntityNPC(IEnginePlugin current_plugin, ICSEntityNPC cs) {
         // Only get the default once, don't repeat yourself!
         IEngineDefaults defaults = EngineServices.getDEFAULTS();
         
         // Create the EngineObject with the ConstructorStruct
         IEntityNPC entity_npc = new EntityNPC{
-            id =                cs.id                   ?? getUniqueId(),
-            resource_location = cs.resource_location    ?? throw new Exception(), // todo, do something better
+            id =                cs.id                   ?? getUniqueId(current_plugin),
+            resource_location = cs.resource_location    ?? null, // todo, do something better
             internal_name =     cs.internal_name        ?? defaults.entity_internal_name,
             health_max=         cs.health_max           ?? defaults.entity_health_max,
         };
