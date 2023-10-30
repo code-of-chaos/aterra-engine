@@ -1,15 +1,20 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
 
-namespace AterraEngine.Interfaces.Engine;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Interfaces.Structs;
+
+namespace AterraEngine.Interfaces.Logic.EngineObjectManager;
+
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
-    ResourceManager getResourceManager(string manager_name);
+public interface ITilesManager {
+    IReadOnlyDictionary<IAterraEngineId, ITile> tiles { get; }
+    ITile default_tile { get; }
+
+    bool tryAddTile(ITile tile);
+    void defineDefaultTile(ITile tile);
+    bool tryGetTile(IAterraEngineId aterra_engine_id, out ITile tile);
 }

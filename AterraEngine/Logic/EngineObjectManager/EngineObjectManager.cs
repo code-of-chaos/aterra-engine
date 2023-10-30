@@ -3,14 +3,11 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Engine;
 using AterraEngine.Interfaces.Engine;
-using AterraEngine.Interfaces.Logic;
-using AterraEngine.Lib.Structs;
 using Serilog;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 using AterraEngine.Interfaces.Structs;
-using AterraEngine.Lib;
 using AterraEngine.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Structs;
 
@@ -23,6 +20,7 @@ public class EngineObjectManager : IEngineObjectManager {
     public IReadOnlyDictionary<IAterraEngineId, IEngineObject> engine_objects => _engine_objects.AsReadOnly();
     protected readonly Dictionary<IAterraEngineId, IEngineObject> _engine_objects = new();
     protected readonly ILogger _logger = EngineServices.getLogger();
+    protected readonly int _max_random_id = (int)Math.Pow(EngineServices.getDEFAULTS().AterraEngineId_value_padding, 8) - 1;
 
     // -----------------------------------------------------------------------------------------------------------------
     // General use Methods  
@@ -33,8 +31,8 @@ public class EngineObjectManager : IEngineObjectManager {
 
         Random random = EngineServices.getRANDOM().random;
 
-        for (var i = 0; i < int.MaxValue; i++) {
-            var randomId = new AterraEngineId {object_id=random.Next(int.MaxValue), plugin_id = current_plugin.id_prefix};
+        for (var i = 0; i < _max_random_id; i++) {
+            var randomId = new AterraEngineId {object_id=random.Next(_max_random_id), plugin_id = current_plugin.id_prefix};
             if (_engine_objects.ContainsKey(randomId)) continue;
             
             _logger.Debug("Generated a new Unique id of '{value}'", randomId.asHex);
@@ -99,5 +97,56 @@ public class EngineObjectManager : IEngineObjectManager {
         saveNewObject(entity_npc);
         
         return entity_npc;
+    }
+    
+    public virtual IArea createArea(IEnginePlugin current_plugin, ICSArea cs){
+        // Only get the default once, don't repeat yourself!
+        IEngineDefaults defaults = EngineServices.getDEFAULTS();
+
+        IArea area = new Area(map_max_x: cs.max_x, map_max_y: cs.max_y) {
+            id = cs.id ?? getUniqueId(current_plugin),
+            resource_location = cs.resource_location ?? null, // todo, do something better
+            internal_name = cs.internal_name ?? defaults.area_internal_name,
+        };
+        
+        // Don't forget to save the object to to the internal dictionary
+        saveNewObject(area);
+        
+        return area;
+    }
+    
+    public virtual ITile createTile(IEnginePlugin current_plugin, ICSTile cs){
+        // Only get the default once, don't repeat yourself!
+        IEngineDefaults defaults = EngineServices.getDEFAULTS();
+
+        ITile tile = new Tile {
+            id = cs.id ?? getUniqueId(current_plugin),
+            resource_location = cs.resource_location ?? null, // todo, do something better
+            internal_name = cs.internal_name ?? defaults.tile_internal_name,
+        };
+        
+        // Don't forget to save the object to to the internal dictionary
+        saveNewObject(tile);
+        
+        return tile;
+        
+    }
+    
+    public virtual IPointOfInterest createPointOfInterest(IEnginePlugin current_plugin, ICSPointOfInterest cs){
+        // Only get the default once, don't repeat yourself!
+        IEngineDefaults defaults = EngineServices.getDEFAULTS();
+
+        IPointOfInterest point_of_interest = new PointOfInterest{
+            id = cs.id ?? getUniqueId(current_plugin),
+            resource_location = cs.resource_location ?? null, // todo, do something better
+            internal_name = cs.internal_name ?? defaults.poi_internal_name,
+            link_exit = cs.link_exit ?? null
+        };
+        
+        // Don't forget to save the object to to the internal dictionary
+        saveNewObject(point_of_interest);
+        
+        return point_of_interest;
+        
     }
 }

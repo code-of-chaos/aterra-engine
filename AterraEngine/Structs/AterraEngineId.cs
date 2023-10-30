@@ -21,7 +21,10 @@ public readonly struct AterraEngineId : IAterraEngineId{ // Todo as the project 
         get => _object_id;
         init => _object_id = checkLimit(value, EngineServices.getDEFAULTS().AterraEngineId_value_padding);
     }
-
+    
+    // -----------------------------------------------------------------------------------------------------------------
+    // Methods
+    // -----------------------------------------------------------------------------------------------------------------
     private static int checkLimit(int? value, int max_length) {
         switch (value) {
             case null :
@@ -70,5 +73,11 @@ public readonly struct AterraEngineId : IAterraEngineId{ // Todo as the project 
             plugin_id = prefix,
             object_id = value
         };
+    }
+    // -----------------------------------------------------------------------------------------------------------------
+    // Overrides
+    // -----------------------------------------------------------------------------------------------------------------
+    public override string ToString() {
+        return $"AterraEngineId(plugin_id: {plugin_id}, object_id: {object_id}, asHex : {asHex})";
     }
 }

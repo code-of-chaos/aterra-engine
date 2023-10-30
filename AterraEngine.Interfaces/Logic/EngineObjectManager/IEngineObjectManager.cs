@@ -24,6 +24,9 @@ public interface IEngineObjectManager {
     IEngineObject? getById(int id);
     IEngineObject? getById(IAterraEngineId id);
     
-    IEntityNPC createNewEntityNPC(IEnginePlugin current_plugin, ICSEntityNPC cs_entity_npc);
+    IEntityNPC createNewEntityNPC(IEnginePlugin current_plugin, ICSEntityNPC cs);
+    IArea createArea(IEnginePlugin current_plugin, ICSArea cs);
+    ITile createTile(IEnginePlugin current_plugin, ICSTile cs);
+    IPointOfInterest createPointOfInterest(IEnginePlugin current_plugin, ICSPointOfInterest cs);
 
 }

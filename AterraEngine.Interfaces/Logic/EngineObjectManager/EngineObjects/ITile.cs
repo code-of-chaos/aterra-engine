@@ -1,15 +1,13 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
+using System.Numerics;
+using AterraEngine.Interfaces.Structs;
+namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 
-namespace AterraEngine.Interfaces.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
-    ResourceManager getResourceManager(string manager_name);
+public interface ITile:IEngineObject {
+    bool isWalkable { get; init; }
 }

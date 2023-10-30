@@ -1,15 +1,17 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Interfaces.Structs;
 
-namespace AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
+
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
-    ResourceManager getResourceManager(string manager_name);
+public struct CSTile:ICSTile {
+    public IAterraEngineId? id { get; set; }
+    public string? resource_location { get; set; }
+    public string? internal_name { get; set; }
+    public bool? isWalkable { get; set; }
 }

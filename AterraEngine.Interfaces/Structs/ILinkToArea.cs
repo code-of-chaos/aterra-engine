@@ -1,15 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
-
-namespace AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Interfaces.Structs; 
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
-    ResourceManager getResourceManager(string manager_name);
+public interface ILinkToArea {
+    public IAterraEngineId target_area {get; init;}
+    public IPosition2D target_tile_pos {get; init;}
 }

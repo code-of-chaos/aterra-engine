@@ -7,6 +7,7 @@ using AterraEngine.Interfaces.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
 
 namespace AterraEngine.Engine;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -55,6 +56,8 @@ public static class EngineServices {
     public static IEngineResxManager getRESXM() =>      _service_provider.GetRequiredService<IEngineResxManager>();
     public static IEngineRandom getRANDOM() =>          _service_provider.GetRequiredService<IEngineRandom>();
     public static IEngineDefaults getDEFAULTS() =>      _service_provider.GetRequiredService<IEngineDefaults>();
+    public static ITilesManager getTM() =>               _service_provider.GetRequiredService<ITilesManager>();
+    
 
 
 

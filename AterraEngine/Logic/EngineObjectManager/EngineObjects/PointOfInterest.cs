@@ -1,15 +1,16 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using System.Resources;
+using System.Numerics;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Interfaces.Structs;
+using AterraEngine.Structs;
 
-namespace AterraEngine.Interfaces.Engine;
+namespace AterraEngine.Logic.EngineObjectManager.EngineObjects;
+
 // ---------------------------------------------------------------------------------------------------------------------
-// Interface Code
+// Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface IEngineResxManager {
-    public string? default_resource_location { get;}
-    ResourceManager addResourceManager<type_of_project>(string manager_name);
-    ResourceManager addDefaultResourceManager<type_of_project>(string manager_name);
-    ResourceManager getResourceManager(string manager_name);
+public class PointOfInterest:Tile,IPointOfInterest {
+    public ILinkToArea? link_exit { get; init; }
 }

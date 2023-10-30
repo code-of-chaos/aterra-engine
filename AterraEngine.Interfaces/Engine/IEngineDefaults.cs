@@ -13,4 +13,8 @@ public interface IEngineDefaults {
     string  entity_internal_name{ get; }
     float   entity_health_max{ get; }
     string  item_internal_name { get; }
+    bool    tile_isWalkable { get; }
+    string  area_internal_name { get; }
+    string  tile_internal_name { get; }
+    string  poi_internal_name { get; }
 }
