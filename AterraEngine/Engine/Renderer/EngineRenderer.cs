@@ -14,7 +14,7 @@ namespace AterraEngine.Engine.Renderer;
 public class EngineRenderer:IEngineRenderer {
     private readonly ILogger _logger = EngineServices.getLogger();
     
-    private const int _frame_size = 31;
+    private const int _frame_size = 15;
     private readonly IChunk?[,] _camera_view = new IChunk?[_frame_size, _frame_size];
     private readonly int _chunk_size = EngineServices.getDEFAULTS().chunk_max_size;
     private const string _blank_str = "-";
