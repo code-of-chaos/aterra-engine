@@ -1,7 +1,10 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
+using System.ComponentModel;
 using AterraEngine.Interfaces.Structs;
+using AterraEngine.Lib.Structs;
 
 namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 
@@ -10,6 +13,7 @@ namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 // ---------------------------------------------------------------------------------------------------------------------
 public interface IChunk {
     ITile?[,] tile_map { get;}
+    ByteVector3 debug_console_color { get; }
     
     bool tryAssignTile(IPosition2D pos, ITile tile);
     bool tryOverrideTile(IPosition2D pos, ITile tile,out ITile? overriden_tile);

@@ -1,9 +1,12 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+
+using System.ComponentModel;
 using AterraEngine.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Structs;
+using AterraEngine.Lib.Structs;
 using AterraEngine.Structs;
 using Serilog;
 
@@ -14,6 +17,7 @@ namespace AterraEngine.Logic.EngineObjectManager.EngineObjects.Level;
 public class Chunk : IChunk {
     public ITile?[,] tile_map { get; }
     private readonly ILogger _logger = EngineServices.getLogger();
+    public ByteVector3 debug_console_color { get; }
 
     public int max_x { get; private set;}
     public int max_y { get; private set;}
@@ -21,10 +25,13 @@ public class Chunk : IChunk {
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
-    public Chunk(int? max_x=null, int? max_y=null) {
+    public Chunk(int? max_x=null, int? max_y=null, ByteVector3? debug_console_color=null) {
         this.max_x = max_x ?? EngineServices.getDEFAULTS().chunk_max_size;
         this.max_y = max_y ?? EngineServices.getDEFAULTS().chunk_max_size;
         tile_map = new ITile?[this.max_x, this.max_y];
+
+        this.debug_console_color = debug_console_color ?? new ByteVector3(255, 255, 255);
+
     }
     
     // -----------------------------------------------------------------------------------------------------------------

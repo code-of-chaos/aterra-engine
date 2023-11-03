@@ -2,6 +2,7 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Interfaces.Structs;
+using AterraEngine.Lib.Structs;
 
 namespace AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 
@@ -16,6 +17,6 @@ public interface ILevel:IEngineObject {
     public bool tryGetChunk(IPosition2D pos, out IChunk? found_chunk);
     public bool tryGetPosition(IChunk chunk, out IPosition2D? found_position_2d);
 
-    public bool tryCreateChunk(IPosition2D pos, out IChunk? created_chunk);
+    public bool tryCreateChunk(IPosition2D pos, out IChunk? created_chunk, ByteVector3? chunk_color = null);
     public bool tryAssignTileFromAbsolutePos(IPosition2D absolute_pos, ITile tile);
 }

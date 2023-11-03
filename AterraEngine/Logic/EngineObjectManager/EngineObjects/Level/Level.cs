@@ -7,6 +7,7 @@ using AterraEngine.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Structs;
+using AterraEngine.Lib.Structs;
 using AterraEngine.Structs;
 
 namespace AterraEngine.Logic.EngineObjectManager.EngineObjects.Level;
@@ -63,10 +64,11 @@ public class Level : EngineObject, ILevel {
 
     }
     
-    public bool tryCreateChunk(IPosition2D pos, out IChunk? created_chunk) {
+    public bool tryCreateChunk(IPosition2D pos, out IChunk? created_chunk, ByteVector3? chunk_color = null) {
         created_chunk = new Chunk(
             max_x:EngineServices.getDEFAULTS().chunk_max_size,
-            max_y:EngineServices.getDEFAULTS().chunk_max_size
+            max_y:EngineServices.getDEFAULTS().chunk_max_size,
+            debug_console_color:chunk_color
         );
 
         if (!tryAssignChunk(pos, created_chunk)) {

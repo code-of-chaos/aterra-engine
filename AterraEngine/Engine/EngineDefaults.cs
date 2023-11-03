@@ -23,6 +23,6 @@ public class EngineDefaults :IEngineDefaults {
     public string area_internal_name => "AREA_UNDEFINED";
     public string tile_internal_name => "TILE_UNDEFINED";
 
-    public int chunk_max_size => 12;
+    public int chunk_max_size => 8;
     public string chunk_internal_name => "CHUNK_UNDEFINED";
 }
