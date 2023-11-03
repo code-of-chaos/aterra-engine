@@ -13,7 +13,7 @@ namespace AterraEngine.Logic.EngineObjectManager;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class TilesManager : ITilesManager {
+public class TilesAtlas : ITilesAtlas {
     private readonly Dictionary<IAterraEngineId, ITile> _tiles = new ();
     private readonly ILogger _logger = EngineServices.getLogger();
     private IAterraEngineId _default_tile_id = null!;

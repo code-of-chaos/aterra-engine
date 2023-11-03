@@ -46,14 +46,10 @@ public class Level : EngineObject, ILevel {
     }
     
     public bool tryGetChunk(IPosition2D pos, out IChunk? found_chunk) {
-        found_chunk = null;
-        
-        if (!chunk_map.TryGetValue(pos, out found_chunk)) {
-            _logger.Error("'{pos}' was not defined with any chunk data", pos);
-            return false;
-        }
-        
-        return true;
+        if (chunk_map.TryGetValue(pos, out found_chunk)) return true;
+        _logger.Error("'{pos}' was not defined with any chunk data", pos);
+        return false;
+
     }
 
     public bool tryGetPosition(IChunk chunk, out IPosition2D? found_position_2d) {

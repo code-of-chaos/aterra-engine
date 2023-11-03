@@ -13,61 +13,41 @@ namespace AterraEngine.Engine.Renderer;
 // ---------------------------------------------------------------------------------------------------------------------
 public class EngineRenderer:IEngineRenderer {
     private readonly ILogger _logger = EngineServices.getLogger();
-    private const int _frame_size = 9;
+    
+    private const int _frame_size = 15;
+    private readonly IChunk?[,] _camera_view = new IChunk?[_frame_size, _frame_size];
+    private readonly int _chunk_size = EngineServices.getDEFAULTS().chunk_max_size;
+    private const string blank_str = "-";
 
     public void renderFrame(ILevel current_level, IPosition2D camera_pos) {
-        
-        var console_text = new string[_frame_size,_frame_size];
-        var camera_view = new IChunk?[_frame_size, _frame_size];
-
         int lbound = -(int)Math.Floor(_frame_size / 2f);
-        int ubound =  (int)Math.Ceiling(_frame_size / 2f);
+        // int ubound =  (int)Math.Ceiling(_frame_size / 2f);
         
-        _logger.Warning("_frame_size: {_frame_size}",_frame_size);
-        _logger.Warning("lbound: {lbound}",lbound);
-        _logger.Warning("ubound: {ubound}",ubound);
-        
+        // Gather chunks for the camera to view
         for (int i = 0; i < _frame_size; i++) {
             for (int j = 0; j < _frame_size; j++) {
-
-                IPosition2D chunk_pos = new Position2D(camera_pos.X + i + lbound, camera_pos.Y + j + lbound);
-                
-                if (!current_level.tryGetChunk(chunk_pos, out var found_chunk)) {
-                    _logger.Error("CHUNK NOT FOUND, {x}, {y}",chunk_pos.X,chunk_pos.Y);
-                }
-
-                _logger.Information("CHUNK FOUND, {x}, {y}",chunk_pos.X,chunk_pos.Y);
-                _logger.Information("2d camera_view coord, {x}, {y}",i, j);
-                camera_view[i, j] = found_chunk;
+                current_level.tryGetChunk(
+                    new Position2D(camera_pos.X + i + lbound, camera_pos.Y + j + lbound),
+                    out _camera_view[i, j]
+                );
             }
         }
         
-        
-        _logger.Warning("{v}",console_text.GetLength(0));
-        _logger.Warning("{v}",console_text.GetLength(1));
-        
-        
-        int rowLength = camera_view.GetLength(0);
-        int colLength = camera_view.GetLength(1);
-
-        int chunk_max_size = EngineServices.getDEFAULTS().chunk_max_size;
-
-        for (int n_row = 0; n_row < rowLength; n_row++) {
-            for (int n_chunk_row = 0; n_chunk_row < chunk_max_size; n_chunk_row++) {
-
-                for (int n_col = 0; n_col < colLength; n_col++) {
-                    for (int n_chunk_col = 0; n_chunk_col < chunk_max_size; n_chunk_col++) {
-
-                        var text = string.Concat(Enumerable.Repeat(camera_view[n_row, n_col]?.tile_map[n_chunk_row, n_chunk_col]?.console_text ?? "-", 2));
-                        Console.Out.Write($"{text}");
+        // Print to console as soon as we get it
+        //      Only use _frame_size if the camera's view is a square
+        for (            int n_row = 0;       n_row < _frame_size;        n_row++) {
+            for (        int n_chunk_row = 0; n_chunk_row < _chunk_size; n_chunk_row++) {
+                for (    int n_col = 0;       n_col < _frame_size;        n_col++) {
+                    for (int n_chunk_col = 0; n_chunk_col < _chunk_size; n_chunk_col++) {
+                        
+                        string text = _camera_view[n_row, n_col]?.tile_map[n_chunk_row, n_chunk_col]?.console_text ?? blank_str;
+                        Console.Out.Write($"{text}{text}");
                     }
-                    // Console.Out.Write("| ");
                 }
                 Console.Out.Write(Environment.NewLine);
-                
             }
-            // Console.Out.Write(new string('-', (3 * chunk_max_size * 2)+rowLength+2));
-            // Console.Out.Write(Environment.NewLine);
         }
+        // Cleanup
+        Array.Clear(_camera_view);
     }
 }

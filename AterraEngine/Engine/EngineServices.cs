@@ -57,7 +57,7 @@ public static class EngineServices {
     public static IEngineResxManager getRESXM() =>      _service_provider.GetRequiredService<IEngineResxManager>();
     public static IEngineRandom getRANDOM() =>          _service_provider.GetRequiredService<IEngineRandom>();
     public static IEngineDefaults getDEFAULTS() =>      _service_provider.GetRequiredService<IEngineDefaults>();
-    public static ITilesManager getTM() =>              _service_provider.GetRequiredService<ITilesManager>();
+    public static ITilesAtlas getTilesAtlas() =>              _service_provider.GetRequiredService<ITilesAtlas>();
     public static IEngineRenderer getRenderer() =>      _service_provider.GetRequiredService<IEngineRenderer>();
     
 

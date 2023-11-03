@@ -10,7 +10,7 @@ namespace AterraEngine.Interfaces.Logic.EngineObjectManager;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ITilesManager {
+public interface ITilesAtlas {
     IReadOnlyDictionary<IAterraEngineId, ITile> tiles { get; }
     ITile default_tile { get; }
 
