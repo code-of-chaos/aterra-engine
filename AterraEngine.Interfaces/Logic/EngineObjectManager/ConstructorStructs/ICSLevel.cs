@@ -5,7 +5,5 @@ namespace AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 // ---------------------------------------------------------------------------------------------------------------------
 // Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ICSArea : ICSEngineObject {
-    int max_x { get; set; }
-    int max_y { get; set; }
+public interface ICSLevel : ICSEngineObject {
 }

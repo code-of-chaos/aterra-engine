@@ -1,19 +1,18 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Engine;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Structs;
-using AterraEngine.Structs;
 
-namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
+namespace AterraEngine.Logic.EngineObjectManager.EngineObjects.Level;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public struct CSPointOfInterest:ICSPointOfInterest {
-    public IAterraEngineId? id { get; set; }
-    public string? resource_location { get; set; }
-    public string? internal_name { get; set; }
-    public bool? isWalkable { get; set; }
-    public ILinkToArea? link_exit { get; set; }
+public class Tile:EngineObject, ITile {
+    public bool isWalkable { get; init; } = EngineServices.getDEFAULTS().tile_isWalkable;
+    public bool isPOI { get; init; } = false;
+    public ILinkToLevel? link_to_level { get; init; } = null;
+    public string console_text { get; init; } = EngineServices.getDEFAULTS().tile_console_text;
 }

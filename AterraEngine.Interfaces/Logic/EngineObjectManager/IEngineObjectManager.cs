@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using AterraEngine.Interfaces.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 using AterraEngine.Interfaces.Structs;
 
@@ -25,8 +26,6 @@ public interface IEngineObjectManager {
     IEngineObject? getById(IAterraEngineId id);
     
     IEntityNPC createNewEntityNPC(IEnginePlugin current_plugin, ICSEntityNPC cs);
-    IArea createArea(IEnginePlugin current_plugin, ICSArea cs);
+    ILevel createLevel(IEnginePlugin current_plugin, ICSLevel cs);
     ITile createTile(IEnginePlugin current_plugin, ICSTile cs);
-    IPointOfInterest createPointOfInterest(IEnginePlugin current_plugin, ICSPointOfInterest cs);
-
 }

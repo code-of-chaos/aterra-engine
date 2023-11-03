@@ -41,8 +41,8 @@ public struct Position2D:IPosition2D {
         switch (value) {
             case null :
                 throw new NullReferenceException(); // todo write text + logging
-            case < 0:
-                throw new FormatException();
+            // case < 0:
+            //     throw new FormatException();
         }
 
         return (int)value;

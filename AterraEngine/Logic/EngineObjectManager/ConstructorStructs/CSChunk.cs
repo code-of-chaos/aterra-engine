@@ -1,11 +1,18 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-namespace AterraEngine.Interfaces.Structs; 
+using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
+using AterraEngine.Interfaces.Structs;
+
+namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public interface ILinkToArea {
-    public IAterraEngineId target_area {get; init;}
-    public IPosition2D target_tile_pos {get; init;}
+public struct CSChunk:ICSChunk {
+    public IAterraEngineId? id { get; set; }
+    public string? resource_location { get; set; }
+    public string? internal_name { get; set; }
+    public int? max_x { get; set; }
+    public int? max_y { get; set; }
 }

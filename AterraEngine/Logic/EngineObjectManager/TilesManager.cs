@@ -4,7 +4,7 @@
 
 using AterraEngine.Engine;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
-using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Structs;
 using Serilog;
 

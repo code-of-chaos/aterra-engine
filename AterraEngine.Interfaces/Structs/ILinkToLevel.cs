@@ -1,18 +1,12 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
-using AterraEngine.Interfaces.Structs;
-
-namespace AterraEngine.Logic.EngineObjectManager.ConstructorStructs;
-
+namespace AterraEngine.Interfaces.Structs; 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public struct CSArea:ICSArea {
-    public IAterraEngineId? id { get; set; }
-    public string? resource_location { get; set; }
-    public string? internal_name { get; set; }
-    public int max_x { get; set; }
-    public int max_y { get; set; }
+public interface ILinkToLevel {
+    public IAterraEngineId target_level {get; init;}
+    public IPosition2D target_chunk {get; init;}
+    public IPosition2D target_tile {get; init;}
 }

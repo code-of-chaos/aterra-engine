@@ -1,18 +1,11 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-
-using AterraEngine.Interfaces.Structs;
-
-namespace AterraEngine.Structs; 
+namespace AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 // ---------------------------------------------------------------------------------------------------------------------
-// Imports
+// Interface Code
 // ---------------------------------------------------------------------------------------------------------------------
-public struct LinkToArea : ILinkToArea{
-    public IAterraEngineId target_area { get; init; }
-    public IPosition2D target_tile_pos { get; init; }
-
-    public override string ToString() {
-        return $"LinkToArea(target_area : {target_area}, target_tile_pos : {target_tile_pos})";
-    }
+public interface ICSChunk : ICSEngineObject {
+    int? max_x { get; set; }
+    int? max_y { get; set; }
 }

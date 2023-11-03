@@ -6,9 +6,11 @@ using AterraEngine.Interfaces.Engine;
 using Serilog;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
 using AterraEngine.Interfaces.Structs;
 using AterraEngine.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Structs;
 
 namespace AterraEngine.Logic.EngineObjectManager;
@@ -99,20 +101,20 @@ public class EngineObjectManager : IEngineObjectManager {
         return entity_npc;
     }
     
-    public virtual IArea createArea(IEnginePlugin current_plugin, ICSArea cs){
+    public virtual ILevel createLevel(IEnginePlugin current_plugin, ICSLevel cs){
         // Only get the default once, don't repeat yourself!
         IEngineDefaults defaults = EngineServices.getDEFAULTS();
 
-        IArea area = new Area(map_max_x: cs.max_x, map_max_y: cs.max_y) {
+        ILevel level = new Level {
             id = cs.id ?? getUniqueId(current_plugin),
             resource_location = cs.resource_location ?? null, // todo, do something better
             internal_name = cs.internal_name ?? defaults.area_internal_name,
         };
         
         // Don't forget to save the object to to the internal dictionary
-        saveNewObject(area);
+        saveNewObject(level);
         
-        return area;
+        return level;
     }
     
     public virtual ITile createTile(IEnginePlugin current_plugin, ICSTile cs){
@@ -123,30 +125,17 @@ public class EngineObjectManager : IEngineObjectManager {
             id = cs.id ?? getUniqueId(current_plugin),
             resource_location = cs.resource_location ?? null, // todo, do something better
             internal_name = cs.internal_name ?? defaults.tile_internal_name,
+            
+            isWalkable = cs.isWalkable ?? false,
+            isPOI = cs.isPOI ?? false,
+            link_to_level = cs.link_to_level ?? null,
+            console_text = cs.console_text ?? defaults.tile_console_text
         };
         
         // Don't forget to save the object to to the internal dictionary
         saveNewObject(tile);
         
         return tile;
-        
-    }
-    
-    public virtual IPointOfInterest createPointOfInterest(IEnginePlugin current_plugin, ICSPointOfInterest cs){
-        // Only get the default once, don't repeat yourself!
-        IEngineDefaults defaults = EngineServices.getDEFAULTS();
-
-        IPointOfInterest point_of_interest = new PointOfInterest{
-            id = cs.id ?? getUniqueId(current_plugin),
-            resource_location = cs.resource_location ?? null, // todo, do something better
-            internal_name = cs.internal_name ?? defaults.poi_internal_name,
-            link_exit = cs.link_exit ?? null
-        };
-        
-        // Don't forget to save the object to to the internal dictionary
-        saveNewObject(point_of_interest);
-        
-        return point_of_interest;
         
     }
 }

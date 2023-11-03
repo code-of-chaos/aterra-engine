@@ -1,40 +1,48 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
+using AterraEngine.Engine;
+using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects.Level;
 using AterraEngine.Interfaces.Structs;
 using AterraEngine.Structs;
+using Serilog;
 
-namespace AterraEngine.Logic.EngineObjectManager.EngineObjects;
+namespace AterraEngine.Logic.EngineObjectManager.EngineObjects.Level;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class Area : EngineObject, IArea {
-    public ITile?[,] map { get; }
+public class Chunk : IChunk {
+    public ITile?[,] tile_map { get; }
+    private readonly ILogger _logger = EngineServices.getLogger();
+
+    public int max_x { get; private set;}
+    public int max_y { get; private set;}
 
     // -----------------------------------------------------------------------------------------------------------------
     // Constructor
     // -----------------------------------------------------------------------------------------------------------------
-    public Area(int map_max_x, int map_max_y) {
-        map = new ITile?[map_max_x, map_max_y];
+    public Chunk(int? max_x=null, int? max_y=null) {
+        this.max_x = max_x ?? EngineServices.getDEFAULTS().chunk_max_size;
+        this.max_y = max_y ?? EngineServices.getDEFAULTS().chunk_max_size;
+        tile_map = new ITile?[this.max_x, this.max_y];
     }
     
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
     private bool _checkBounds(IPosition2D pos) {
-        if (map.GetLength(0) < pos.X) {
-            _logger.Error("'{pos}' is out of bounds. Max X axis value allowed: '{maxX}'", pos, map.GetLength(0));
+        if (tile_map.GetLength(0) < pos.X) {
+            _logger.Error("'{pos}' is out of bounds. Max X axis value allowed: '{maxX}'", pos, tile_map.GetLength(0));
             return false;
-        } if (map.GetLength(1) < pos.Y) {
-            _logger.Error("'{pos}' is out of bounds. Max Y axis value allowed: '{maxY}'", pos, map.GetLength(1));
+        } if (tile_map.GetLength(1) < pos.Y) {
+            _logger.Error("'{pos}' is out of bounds. Max Y axis value allowed: '{maxY}'", pos, tile_map.GetLength(1));
             return false;
         }
 
         return true;
     }
     private bool _checkId<T>(IAterraEngineId aterra_engine_id, out T? found_tile) where T: class, ITile{
-        var matched_type = map
+        var matched_type = tile_map
             .Cast<ITile?>()
             .FirstOrDefault(tile => tile != null && tile.id == aterra_engine_id);
 
@@ -53,13 +61,13 @@ public class Area : EngineObject, IArea {
             return false;
         }
         
-        var expected_location = map[pos.X, pos.Y];
+        var expected_location = tile_map[pos.X, pos.Y];
         if (expected_location != null) {
             _logger.Error("'{pos}' is already defined with the following tile '{tile}'", pos, expected_location);
             return false;
         }
 
-        map[pos.X, pos.Y] = tile;
+        tile_map[pos.X, pos.Y] = tile;
         return true;
     }
     
@@ -70,18 +78,15 @@ public class Area : EngineObject, IArea {
             return false;
         }
         
-        var expected_empty_location = map[pos.X, pos.Y];
+        var expected_empty_location = tile_map[pos.X, pos.Y];
         switch (expected_empty_location) {
-            case PointOfInterest:
-                _logger.Information("'{pos}' is already defined with the following POI '{tile}'", pos, expected_empty_location);
-                return false;
             case Tile:
                 overriden_tile = expected_empty_location;
                 _logger.Information("'{pos}' is already defined with the following tile '{tile}'", pos, expected_empty_location);
                 break;
         }
 
-        map[pos.X, pos.Y] = tile;
+        tile_map[pos.X, pos.Y] = tile;
         return true;
     }
     
@@ -91,7 +96,7 @@ public class Area : EngineObject, IArea {
             return false;
         }
         
-        var matched_tile = map[pos.X, pos.Y];
+        var matched_tile = tile_map[pos.X, pos.Y];
         
         if (matched_tile == null) {
             _logger.Error("'{pos}' is not already defined with any tile data", pos);
@@ -113,8 +118,8 @@ public class Area : EngineObject, IArea {
             return false;
         }
         
-        int x = Array.IndexOf(map, found_tile) % map.GetLength(0);
-        int y = Array.IndexOf(map, found_tile) / map.GetLength(0);
+        int x = Array.IndexOf(tile_map, found_tile) % tile_map.GetLength(0);
+        int y = Array.IndexOf(tile_map, found_tile) / tile_map.GetLength(0);
 
         found_position_2d = new Position2D(x, y);
         return true;
