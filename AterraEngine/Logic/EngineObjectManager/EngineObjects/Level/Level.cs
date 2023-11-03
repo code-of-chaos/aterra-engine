@@ -78,38 +78,25 @@ public class Level : EngineObject, ILevel {
     }
 
     public bool tryAssignTileFromAbsolutePos(IPosition2D absolute_pos, ITile tile) {
-
         int chunk_max_size = EngineServices.getDEFAULTS().chunk_max_size;
         
-        Vector2 chunk_pos = new Vector2(
-            absolute_pos.X / (float)chunk_max_size,
-            absolute_pos.Y / (float)chunk_max_size
+        Position2D chunk_pos = new Position2D(
+            (int)Math.Floor(absolute_pos.X / (float)chunk_max_size),
+            (int)Math.Floor(absolute_pos.Y / (float)chunk_max_size)
         );
-        _logger.Information("absolute_pos {a}", absolute_pos);
-        _logger.Information("chunk_pos {a}", chunk_pos);
-        _logger.Information("x_div {a}", absolute_pos.X / chunk_max_size);
-        _logger.Information("y_div {a}", absolute_pos.Y / chunk_max_size);
 
-        if (!tryGetChunk(new Position2D((int)Math.Floor(chunk_pos.X), (int)Math.Floor(chunk_pos.Y)), out IChunk? chunk)) {
+        if (!tryGetChunk(chunk_pos, out IChunk? chunk)) {
             return false;
         }
         
-        _logger.Information("Chunk to be used at : {x}, {y}", chunk_pos.X, chunk_pos.Y);
-        
-        int new_x = absolute_pos.X % (chunk_max_size);
-        int new_y = absolute_pos.Y % (chunk_max_size);
-        
-        _logger.Information("new_x {a}", new_x);
-        _logger.Information("new_y {a}", new_y);
-        
-        new_x = new_x >= 0 ? new_x : chunk_max_size - Math.Abs(new_x);
-        new_y = new_y >= 0 ? new_y : chunk_max_size - Math.Abs(new_y);
-        
-        _logger.Information("new_x {a}", new_x);
-        _logger.Information("new_y {a}", new_y);
+        int new_x = absolute_pos.X % chunk_max_size;
+        int new_y = absolute_pos.Y % chunk_max_size;
         
         chunk!.tryOverrideTile(
-            new Position2D(new_x, new_y),
+            new Position2D(
+                new_x >= 0 ? new_x : chunk_max_size - Math.Abs(new_x), 
+                new_y >= 0 ? new_y : chunk_max_size - Math.Abs(new_y)
+                ),
             tile,
             out _
         );

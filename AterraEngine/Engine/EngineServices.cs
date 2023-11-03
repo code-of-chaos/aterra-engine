@@ -4,6 +4,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using AterraEngine.Interfaces.Engine;
+using AterraEngine.Interfaces.Engine.Renderer;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.EngineObjects;
 using AterraEngine.Interfaces.Logic.EngineObjectManager;
 using AterraEngine.Interfaces.Logic.EngineObjectManager.ConstructorStructs;
@@ -56,10 +57,8 @@ public static class EngineServices {
     public static IEngineResxManager getRESXM() =>      _service_provider.GetRequiredService<IEngineResxManager>();
     public static IEngineRandom getRANDOM() =>          _service_provider.GetRequiredService<IEngineRandom>();
     public static IEngineDefaults getDEFAULTS() =>      _service_provider.GetRequiredService<IEngineDefaults>();
-    public static ITilesManager getTM() =>               _service_provider.GetRequiredService<ITilesManager>();
+    public static ITilesManager getTM() =>              _service_provider.GetRequiredService<ITilesManager>();
+    public static IEngineRenderer getRenderer() =>      _service_provider.GetRequiredService<IEngineRenderer>();
     
-
-
-
 
 }
